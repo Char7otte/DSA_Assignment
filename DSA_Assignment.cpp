@@ -1,20 +1,75 @@
-// DSA_Assignment.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
+#include "GameDictionary.h"
+#include <fstream>
+#include <sstream>
+#include <string>
 #include <iostream>
+using namespace std;
 
-int main()
-{
-    std::cout << "Hello World!\n";
+bool loadGamesFromCSV(const string& filename, GameDictionary& dict) {
+    ifstream file(filename);
+    if (!file.is_open()) {
+        cout << "Failed to open file: " << filename << endl;
+        return false;
+    }
+
+    string line;
+    int nextGameId = 1;
+
+    // skip header line
+    getline(file, line);
+
+    while (getline(file, line)) {
+        if (line.empty()) continue;
+
+        string token;
+        stringstream ss(line);
+
+        GameInfo game;
+        game.id = nextGameId++;   // 🔑 auto-generated ID
+
+        // name
+        getline(ss, game.name, ',');
+
+        // minplayers
+        getline(ss, token, ',');
+        game.minPlayers = stoi(token);
+
+        // maxplayers
+        getline(ss, token, ',');
+        game.maxPlayers = stoi(token);
+
+        // minplaytime
+        getline(ss, token, ',');
+        game.minPlayTime = stoi(token);
+
+        // maxplaytime
+        getline(ss, token, ',');
+        game.maxPlayTime = stoi(token);
+
+        // yearpublished
+        getline(ss, token, ',');
+        game.yearPublished = stoi(token);
+
+        game.isBorrowed = false;
+        game.borrowedBy = "";
+        game.borrowDate = "";
+
+        // use ID as hash key
+        string key = to_string(game.id);
+        dict.add(key, game);
+    }
+
+    file.close();
+    return true;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+int main(){
+    GameDictionary games;
+    if (loadGamesFromCSV("games.csv", games)) {
+        cout << "Games loaded successfully!" << endl;
+        games.print();
+    }
+
+}
+
