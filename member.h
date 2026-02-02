@@ -1,17 +1,20 @@
 #pragma once
 
 #include<string>
-#include<list> //TEMPORARY
+#include "List.h";
+#include "BoardGame.h"
 
-
-
-class member
+class Member
 {
+	std::string username;
+	std::string password;
 	std::string name;
-	std::list<std::string> borrowedGames; //TEMPORARY
+	List borrowedGames;
 
 public:
-	bool borrow(std::string borrowedBoardGame); //TEMPORARY
-	void getBorrowedSummary();
+	Member(const std::string username, const std::string password, const std::string name);
+	Member(const std::string username, const std::string password, const std::string name, const List borrowedGames);
+//	bool borrow(BoardGame boardGameToBorrow);
+//	void getBorrowedSummary();
 };
 
