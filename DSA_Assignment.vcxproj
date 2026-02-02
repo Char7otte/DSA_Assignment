@@ -128,9 +128,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DSA_Assignment.cpp" />
+    <ClCompile Include="BoardGame.cpp" />
+    <ClCompile Include="List.cpp" />
+    <ClCompile Include="member.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="games.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BoardGame.h" />
+    <ClInclude Include="List.h" />
+    <ClInclude Include="member.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
