@@ -1,20 +1,64 @@
-// DSA_Assignment.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include <fstream>
+#include<string>
+#include<sstream>
+#include<iomanip>
+
+#include "List.h"
+#include "BoardGame.h"
+#include "member.h"
+
+List readDataFile(std::string fileName);
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    List boardGamesList = readDataFile("games.csv");
+    return 0;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+List readDataFile(std::string fileName) {
+    List newList;
+    std::cout << "Reading games.csv" << "\n";
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+    std::ifstream inputFile(fileName);
+    std::string line, name, minPlayers, maxPlayers, minPlaytime, maxPlaytime, yearPublished;
+    std::getline(inputFile, line);
+    while (std::getline(inputFile, line)) {
+        std::stringstream ss(line);
+
+        //In case the board game's name has a comma, quotes will be placed around the name.
+        if (ss.peek() == '"') {
+            ss >> std::quoted(name);
+            if (ss.peek() == ',') ss.ignore();
+        }
+        else {
+            std::getline(ss, name, ',');
+        }
+
+        std::getline(ss, minPlayers, ',');
+        std::getline(ss, maxPlayers, ',');
+        std::getline(ss, maxPlaytime, ',');
+        std::getline(ss, minPlaytime, ',');
+        std::getline(ss, yearPublished, ',');
+
+        BoardGame newBoardGame(
+            name,
+            std::stoi(minPlayers),
+            std::stoi(maxPlayers),
+            std::stoi(minPlaytime),
+            std::stoi(maxPlaytime),
+            std::stoi(yearPublished)
+        );
+
+        newList.add(newBoardGame);
+
+    }
+
+    inputFile.close();
+    newList.printAll();
+
+    std::cout << "\n";
+    std::cout << "File read successfully." << "\n";
+
+    return newList;
+}
