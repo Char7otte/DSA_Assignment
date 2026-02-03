@@ -9,7 +9,6 @@
 
 
 #include "BoardGame.h"
-#include "member.h"
 
 
 BoardGameList readGameFile(const std::string fileName);
