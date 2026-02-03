@@ -127,16 +127,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BoardGameList.cpp" />
     <ClCompile Include="DSA_Assignment.cpp" />
     <ClCompile Include="BoardGame.cpp" />
     <ClCompile Include="List.cpp" />
     <ClCompile Include="member.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\Downloads\members.csv" />
     <None Include="games.csv" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoardGame.h" />
+    <ClInclude Include="BoardGameList.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="member.h" />
   </ItemGroup>

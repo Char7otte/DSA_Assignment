@@ -5,19 +5,23 @@
 #include<iomanip>
 
 #include "List.h"
+#include "BoardGameList.h"
+
+
 #include "BoardGame.h"
 #include "member.h"
 
-List readDataFile(std::string fileName);
+
+BoardGameList readGameFile(const std::string fileName);
 
 int main()
 {
-    List boardGamesList = readDataFile("games.csv");
+    BoardGameList boardGamesList = readGameFile("games.csv");
     return 0;
 }
 
-List readDataFile(std::string fileName) {
-    List newList;
+BoardGameList readGameFile(const std::string fileName) {
+    BoardGameList newList;
     std::cout << "Reading games.csv" << "\n";
 
     std::ifstream inputFile(fileName);
@@ -41,7 +45,7 @@ List readDataFile(std::string fileName) {
         std::getline(ss, minPlaytime, ',');
         std::getline(ss, yearPublished, ',');
 
-        BoardGame newBoardGame(
+        BoardGame* newBoardGame = new BoardGame(
             name,
             std::stoi(minPlayers),
             std::stoi(maxPlayers),
@@ -50,7 +54,7 @@ List readDataFile(std::string fileName) {
             std::stoi(yearPublished)
         );
 
-        newList.add(newBoardGame);
+        newList.add(*newBoardGame);
 
     }
 
