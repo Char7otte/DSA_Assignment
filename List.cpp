@@ -5,11 +5,11 @@ List::List() {
 	firstNode = nullptr;
 }
 
-bool List::add(BoardGame newBoardGame) {
+bool List::add(Item& newItem) {
 	Node* newNode = new Node;
-	newNode->item = newBoardGame;
+	newNode->item = &newItem;
 
-	if (isEmpty()) {
+	if (firstNode == nullptr) {
 		firstNode = newNode;
 		return true;
 	}
@@ -19,31 +19,14 @@ bool List::add(BoardGame newBoardGame) {
 		temp = temp->next;
 	}
 	temp->next = newNode;
+	return true;
 }
 
-void  List::remove(int index) {}
-BoardGame List::get(int index) {
-	BoardGame foundBoardGame;
-	return foundBoardGame;
-}
 int List::getLength() {
+	std::cout << "GET LENGTH NOT SUPPORTED";
 	return 0;
 }
+
 bool List::isEmpty() {
 	return firstNode == nullptr;
-}
-void List::printAll() {
-
-	std::cout << "name" << " | ";
-	std::cout << "minPlayers" << " | ";
-	std::cout << "maxPlayers" << " | ";
-	std::cout << "minPlaytime" << " | ";
-	std::cout << "maxPlaytime" << " | ";
-	std::cout << "\n";
-
-	Node* temp = firstNode;
-	while (temp != nullptr) {
-		temp->item.print();
-		temp = temp->next;
-	}
 }

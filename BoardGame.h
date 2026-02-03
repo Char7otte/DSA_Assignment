@@ -1,11 +1,11 @@
 #pragma once
 
 #include<string>
+#include"Item.h"
 
 
-class BoardGame
+class BoardGame : public Item
 {
-	int index;
 	std::string name;
 	int minPlayers;
 	int maxPlayers;
@@ -16,6 +16,6 @@ class BoardGame
 public:
 	BoardGame();
 	BoardGame(const std::string name, const int minPlayers, const int maxPlayers, const int minPlaytime, const int maxPlaytime, const int yearPublished);
-	void print();
+	void print() override;
 };
 
