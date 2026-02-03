@@ -1,23 +1,27 @@
 #pragma once
 
 #include "BoardGame.h"
+#include "Item.h"
 
 struct Node {
-	BoardGame item;
+	Item* item;
 	Node* next = nullptr;
 };
 
 class List
 {
-	Node* firstNode;
+protected:
+	Node* firstNode = nullptr;
 
 public:
 	List();
-	bool add(BoardGame newBoardGame);
-	void remove(int index);
-	BoardGame get(int index);
+
+	virtual void remove() = 0;
+	virtual Item* get() = 0;
+	virtual void printAll() = 0;
+
+	bool add(Item& newItem);
 	int getLength();
 	bool isEmpty();
-	void printAll();
 };
 
