@@ -1,27 +1,13 @@
+
 #include<string>
 #include<iostream>
+#include "BoardGame.h"
 using namespace std;
 
 
-const int MAX_SIZE = 101;
-typedef string ItemType;
+typedef string KeyType;    // dictionary key (e.g., string ID)
+typedef BoardGame ItemType; // stored item (game info)
 
-struct GameInfo {
-    int id;                 // auto-generated unique key
-
-    string name;
-    int minPlayers;
-    int maxPlayers;
-    int minPlayTime;
-    int maxPlayTime;
-    int yearPublished;
-
-    bool isBorrowed = false;
-    string borrowedBy = "";
-    string borrowDate = "";
-};
-
-typedef GameInfo KeyType;
 struct Node
 {
     KeyType  key;   // search key
@@ -32,6 +18,7 @@ struct Node
 class GameDictionary
 {
 private:
+    static constexpr int MAX_SIZE = 101;
     Node *items[MAX_SIZE];
     int  size;			// number of items in the Dictionary
 
@@ -51,7 +38,7 @@ public:
     void remove(KeyType key);
 
     // get an item with the specified key in the Dictionary (retrieve)
-    ItemType get(KeyType key);
+    ItemType* get(KeyType key);
 
     // check if a specified key is in the Dictionary
     bool contains(KeyType key);
@@ -66,4 +53,6 @@ public:
 
     // display the items in the Dictionary
     void print();
+
+    //void print(KeyType key);
 };

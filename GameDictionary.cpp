@@ -26,14 +26,14 @@ GameDictionary::~GameDictionary() {
 // Simple modulo hash
 int GameDictionary::hash(KeyType key) {
     if (key.empty()) {
-        return -1;
+        return 0; // avoid invalid index
     }
     int hashValue = 0;
 
     for (auto character : key) {
         hashValue = (hashValue * 31 + character) % MAX_SIZE;
     }
-    return hashValue ;
+    return hashValue;
 }
 // Add new item
 bool GameDictionary::add(KeyType newKey, ItemType newItem) {
@@ -41,6 +41,8 @@ bool GameDictionary::add(KeyType newKey, ItemType newItem) {
 
     // items[index] is the current top node, items are list of topnode
     Node* current = items[index];
+
+
 
     //Check whether the key enter by the user is already exist
     while (current != nullptr) {
@@ -107,19 +109,18 @@ void GameDictionary::remove(KeyType key) {
 }
 
 // Get item by key
-ItemType GameDictionary::get(KeyType key) {
+ItemType* GameDictionary::get(KeyType key) {
     int index = hash(key);
-
     Node* current = items[index];
 
     while (current != nullptr) {
         if (current->key == key) {
-            return current->item;
+            return &(current->item);  // address of stored object
         }
         current = current->next;
     }
 
-    return "";
+    return nullptr;
 }
 
 // Check if key exists
@@ -157,10 +158,33 @@ void GameDictionary::print() {
             cout << "Index " << i << ": ";
             Node* current = items[i];
             while (current != nullptr) {
-                cout << "[" << current->key << ", " << current->item << "] -> ";
+                const ItemType &game = current->item;
+                cout << "[key=" << current->key
+                     << ", id=" << game.id
+                     << ", name=\"" << game.name << "\""
+                     // << ", players=" << g.minPlayers << "-" << g.maxPlayers
+                     // << ", playtime=" << g.minPlayTime << "-" << g.maxPlayTime
+                     // << ", year=" << g.yearPublished
+                     // << ", borrowed=" << (g.isBorrowed ? "yes" : "no")
+                     << "] -> ";
+
                 current = current->next;
             }
             cout << "NULL" << endl;
         }
     }
 }
+
+
+
+// games storage most important,
+// the admin want to see the games are burrowed but not returned yet.
+// create a linked list just for it
+// the member should not need to access the burrowing record of a game, does the user need to
+// access their record of borrowing？
+// tasks created a list of games burrow not return.
+// the user have
+//an array that will automatically resize if the borrowing record is too much in both games and the members
+// an linkedlist for burrowed games not return
+// memeber id and name, date borrow and return.
+// games id and name, date borrow and return
