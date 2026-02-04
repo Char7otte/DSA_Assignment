@@ -7,6 +7,16 @@ BoardGame::BoardGame(string id, string name, int minP, int maxP,
       minPlayTime(minTime), maxPlayTime(maxTime),
       yearPublished(year), isBorrowed(false), historyCount(0) {}
 
+
+
+string BoardGame::getID() const {
+    return id;
+}
+string BoardGame::getName() const {
+    return name;
+}
+
+
 // Borrow
 bool BoardGame::borrowGame(string borrowerId, string borrowerName, string date) {
     if (isBorrowed || historyCount >= MAX_HISTORY)
@@ -14,7 +24,7 @@ bool BoardGame::borrowGame(string borrowerId, string borrowerName, string date) 
 
     isBorrowed = true;
 
-    burrowHistory[historyCount] = {
+    borrowHistory[historyCount] = {
         borrowerId,
         borrowerName,
         date,
@@ -31,9 +41,20 @@ bool BoardGame::returnGame(string returnDate) {
         return false;
 
     isBorrowed = false;
-    burrowHistory[historyCount - 1].returnDate = returnDate;
+    borrowHistory[historyCount - 1].returnDate = returnDate;
+    cout << "Game returned successfully!" << endl;
     return true;
 }
+bool BoardGame::checkIsBorrowed() {
+    return isBorrowed;
+}
+
+
+// bool BoardGame::markAvailable() {
+//
+// }
+//
+// bool BoardGame::markBorrowed() {}
 
 void BoardGame::printInfo() const {
         cout << "[ id= " << id
@@ -47,19 +68,20 @@ void BoardGame::printInfo() const {
 
 
 // Print full history
-void BoardGame::printBurrowHistory() const {
-    cout << "History of " << name << ":" << endl;
+void BoardGame::printBorrowHistory(){
+    cout << "Borrowing history of " << name << ":" << endl;
     for (int i = historyCount-1; i >= 0; i--) {
-        cout << "Borrower: " << burrowHistory[i].borrowerName
-             << ", Borrowed: " << burrowHistory[i].borrowDate
-             << ", Returned: " << burrowHistory[i].returnDate << endl;
+        cout<< "BorrowerId: " << borrowHistory[i].borrowerId
+            << ", Borrower: " << borrowHistory[i].borrowerName
+             << ", Borrowed: " << borrowHistory[i].borrowDate
+             << ", Returned: " << borrowHistory[i].returnDate << endl;
     }
 }
 
 // Check + print latest
 void BoardGame::checkIfBorrowedAndPrintLatest() const {
     if (isBorrowed) {
-        const BurrowRecord& latest = burrowHistory[historyCount - 1];
+        const BorrowRecord& latest = borrowHistory[historyCount - 1];
         cout << name << " is currently borrowed by: "<< latest.borrowerName << endl;
 
         cout << "Borrower ID: " << latest.borrowerId << endl;

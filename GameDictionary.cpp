@@ -42,13 +42,11 @@ bool GameDictionary::add(KeyType newKey, ItemType newItem) {
     // items[index] is the current top node, items are list of topnode
     Node* current = items[index];
 
-
-
     //Check whether the key enter by the user is already exist
     while (current != nullptr) {
         if (current->key == newKey) {
             //println("Duplicate key, {} alreay exist",newKey);
-            cout << "Duplicate key, " << newKey << " already exists" << endl;
+            // cout << "Duplicate key, " << newKey << " already exists" << endl;
 
             return false; // Duplicate key
         }
@@ -73,39 +71,30 @@ bool GameDictionary::add(KeyType newKey, ItemType newItem) {
 }
 
 // Remove an item
-void GameDictionary::remove(KeyType key) {
-
+bool GameDictionary::remove(KeyType key) {
     int index = hash(key);
 
-    // The current top node
     Node* current = items[index];
     Node* prev = nullptr;
 
     while (current != nullptr) {
-
-        // Found the node to remove
         if (current->key == key) {
-
-            // It is the only node in the position
             if (prev == nullptr) {
-                // Removing the first node in the chain, use current->next, because the
-                // might be another node behind it
-                items[index] = current->next; // first node
-            }
-            else {
-                // Removing a node in the middle or end
+                items[index] = current->next;
+            } else {
                 prev->next = current->next;
             }
+
             delete current;
             size--;
-            return;
-
+            return true;   // ✅ deleted successfully
         }
 
         prev = current;
         current = current->next;
-
     }
+
+    return false; // ❌ not found
 }
 
 // Get item by key
@@ -147,33 +136,62 @@ bool GameDictionary::isEmpty() {
 int GameDictionary::getLength() {
     return size;
 }
-
-// Print Game contents
 void GameDictionary::print() {
+    cout << "\n========== Game List ==========\n";
 
-    cout << "Game contents:" << endl;
+    if (size == 0) {
+        cout << "No games found.\n";
+        cout << "===============================\n";
+        return;
+    }
+
 
     for (int i = 0; i < MAX_SIZE; i++) {
-        if (items[i] != nullptr) {
-            cout << "Index " << i << ": ";
-            Node* current = items[i];
-            while (current != nullptr) {
-                const ItemType &game = current->item;
-                cout << "[key=" << current->key
-                     << ", id=" << game.id
-                     << ", name=\"" << game.name << "\""
-                     // << ", players=" << g.minPlayers << "-" << g.maxPlayers
-                     // << ", playtime=" << g.minPlayTime << "-" << g.maxPlayTime
-                     // << ", year=" << g.yearPublished
-                     // << ", borrowed=" << (g.isBorrowed ? "yes" : "no")
-                     << "] -> ";
+        Node* current = items[i];
 
-                current = current->next;
-            }
-            cout << "NULL" << endl;
+        while (current != nullptr) {
+            const ItemType& game = current->item;
+
+                cout  << "Game ID: " << current->key   // key is the id string
+                 << " | Name: " << game.name
+                 << " | Players: " << game.minPlayers << "-" << game.maxPlayers
+                 << " | Playtime: " << game.minPlayTime << "-" << game.maxPlayTime << " mins"
+                 << " | Year: " << game.yearPublished
+                 << " | Status: " << (game.isBorrowed ? "Borrowed" : "Available")
+                 << "\n";
+            current = current->next;
         }
     }
+
+    cout << "===============================\n";
 }
+
+// Print Game contents
+// void GameDictionary::print() {
+//
+//     cout << "Game contents:" << endl;
+//
+//     for (int i = 0; i < MAX_SIZE; i++) {
+//         if (items[i] != nullptr) {
+//             cout << "Index " << i << ": ";
+//             Node* current = items[i];
+//             while (current != nullptr) {
+//                 const ItemType &game = current->item;
+//                 cout << "[key=" << current->key
+//                      << ", id=" << game.id
+//                      << ", name=\"" << game.name << "\""
+//                      // << ", players=" << g.minPlayers << "-" << g.maxPlayers
+//                      // << ", playtime=" << g.minPlayTime << "-" << g.maxPlayTime
+//                      // << ", year=" << g.yearPublished
+//                      // << ", borrowed=" << (g.isBorrowed ? "yes" : "no")
+//                      << "] -> ";
+//
+//                 current = current->next;
+//             }
+//             cout << "NULL" << endl;
+//         }
+//     }
+// }
 
 
 

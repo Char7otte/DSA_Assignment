@@ -7,7 +7,7 @@
 
 using namespace std;
 
-struct BurrowRecord {
+struct BorrowRecord {
     string borrowerId;
     string borrowerName;
     string borrowDate;
@@ -33,18 +33,29 @@ public:
     bool isBorrowed;
 
     static const int MAX_HISTORY = 10;
-    array<BurrowRecord, MAX_HISTORY> burrowHistory;
+    array<BorrowRecord, MAX_HISTORY> borrowHistory;
     int historyCount;
 
 public:
     BoardGame(string id, string name, int minP, int maxP,
               int minTime, int maxTime, int year);
 
+    string getID() const;
+    string getName() const;
+
     bool borrowGame(string borrowerId, string borrowerName, string date);
     bool returnGame(string returnDate);
 
+    bool checkIsBorrowed();
+
+    // // set the game to be borrowed
+    // void markAvailable(string borrowDate);
+    //
+    // // set the game to be returned
+    // void markBorrowed(string returnDate);
+
     void printInfo() const;
-    void printBurrowHistory() const;
+    void printBorrowHistory();
     void checkIfBorrowedAndPrintLatest() const;
 };
 

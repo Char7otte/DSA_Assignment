@@ -1,12 +1,15 @@
-
 #include<string>
 #include<iostream>
-#include "BoardGame.h"
 using namespace std;
 
+struct Member {
+    string id;
+    string name;
+
+};
 
 typedef string KeyType;    // dictionary key (e.g., string ID)
-typedef BoardGame ItemType; // stored item (game info)
+typedef Member ItemType; // stored item (game info)
 
 struct Node
 {
@@ -15,7 +18,7 @@ struct Node
     Node     *next;	// pointer pointing to next item
 };
 
-class GameDictionary
+class MemberDictionary
 {
 private:
     static constexpr int MAX_SIZE = 101;
@@ -24,23 +27,21 @@ private:
 
 public:
     // constructor
-    GameDictionary();
+    MemberDictionary();
 
     // destructor
-    ~GameDictionary();
+    ~MemberDictionary();
 
     int hash(KeyType key);
 
     // add a new item with the specified key to the Dictionary
-    bool add(KeyType newKey, ItemType newItem);
+    bool addMember(KeyType newKey, ItemType newItem);
 
     // remove an item with the specified key in the Dictionary
-    bool remove(KeyType key);
+    void removeMember(KeyType key);
 
     // get an item with the specified key in the Dictionary (retrieve)
-    ItemType* get(KeyType key);
-
-
+    ItemType* getMember(KeyType key);
 
     // check if a specified key is in the Dictionary
     bool contains(KeyType key);
