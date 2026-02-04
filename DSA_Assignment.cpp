@@ -69,13 +69,14 @@
 #include <iostream>
 #include "GameDictionary.h"
 #include "BoardGame.h"
+#include "MasterHistoryLog.h"
+#include "MemeberDictionary.h"
 
 using namespace std;
 #include "Member.h"
 #include <chrono>
 #include <ctime>
 #include <iomanip>
-#include <sstream>
 #include <limits> // for numeric_limits
 
 std::string getCurrentDate() {
@@ -172,56 +173,218 @@ void createAndAddGameMenu(GameDictionary& gameDict) {
 
 void deleteGameMenu(GameDictionary& gameDict) {
     cout << "\n===== Delete Board Game =====\n";
+    gameDict.print();
     cout << "Enter Game ID to delete (e.g., G001): ";
 
     string id;
     cin >> id;
+    BoardGame* game = gameDict.get(id);
+    if (game == nullptr) {
+        cout << "Game ID " << id << " not found. Nothing deleted.\n";
 
-    bool deleted = gameDict.remove(id);
-
-    if (deleted) {
-        cout << "Game " << id << " deleted successfully.\n";
-    } else {
-        cout << "❌ Game ID " << id << " not found. Nothing deleted.\n";
+    }else {
+        if (game->checkIsBorrowed()) {
+            cout << "Game: " << game->getName() << " has been borrowed by other member.\n";
+        }else {
+            gameDict.remove(id);
+        }
     }
-
     cout << "=============================\n";
 }
 
-void adminMenu(GameDictionary& gameDict) {
+void createMemberMenu(MemberDictionary& memberDict) {
+    std::cout << "\n===== Create Member =====\n";
+
+    std::string memberId;
+    std::string memberName;
+
+    // Member ID (no spaces)
+    while (true) {
+        std::cout << "Enter Member ID (e.g., M001): ";
+        std::cin >> memberId;
+
+        if (memberId.empty()) {
+            std::cout << "Member ID cannot be empty.\n";
+            continue;
+        }
+
+        // If you have containsMember(), use it:
+        if (memberDict.containsMember(memberId)) {
+            std::cout << "This Member ID already exists.\n";
+            continue;
+        }
+
+        break;
+    }
+
+    // clear newline before getline
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    // Member name (can contain spaces)
+    while (true) {
+        std::cout << "Enter Member Name: ";
+        std::getline(std::cin, memberName);
+
+        if (memberName.empty()) {
+            std::cout << "Member name cannot be empty.\n";
+            continue;
+        }
+        break;
+    }
+
+    // Create and add
+    Member member(memberId, memberName);
+
+    // Your required call style:
+    // memberDict.addMember("M001", member);
+    // but since memberId is the key, use:
+    bool ok = memberDict.addMember(memberId, member);
+
+    if (ok) {
+        std::cout << "Member " << memberId << " created successfully.\n";
+    } else {
+        std::cout << "Failed to create member (duplicate ID or other issue).\n";
+    }
+
+    std::cout << "=========================\n";
+}
+
+void memberBorrowMenu(GameDictionary& gameDict,
+                      Member& selectedMember,
+                      MasterHistoryLog& historyList) {
+    cout << "\n===== Borrow Game =====\n";
+
+    // Print games
+    gameDict.print();
+
+    while (true) {
+        cout << "\nEnter Game ID to borrow (or 0 to cancel): ";
+        string gameId;
+        cin >> gameId;
+
+        if (gameId == "0") {
+            cout << "Cancelled.\n";
+            return;
+        }
+
+        // Get game pointer from dictionary
+        BoardGame* game = gameDict.get(gameId);
+
+        if (game == nullptr) {
+            cout << "Game ID not found. Please try again.\n";
+            continue;
+        }
+
+        // Check borrowed
+        if (game->checkIsBorrowed()) {
+            cout << "This game is already borrowed. Please choose another.\n";
+            continue;
+        }
+
+        // Borrow stage
+        string today = getCurrentDate();
+
+        // Member borrows (Member takes BoardGame& now)
+        bool memberOk = selectedMember.borrowGame(*game, today);
+
+        // Game records borrow
+        bool gameOk = game->borrowGame(selectedMember.getID(),
+                                       selectedMember.getName(),
+                                       today);
+
+        if (!memberOk || !gameOk) {
+            cout << "Borrow failed unexpectedly.\n";
+            return;
+        }
+
+        // Create transaction
+        BorrowTransaction trans = {
+            selectedMember.getID(),
+            gameId,      // key is the ID
+            today,
+            "",
+            false
+        };
+
+        historyList.add(trans);
+
+        cout << "Borrow successful!\n";
+        cout << selectedMember.getName() << " borrowed " << gameId
+             << " on " << today << "\n";
+
+        return;
+    }
+}
+void memberReturnMenu(GameDictionary& gameDict,Member& selectedMember, MasterHistoryLog& historyList) {}
+void adminMenu(GameDictionary& gameDict, MemberDictionary& memberDict) {
     int choice;
 
     while (true) {
-        cout << "\n========= Admin Menu =========\n";
-        cout << "1) Add Game\n";
-        cout << "2) Delete Game\n";
-        cout << "3) View All Games\n";
-        cout << "0) Logout\n";
-        cout << "Choose: ";
+        std::cout << "\n========= Admin Menu =========\n";
+        std::cout << "1) Add Game\n";
+        std::cout << "2) Delete Game\n";
+        std::cout << "3) View All Games\n";
+        std::cout << "4) Create Member\n";
+        std::cout << "0) Logout\n";
+        std::cout << "Choose: ";
 
-        if (!(cin >> choice)) {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Invalid input.\n";
+        if (!(std::cin >> choice)) {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input.\n";
             continue;
         }
 
         if (choice == 1) {
-            createAndAddGameMenu(gameDict);   // ✅ your previous function
+            createAndAddGameMenu(gameDict);
         } else if (choice == 2) {
             deleteGameMenu(gameDict);
         } else if (choice == 3) {
             gameDict.print();
+        } else if (choice == 4) {
+            createMemberMenu(memberDict);
         } else if (choice == 0) {
-            cout << "Logging out...\n";
+            std::cout << "Logging out...\n";
             break;
         } else {
-            cout << "Invalid option.\n";
+            std::cout << "Invalid option.\n";
         }
     }
 }
 
-void mainMenu(GameDictionary& gameDict) {
+void memberMenu(GameDictionary& gameDict,
+                MemberDictionary& memberDict,
+                MasterHistoryLog& historyList) {
+    cout << "\n======= Member Login =======\n";
+    cout << "Enter your Member ID (e.g., M001) (or 0 to cancel): ";
+
+    string memberId;
+    cin >> memberId;
+
+    if (memberId == "0") {
+        cout << "Cancelled.\n";
+        return;
+    }
+
+    // Get member pointer from dictionary
+    Member* selectedMemberPtr = memberDict.getMember(memberId);
+
+    if (selectedMemberPtr == nullptr) {
+        cout << "Member ID not found.\n";
+        return;
+    }
+
+    // Convert pointer -> reference (safe because pointer is not null)
+    Member& selectedMember = *selectedMemberPtr;
+
+    cout << "Welcome, " << selectedMember.getName()
+         << " (" << selectedMember.getID() << ")\n";
+
+    // For now only borrow function (you can expand later)
+    memberBorrowMenu(gameDict, selectedMember, historyList);
+}
+
+void mainMenu(GameDictionary& gameDict, MemberDictionary& memberDict, MasterHistoryLog& historyList) {
     int role;
 
     while (true) {
@@ -239,9 +402,9 @@ void mainMenu(GameDictionary& gameDict) {
         }
 
         if (role == 1) {
-            adminMenu(gameDict);
+            adminMenu(gameDict, memberDict);
         } else if (role == 2) {
-            cout << "Member menu not implemented yet.\n";
+            memberMenu(gameDict, memberDict, historyList);
         } else if (role == 0) {
             cout << "Bye!\n";
             break;
@@ -255,19 +418,46 @@ int main() {
 
     // Create dictionary
     GameDictionary gameDict;
-    Member member("M001","Alice");
+    MemberDictionary memberDict;
+    MasterHistoryLog historyList;
 
     // Create BoardGame objects
     BoardGame g1("G001", "Catan", 3, 4, 60, 120, 1995);
     BoardGame g2("G002", "Monopoly", 2, 6, 60, 180, 1935);
     BoardGame g3("G003", "Chess", 2, 2, 10, 60, 1975);
-
-    // Add games (key = game ID as string)
     gameDict.add("G001", g1);
     gameDict.add("G002", g2);
     gameDict.add("G003", g3);
+
+    Member member("M001", "John");
+    Member member2("M002", "Jane");
+    Member member3("M003", "Bob");
+    memberDict.addMember("M001",member);
+    memberDict.addMember("M002",member2);
+    memberDict.addMember("M003",member3);
+
+    mainMenu(gameDict, memberDict, historyList);
+
+    // BorrowTransaction trans = {"M001", "G001", "2021-01-01", "2021-01-08", true};
+    // BorrowTransaction trans2 = {"M002", "G001", "2021-01-01", "", false};
+    //
+    //
+    //
     // gameDict.print();
-    mainMenu(gameDict);
+
+    //
+
+
+
+
+
+    // member.burrowGame(g1,getCurrentDate());
+    // member.burrowGame(g2,getCurrentDate());
+    // member.printBorrowHistory();
+    // member.returnGame(g1,getCurrentDate());
+    // member.printBorrowHistory();
+    // gameDict.print();
+    // mainMenu(gameDict);
 
 
 

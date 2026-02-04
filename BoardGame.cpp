@@ -45,16 +45,12 @@ bool BoardGame::returnGame(string returnDate) {
     cout << "Game returned successfully!" << endl;
     return true;
 }
+
 bool BoardGame::checkIsBorrowed() {
     return isBorrowed;
 }
 
 
-// bool BoardGame::markAvailable() {
-//
-// }
-//
-// bool BoardGame::markBorrowed() {}
 
 void BoardGame::printInfo() const {
         cout << "[ id= " << id
@@ -81,7 +77,7 @@ void BoardGame::printBorrowHistory(){
 // Check + print latest
 void BoardGame::checkIfBorrowedAndPrintLatest() const {
     if (isBorrowed) {
-        const BorrowRecord& latest = borrowHistory[historyCount - 1];
+        const UsageRecord& latest = borrowHistory[historyCount - 1];
         cout << name << " is currently borrowed by: "<< latest.borrowerName << endl;
 
         cout << "Borrower ID: " << latest.borrowerId << endl;

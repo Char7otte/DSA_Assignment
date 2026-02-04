@@ -1,5 +1,6 @@
 #include "GameDictionary.h"
 #include<iostream>
+#include <iomanip> // Must include this for setw
 
 // Constructor
 GameDictionary::GameDictionary() {
@@ -78,6 +79,11 @@ bool GameDictionary::remove(KeyType key) {
     Node* prev = nullptr;
 
     while (current != nullptr) {
+
+        if (current->item.checkIsBorrowed()) {
+            return false;
+        }
+
         if (current->key == key) {
             if (prev == nullptr) {
                 items[index] = current->next;
@@ -136,34 +142,64 @@ bool GameDictionary::isEmpty() {
 int GameDictionary::getLength() {
     return size;
 }
+
+
+
 void GameDictionary::print() {
-    cout << "\n========== Game List ==========\n";
+    // Define column widths for easy adjustment
+    const int idWidth = 10;
+    const int nameWidth = 25;
+    const int playersWidth = 12;
+    const int timeWidth = 15;
+    const int yearWidth = 8;
+    const int statusWidth = 12;
+
+    cout << "\n" << string(85, '=') << endl;
+    cout << "                         GAME INVENTORY LIST" << endl;
+    cout << string(85, '=') << endl;
 
     if (size == 0) {
-        cout << "No games found.\n";
-        cout << "===============================\n";
+        cout << "| No games found in the dictionary." << setw(50) << " |" << endl;
+        cout << string(85, '=') << endl;
         return;
     }
 
+    // Table Header
+    cout << left << setw(idWidth) << "ID"
+         << setw(nameWidth) << "NAME"
+         << setw(playersWidth) << "PLAYERS"
+         << setw(timeWidth) << "PLAYTIME"
+         << setw(yearWidth) << "YEAR"
+         << setw(statusWidth) << "STATUS" << endl;
 
+    cout << string(85, '-') << endl;
+
+    // Traverse the Hash Map
     for (int i = 0; i < MAX_SIZE; i++) {
         Node* current = items[i];
 
         while (current != nullptr) {
             const ItemType& game = current->item;
 
-                cout  << "Game ID: " << current->key   // key is the id string
-                 << " | Name: " << game.name
-                 << " | Players: " << game.minPlayers << "-" << game.maxPlayers
-                 << " | Playtime: " << game.minPlayTime << "-" << game.maxPlayTime << " mins"
-                 << " | Year: " << game.yearPublished
-                 << " | Status: " << (game.isBorrowed ? "Borrowed" : "Available")
-                 << "\n";
+            // Formatting Players string (e.g., "2-4")
+            string playerRange = to_string(game.minPlayers) + "-" + to_string(game.maxPlayers);
+
+            // Formatting Playtime string (e.g., "30-60m")
+            string timeRange = to_string(game.minPlayTime) + "-" + to_string(game.maxPlayTime) + "m";
+
+            cout << left << setw(idWidth) << current->key
+                 << setw(nameWidth) << (game.name.length() > 22 ? game.name.substr(0, 22) + "..." : game.name)
+                 << setw(playersWidth) << playerRange
+                 << setw(timeWidth) << timeRange
+                 << setw(yearWidth) << game.yearPublished
+                 << setw(statusWidth) << (game.isBorrowed ? "Borrowed" : "Available")
+                 << endl;
+
             current = current->next;
         }
     }
 
-    cout << "===============================\n";
+    cout << string(85, '=') << endl;
 }
 
 // Print Game contents

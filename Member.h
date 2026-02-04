@@ -10,7 +10,7 @@
 #include "BoardGame.h"
 using namespace std;
 
-struct GameBorrowRecord {
+struct GameRental {
     string gameId;
     string gameName;
     string borrowDate;
@@ -23,14 +23,17 @@ private:
 
     string id;
     string name;
-    GameBorrowRecord borrowRecords[10];
+    GameRental borrowRecords[10];
     int borrowCount = 0;
 
 public:
+    Member() : id(""), name("") {}
     Member(string id, string name);
+    string getID() const;
+    string getName() const;
 
-    void burrowGame(BoardGame& game, string borrowDate);
-    void returnGame(BoardGame& game, string returnDate);
+    bool borrowGame(BoardGame& game, string borrowDate);
+    bool returnGame(BoardGame& game, string returnDate);
     void printBorrowHistory() const;
 };
 

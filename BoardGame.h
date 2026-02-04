@@ -7,7 +7,7 @@
 
 using namespace std;
 
-struct BorrowRecord {
+struct UsageRecord {
     string borrowerId;
     string borrowerName;
     string borrowDate;
@@ -33,7 +33,7 @@ public:
     bool isBorrowed;
 
     static const int MAX_HISTORY = 10;
-    array<BorrowRecord, MAX_HISTORY> borrowHistory;
+    array<UsageRecord, MAX_HISTORY> borrowHistory;
     int historyCount;
 
 public:

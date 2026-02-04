@@ -1,30 +1,34 @@
-//
-// Created by gongy on 4/2/2026.
-//
-
 #include "Member.h"
-
 #include <utility>
 
 Member::Member(string id, string name) {
     this->id = std::move(id);
     this->name = std::move(name);
 }
+string Member::getID() const {
+    return id;
+}
+string Member::getName() const {
+    return name;
+}
 
-void Member::burrowGame(BoardGame& game, string borrowDate) {
+bool Member::borrowGame(BoardGame& game, string borrowDate) {
     bool borrowed = game.checkIsBorrowed();
     if (!borrowed) {
-        game.borrowGame(id, name, borrowDate);
+
         borrowRecords[borrowCount] = {
             game.getID(), game.getName(), borrowDate, ""
         };
         borrowCount++;
-        cout << "Game borrowed successfully!" << endl;
+        // cout << "Game borrowed successfully!" << endl;
+        return true;
+
     }
-    else cout << "Game is already borrowed!" << endl;
+    // cout << "Game is already borrowed!" << endl;
+    return false;
 }
 
-void Member::returnGame(BoardGame& game, string returnDate) {
+bool Member::returnGame(BoardGame& game, string returnDate) {
     game.returnGame(returnDate);
 
     for (int i = borrowCount - 1; i >= 0; i--) {
