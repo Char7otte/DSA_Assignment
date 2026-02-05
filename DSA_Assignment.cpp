@@ -1,4 +1,38 @@
+#include "GameDictionary.h"
+#include "MemeberDictionary.h"
 
+#include "BoardGame.h"
+#include "Member.h"
+
+int main() {
+
+    GameDictionary gameDict;
+    MemberDictionary memberDict;
+
+    Item* g1 = new BoardGame("G001", "Catan", 3, 4, 60, 120, 1995);
+    Item* g2 = new BoardGame("G002", "Monopoly", 2, 6, 60, 180, 1935);
+    Item* g3 = new BoardGame("G003", "Chess", 2, 2, 10, 60, 1975);
+    gameDict.add("G001", g1);
+    gameDict.add("G002", g2);
+    gameDict.add("G003", g3);
+
+    Item* m1 = new Member("M001", "board_king99", "pass123", "Alice Smith");
+    Item* m2 = new Member("M002", "dice_roller", "secret77", "Bob Jones");
+    Item* m3 = new Member("M003", "meeple_queen", "p@ssword", "Charlie Day");
+    memberDict.add("M001", m1);
+    memberDict.add("M002", m2);
+    memberDict.add("M003", m3);
+
+    gameDict.print();
+
+    memberDict.print();
+
+    return 0;
+};
+
+
+
+//
 // int main() {
 //     ifstream file("games.csv");  // your CSV file
 //     vector<Game> games;
@@ -51,25 +85,6 @@
 //
 //     return 0;
 // }
-//#include <iostream>
-//#include <fstream>
-//#include <sstream>
-//#include <string>
-//#include <chrono>
-//#include <ctime>
-//#include <iomanip>
-//#include <limits> // for numeric_limits
-//#include "Member.h"
-
-//#include "BoardGame.h"
-//#include "MasterHistoryLog.h"
-//#include "MemeberDictionary.h"
-//
-//#pragma warning(disable : 4996) //_CRT_SECURE_NO_WARNINGS
-//
-//using namespace std;
-//
-//
 //
 //std::string getCurrentDate() {
 //    // 1. Get the current system time
@@ -493,36 +508,3 @@
 //        }
 //    }
 //}
-#include "GameDictionary.h"
-#include "MemeberDictionary.h"
-
-#include "BoardGame.h"
-#include "Member.h"
-
-int main() {
-
-    // Create dictionary
-    GameDictionary gameDict;
-    MemberDictionary memberDict;
-
-    // Create BoardGame objects
-    Item* g1 = new BoardGame("G001", "Catan", 3, 4, 60, 120, 1995);
-    Item* g2 = new BoardGame("G002", "Monopoly", 2, 6, 60, 180, 1935);
-    Item* g3 = new BoardGame("G003", "Chess", 2, 2, 10, 60, 1975);
-    gameDict.add("G001", g1);
-    gameDict.add("G002", g2);
-    gameDict.add("G003", g3);
-
-    Item* m1 = new Member("M001", "board_king99", "pass123", "Alice Smith");
-    Item* m2 = new Member("M002", "dice_roller", "secret77", "Bob Jones");
-    Item* m3 = new Member("M003", "meeple_queen", "p@ssword", "Charlie Day");
-    memberDict.add("M001", m1);
-    memberDict.add("M002", m2);
-    memberDict.add("M003", m3);
-
-    gameDict.print();
-
-    memberDict.print();
-
-    return 0;
-};
