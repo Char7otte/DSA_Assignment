@@ -13,9 +13,12 @@ protected:
 	std::string name = "N/A";
 
 public:
+	Item();
 	Item(const std::string id, const std::string name);
 
-	std::string getID() {}
-	std::string getName() {}
+	std::string getID();
+	std::string getName();
+	
+	virtual void print() = 0;
 };
 

@@ -1,7 +1,22 @@
 #include "BoardGame.h"
-#include<string>
 
 // Constructor
+BoardGame::BoardGame(const std::string id,
+    const std::string name,
+    const int minPlayers,
+    const int maxPlayers,
+    const int minPlaytime,
+    const int maxPlaytime,
+    const int yearPublished) {
+    this->minPlayers = minPlayers;
+    this->maxPlayers = maxPlayers;
+    this->minPlaytime = minPlaytime;
+    this->maxPlaytime = maxPlaytime;
+    this->yearPublished = yearPublished;
+}
+
+
+
 BoardGame::BoardGame(const std::string id,
     const std::string name,
     const int minPlayers,
@@ -15,6 +30,7 @@ BoardGame::BoardGame(const std::string id,
     this->minPlaytime = minPlaytime;
     this->maxPlaytime = maxPlaytime;
     this->yearPublished = yearPublished;
+    this->isBorrowed = isBorrowed;
 }
 
 //

@@ -1,7 +1,10 @@
-#include <string>
-#include<array>
+#pragma once
 
 #include "Item.h"
+
+#include <string>
+#include<array>
+#include<iostream>
 
 struct UsageLog: public DateLog {
     std::string borrowerId = "N/A";
@@ -10,12 +13,12 @@ struct UsageLog: public DateLog {
 
 class BoardGame: public Item {
 private:
-    int minPlayers;
-    int maxPlayers;
-    int minPlaytime;
-    int maxPlaytime;
-    int yearPublished;
-    bool isBorrowed;
+    int minPlayers = 0;
+    int maxPlayers = 0;
+    int minPlaytime = 0;
+    int maxPlaytime = 0;
+    int yearPublished = 0;
+    bool isBorrowed = false;
     UsageLog borrowHistory[10] = {};
     int historyCount = 0;
 
@@ -26,8 +29,26 @@ public:
         const int maxPlayers,
         const int minPlaytime,
         const int maxPlaytime,
+        const int yearPublished);
+
+    BoardGame(const std::string id,
+        const std::string name,
+        const int minPlayers,
+        const int maxPlayers,
+        const int minPlaytime,
+        const int maxPlaytime,
         const int yearPublished,
         const bool isBorrowed);
+
+    void print() override {
+        std::cout << "Game ID: " << id
+            << " | Name: " << name
+            << " | Players: " << minPlayers << "-" << maxPlayers
+            << " | Playtime: " << minPlaytime << "-" << maxPlaytime << " mins"
+            << " | Year: " << yearPublished
+            << " | Status: " << (isBorrowed ? "Borrowed" : "Available")
+            << "\n";
+    }
 
     //bool borrowGame(std::string borrowerId, std::string borrowerName, std::string date);
     //bool returnGame(std::string returnDate);

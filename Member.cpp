@@ -1,10 +1,19 @@
 #include "Member.h"
-#include<string>
 #include<iomanip>
 
-Member::Member(const std::string id, const std::string username, const std::string password, const std::string name): Item(id, name) {
+Member::Member(const std::string id, const std::string username, const std::string password, const std::string name) : Item(id, name) {
     this->username = username;
     this->password = password;
+}
+
+Member::Member(const std::string id, const std::string username, const std::string password, const bool isAdmin, const std::string name) : Item(id, name) {
+    this->username = username;
+    this->password = password;
+    this->isAdmin = isAdmin;
+}
+
+void Member::print() {
+    std::cout << id << " " << username << " " << password << " " << isAdmin << " " << name << "\n";
 }
 
 //bool Member::borrowGame(BoardGame& game, std::string borrowDate) {

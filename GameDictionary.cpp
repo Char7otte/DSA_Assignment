@@ -1,152 +1,11 @@
 #include "GameDictionary.h"
+
 #include<iostream>
-#include <iomanip> // Must include this for setw
+#include<iomanip>
 
-// Constructor
-GameDictionary::GameDictionary() {
-    for (int i = 0; i < MAX_SIZE; i++) {
-        items[i] = nullptr;
-    }
-    size = 0;
-}
-
-// Destructor
-GameDictionary::~GameDictionary() {
-    for (int i = 0; i < MAX_SIZE; i++) {
-        Node* current = items[i];
-        while (current != nullptr) {
-            Node* temp = current;
-            current = current->next;
-            delete temp;
-        }
-        items[i] = nullptr;
-    }
-}
-
-// Hash Function
-// Simple modulo hash
-int GameDictionary::hash(KeyType key) {
-    if (key.empty()) {
-        return 0; // avoid invalid index
-    }
-    int hashValue = 0;
-
-    for (auto character : key) {
-        hashValue = (hashValue * 31 + character) % MAX_SIZE;
-    }
-    return hashValue;
-}
-// Add new item
-bool GameDictionary::add(KeyType newKey, ItemType newItem) {
-    int index = hash(newKey);
-
-    // items[index] is the current top node, items are list of topnode
-    Node* current = items[index];
-
-    //Check whether the key enter by the user is already exist
-    while (current != nullptr) {
-        if (current->key == newKey) {
-            //println("Duplicate key, {} alreay exist",newKey);
-            // cout << "Duplicate key, " << newKey << " already exists" << endl;
-
-            return false; // Duplicate key
-        }
-        current = current->next;
-    }
-
-    // Create new node
-    Node* newNode = new Node;
-
-    // key value is the key value given by the user
-    newNode->key = newKey;
-
-    // newItem is the item value given by the user
-    newNode->item = newItem;
-    newNode->next = items[index];
-
-    // Insert at head (faster)
-    items[index] = newNode;
-    size++;
-
-    return true;
-}
-
-// Remove an item
-bool GameDictionary::remove(KeyType key) {
-    int index = hash(key);
-
-    Node* current = items[index];
-    Node* prev = nullptr;
-
-    while (current != nullptr) {
-
-        if (current->item.checkIsBorrowed()) {
-            return false;
-        }
-
-        if (current->key == key) {
-            if (prev == nullptr) {
-                items[index] = current->next;
-            } else {
-                prev->next = current->next;
-            }
-
-            delete current;
-            size--;
-            return true;   // ✅ deleted successfully
-        }
-
-        prev = current;
-        current = current->next;
-    }
-
-    return false; // ❌ not found
-}
-
-// Get item by key
-ItemType* GameDictionary::get(KeyType key) {
-    int index = hash(key);
-    Node* current = items[index];
-
-    while (current != nullptr) {
-        if (current->key == key) {
-            return &(current->item);  // address of stored object
-        }
-        current = current->next;
-    }
-
-    return nullptr;
-}
-
-// Check if key exists
-bool GameDictionary::contains(KeyType key) {
-    int index = hash(key);
-    Node* current = items[index];
-
-    while (current != nullptr) {
-        if (current->key == key) {
-            return true;
-        }
-        current = current->next;
-    }
-
-    return false;
-}
-
-// Check if empty
-bool GameDictionary::isEmpty() {
-    return size == 0;
-}
-
-// Get number of items
-int GameDictionary::getLength() {
-    return size;
-}
-
-
+GameDictionary::GameDictionary() {}
 
 void GameDictionary::print() {
-    // Define column widths for easy adjustment
     const int idWidth = 10;
     const int nameWidth = 25;
     const int playersWidth = 12;
@@ -154,53 +13,71 @@ void GameDictionary::print() {
     const int yearWidth = 8;
     const int statusWidth = 12;
 
-    cout << "\n" << string(85, '=') << endl;
-    cout << "                         GAME INVENTORY LIST" << endl;
-    cout << string(85, '=') << endl;
+    std::cout << "\n" << std::string(85, '=') << "\n";
+    std::cout << "                         GAME INVENTORY LIST" << "\n";
+    std::cout << std::string(85, '=') << "\n";
 
     if (size == 0) {
-        cout << "| No games found in the dictionary." << setw(50) << " |" << endl;
-        cout << string(85, '=') << endl;
+        std::cout << "| No games found in the dictionary." << std::setw(50) << " |" << "\n";
+        std::cout << std::string(85, '=') << "\n";
         return;
     }
 
-    // Table Header
-    cout << left << setw(idWidth) << "ID"
-         << setw(nameWidth) << "NAME"
-         << setw(playersWidth) << "PLAYERS"
-         << setw(timeWidth) << "PLAYTIME"
-         << setw(yearWidth) << "YEAR"
-         << setw(statusWidth) << "STATUS" << endl;
+    // Header
+    std::cout << std::setw(idWidth) << "ID"
+        << std::setw(nameWidth) << "NAME"
+        << std::setw(playersWidth) << "PLAYERS"
+        << std::setw(timeWidth) << "PLAYTIME"
+        << std::setw(yearWidth) << "YEAR"
+        << std::setw(statusWidth) << "STATUS" << "\n";
 
-    cout << string(85, '-') << endl;
+    std::cout << std::string(85, '-') << "\n";
 
-    // Traverse the Hash Map
+    // Content
     for (int i = 0; i < MAX_SIZE; i++) {
-        Node* current = items[i];
+        Node* temp = items[i];
 
-        while (current != nullptr) {
-            const ItemType& game = current->item;
-
-            // Formatting Players string (e.g., "2-4")
-            string playerRange = to_string(game.minPlayers) + "-" + to_string(game.maxPlayers);
-
-            // Formatting Playtime string (e.g., "30-60m")
-            string timeRange = to_string(game.minPlayTime) + "-" + to_string(game.maxPlayTime) + "m";
-
-            cout << left << setw(idWidth) << current->key
-                 << setw(nameWidth) << (game.name.length() > 22 ? game.name.substr(0, 22) + "..." : game.name)
-                 << setw(playersWidth) << playerRange
-                 << setw(timeWidth) << timeRange
-                 << setw(yearWidth) << game.yearPublished
-                 << setw(statusWidth) << (game.isBorrowed ? "Borrowed" : "Available")
-                 << endl;
-
-            current = current->next;
+        while (temp != nullptr) {
+            Item* boardGame = temp->item;
+            boardGame->print();
+            temp = temp->next;
         }
     }
 
-    cout << string(85, '=') << endl;
+    std::cout << std::string(85, '=') << "\n";
 }
+
+//void GameDictionary::print() {
+
+
+//
+//    // Traverse the Hash Map
+//    for (int i = 0; i < MAX_SIZE; i++) {
+//        Node* current = items[i];
+//
+//        while (current != nullptr) {
+//            const ItemType& game = current->item;
+//
+//            // Formatting Players string (e.g., "2-4")
+//            std::string playerRange = std::to_string(game->minPlayers) + "-" + std::to_string(game.maxPlayers);
+//
+//            // Formatting Playtime string (e.g., "30-60m")
+//            std::string timeRange = to_string(game.minPlayTime) + "-" + to_string(game.maxPlayTime) + "m";
+//
+//            cout << left << setw(idWidth) << current->key
+//                 << setw(nameWidth) << (game.name.length() > 22 ? game.name.substr(0, 22) + "..." : game.name)
+//                 << setw(playersWidth) << playerRange
+//                 << setw(timeWidth) << timeRange
+//                 << setw(yearWidth) << game.yearPublished
+//                 << setw(statusWidth) << (game.isBorrowed ? "Borrowed" : "Available")
+//                 << endl;
+//
+//            current = current->next;
+//        }
+//    }
+//
+//    cout << string(85, '=') << endl;
+//}
 
 // Print Game contents
 // void GameDictionary::print() {
