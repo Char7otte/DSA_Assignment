@@ -15,6 +15,7 @@ struct GameRental {
     string gameName;
     string borrowDate;
     string returnDate;
+    bool isReturned;
 };
 
 class Member {
@@ -34,6 +35,7 @@ public:
 
     bool borrowGame(BoardGame& game, string borrowDate);
     bool returnGame(BoardGame& game, string returnDate);
+    void printUnreturnedGames() const;
     void printBorrowHistory() const;
 };
 

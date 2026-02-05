@@ -19,7 +19,7 @@ string BoardGame::getName() const {
 
 // Borrow
 bool BoardGame::borrowGame(string borrowerId, string borrowerName, string date) {
-    if (isBorrowed || historyCount >= MAX_HISTORY)
+    if (isBorrowed)
         return false;
 
     isBorrowed = true;
@@ -42,7 +42,7 @@ bool BoardGame::returnGame(string returnDate) {
 
     isBorrowed = false;
     borrowHistory[historyCount - 1].returnDate = returnDate;
-    cout << "Game returned successfully!" << endl;
+    //cout << "Game returned successfully!" << endl;
     return true;
 }
 
@@ -50,6 +50,9 @@ bool BoardGame::checkIsBorrowed() {
     return isBorrowed;
 }
 
+UsageRecord BoardGame::getLastestBorrowRecord() {
+    return borrowHistory[historyCount - 1];
+}
 
 
 void BoardGame::printInfo() const {

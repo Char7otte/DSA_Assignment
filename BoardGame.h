@@ -32,8 +32,7 @@ public:
     int yearPublished;
     bool isBorrowed;
 
-    static const int MAX_HISTORY = 10;
-    array<UsageRecord, MAX_HISTORY> borrowHistory;
+    UsageRecord borrowHistory[10];
     int historyCount;
 
 public:
@@ -47,6 +46,8 @@ public:
     bool returnGame(string returnDate);
 
     bool checkIsBorrowed();
+
+    UsageRecord getLastestBorrowRecord();
 
     // // set the game to be borrowed
     // void markAvailable(string borrowDate);

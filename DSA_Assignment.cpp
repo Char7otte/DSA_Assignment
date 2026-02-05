@@ -1,9 +1,4 @@
 
-#include <fstream>
-#include <sstream>
-#include <string>
-
-
 // struct Game {
 //     string id;
 //     string name;
@@ -67,17 +62,23 @@
 //     return 0;
 // }
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <chrono>
+#include <ctime>
+#include <iomanip>
+#include <limits> // for numeric_limits
+
+#include "Member.h"
 #include "GameDictionary.h"
 #include "BoardGame.h"
 #include "MasterHistoryLog.h"
 #include "MemeberDictionary.h"
 
 using namespace std;
-#include "Member.h"
-#include <chrono>
-#include <ctime>
-#include <iomanip>
-#include <limits> // for numeric_limits
+
+
 
 std::string getCurrentDate() {
     // 1. Get the current system time
@@ -315,7 +316,69 @@ void memberBorrowMenu(GameDictionary& gameDict,
         return;
     }
 }
-void memberReturnMenu(GameDictionary& gameDict,Member& selectedMember, MasterHistoryLog& historyList) {}
+void memberReturnMenu(GameDictionary& gameDict,
+                      Member& selectedMember,
+                      MasterHistoryLog& historyList) {
+    cout << "\n===== Return Game =====\n";
+
+    // 1) Show unreturned games from this member
+    selectedMember.printUnreturnedGames();
+
+    // 2) Ask for game ID
+    while (true) {
+        cout << "\nEnter Game ID to return (or 0 to cancel): ";
+        string gameId;
+        cin >> gameId;
+
+        if (gameId == "0") {
+            cout << "Cancelled.\n";
+            return;
+        }
+
+        // 3) Retrieve game from dictionary
+        BoardGame* game = gameDict.get(gameId);
+
+        if (game == nullptr) {
+            cout << "Game ID not found. Please try again.\n";
+            continue;
+        }
+
+        // 4) Check if game is borrowed (overall)
+        if (!game->checkIsBorrowed()) {
+            cout << "This game is not currently borrowed (already returned).\n";
+            continue;
+        }
+
+        // 5) Return stage
+        string today = getCurrentDate();
+
+        // Member tries to return (checks if THIS member borrowed it)
+        bool memberOk = selectedMember.returnGame(*game, today);
+        if (!memberOk) {
+            cout << "Return failed: This game is not currently borrowed by you.\n";
+            continue; // let them try again
+        }
+
+        // Game updates return date
+        bool gameOk = game->returnGame(today);
+        if (!gameOk) {
+            cout << "Return failed unexpectedly (game state error).\n";
+            return;
+        }
+
+        // Update master history log
+        bool logOk = historyList.markReturned(today, gameId);
+        if (!logOk) {
+            cout << "Returned, but history record not found to update.\n";
+            // You can still treat it as success for user experience
+        }
+
+        cout << "Return successful!\n";
+        cout << "You returned Game " << gameId << " on " << today << "\n";
+        return;
+    }
+}
+void DisplayBorrowedGames(Member& selectedMember) {}
 void adminMenu(GameDictionary& gameDict, MemberDictionary& memberDict) {
     int choice;
 
@@ -366,22 +429,47 @@ void memberMenu(GameDictionary& gameDict,
         return;
     }
 
-    // Get member pointer from dictionary
     Member* selectedMemberPtr = memberDict.getMember(memberId);
-
     if (selectedMemberPtr == nullptr) {
         cout << "Member ID not found.\n";
         return;
     }
 
-    // Convert pointer -> reference (safe because pointer is not null)
     Member& selectedMember = *selectedMemberPtr;
 
     cout << "Welcome, " << selectedMember.getName()
          << " (" << selectedMember.getID() << ")\n";
 
-    // For now only borrow function (you can expand later)
-    memberBorrowMenu(gameDict, selectedMember, historyList);
+    int choice;
+
+    while (true) {
+        cout << "\n========= Member Menu =========\n";
+        cout << "1) Borrow Game\n";
+        cout << "2) Return Game\n";
+        cout << "3) Summary of Games Borrowed\n";
+        cout << "0) Logout\n";
+        cout << "Choose: ";
+
+        if (!(cin >> choice)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input.\n";
+            continue;
+        }
+
+        if (choice == 1) {
+            memberBorrowMenu(gameDict, selectedMember, historyList);
+        } else if (choice == 2) {
+            memberReturnMenu(gameDict, selectedMember, historyList);
+        }else if (choice == 3){
+            selectedMember.printBorrowHistory();
+        } else if (choice == 0) {
+            cout << "Logging out...\n";
+            return;
+        } else {
+            cout << "Invalid option.\n";
+        }
+    }
 }
 
 void mainMenu(GameDictionary& gameDict, MemberDictionary& memberDict, MasterHistoryLog& historyList) {
@@ -436,28 +524,24 @@ int main() {
     memberDict.addMember("M002",member2);
     memberDict.addMember("M003",member3);
 
+    BorrowTransaction trans1 = {"M001","G001",getCurrentDate(),"",false};
+    BorrowTransaction trans2 = {"M002","G002",getCurrentDate(),"",false};
+    BorrowTransaction trans3 = {"M002","G003",getCurrentDate(),"",false};
+    historyList.add(trans1);
+    historyList.add(trans2);
+    historyList.add(trans3);
+    historyList.printAll();
+
+    historyList.markReturned(getCurrentDate(),"G001");
+    historyList.printAll();
+    //historyList.markReturned(getCurrentDate(),"G002");
+    historyList.printUnreturned();
+
+
+
+
+
     mainMenu(gameDict, memberDict, historyList);
-
-    // BorrowTransaction trans = {"M001", "G001", "2021-01-01", "2021-01-08", true};
-    // BorrowTransaction trans2 = {"M002", "G001", "2021-01-01", "", false};
-    //
-    //
-    //
-    // gameDict.print();
-
-    //
-
-
-
-
-
-    // member.burrowGame(g1,getCurrentDate());
-    // member.burrowGame(g2,getCurrentDate());
-    // member.printBorrowHistory();
-    // member.returnGame(g1,getCurrentDate());
-    // member.printBorrowHistory();
-    // gameDict.print();
-    // mainMenu(gameDict);
 
 
 

@@ -36,14 +36,10 @@ public:
     // add an item to the back of the list (append)
     bool add(const BorrowRecordType &item);
 
-    // add an item at a specified position in the list (insert)
-    bool add(int index, const BorrowRecordType &item);
-
-    // remove an item at a specified position in the list
-    void remove(int index);
+    bool markReturned(const string& returnDate,const string& gameID);
 
     // get an item at a specified position of the list (retrieve)
-    BorrowRecordType get(int index);
+    // BorrowRecordType get(int index);
 
     // check if the list is empty
     bool isEmpty();
@@ -52,5 +48,10 @@ public:
     int getLength();
 
     // display all the items in the list
-    void print();
+    void printAll();
+
+    // display the items in the list
+    void printUnreturned();
+
+    int checkBorrowedCount();
 };
