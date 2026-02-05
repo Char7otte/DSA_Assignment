@@ -519,7 +519,5 @@ int main() {
 
     mainMenu(gameDict, memberDict, historyList);
 
-
-
     return 0;
 };
