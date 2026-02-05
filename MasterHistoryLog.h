@@ -1,3 +1,5 @@
+#pragma once
+
 // List.h - - Specification of List ADT (implemented using Pointers)
 #pragma once
 #include<string>
