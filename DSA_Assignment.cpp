@@ -1,12 +1,19 @@
 #include "GameDictionary.h"
 #include "MemeberDictionary.h"
-
 #include "BoardGame.h"
 #include "Member.h"
 
+#include<string>
+#include<iostream>
+#include<fstream>
+#include<sstream>
+#include<iomanip>
+
+GameDictionary readGameFile(const std::string fileName);
+
 int main() {
 
-    GameDictionary gameDict;
+    GameDictionary gameDict = readGameFile("games.csv");
     MemberDictionary memberDict;
 
     Item* g1 = new BoardGame("G001", "Catan", 3, 4, 60, 120, 1995);
@@ -23,12 +30,59 @@ int main() {
     memberDict.add("M002", m2);
     memberDict.add("M003", m3);
 
-    gameDict.print();
-
     memberDict.print();
 
     return 0;
 };
+
+GameDictionary readGameFile(const std::string fileName) {
+    GameDictionary newGameDict;
+    std::cout << "Reading games.csv" << "\n";
+
+    std::ifstream inputFile(fileName);
+    std::string line, name, minPlayers, maxPlayers, minPlaytime, maxPlaytime, yearPublished;
+    std::getline(inputFile, line);
+    int iteration = 1;
+    while (std::getline(inputFile, line)) {
+        std::stringstream ss(line);
+
+        //In case the board game's name has a comma, quotes will be placed around the name.
+        if (ss.peek() == '"') {
+            ss >> std::quoted(name);
+            if (ss.peek() == ',') ss.ignore();
+        }
+        else {
+            std::getline(ss, name, ',');
+        }
+        std::getline(ss, minPlayers, ',');
+        std::getline(ss, maxPlayers, ',');
+        std::getline(ss, maxPlaytime, ',');
+        std::getline(ss, minPlaytime, ',');
+        std::getline(ss, yearPublished, ',');
+
+        Item* newBoardGame = new BoardGame(
+            std::to_string(iteration),
+            name,
+            std::stoi(minPlayers),
+            std::stoi(maxPlayers),
+            std::stoi(minPlaytime),
+            std::stoi(maxPlaytime),
+            std::stoi(yearPublished)
+        );
+
+        newGameDict.add(std::to_string(iteration), newBoardGame);
+        iteration++;
+
+    }
+
+    inputFile.close();
+    newGameDict.print();
+
+    std::cout << "\n";
+    std::cout << "File read successfully." << "\n";
+
+    return newGameDict;
+}
 
 
 
