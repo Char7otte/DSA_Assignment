@@ -493,6 +493,8 @@ void mainMenu(GameDictionary& gameDict, MemberDictionary& memberDict, MasterHist
         }
     }
 }
+#include "BoardGame.h"
+#include "Member.h"
 
 int main() {
 
