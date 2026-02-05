@@ -1,17 +1,26 @@
 #include "MasterHistoryLog.h"
 
+
 #include<string>
 #include<iostream>
 #include <iomanip> // Required for setw()
+using std::left;
+using std::setw;
 using namespace std;
 
 
 MasterHistoryLog::MasterHistoryLog() = default;
 
 
-bool MasterHistoryLog::add(const BorrowRecordType &item) {
+bool MasterHistoryLog::add(BoardGame& game,Member& member, const string& borrowDate) {
 
-
+    BorrowRecordType item = {member.getID(),
+        game.getID(),
+        member.getName(),
+        game.getName(),
+        borrowDate,
+        "",
+        false};
 
     Node* newNode = new Node;
     newNode->item = item;
@@ -61,73 +70,90 @@ int MasterHistoryLog::getLength() {
     return size;
 }
 
+
+
 void MasterHistoryLog::printAll() {
     if (firstNode == nullptr) {
         cout << "\n[!] The history log is empty.\n" << endl;
         return;
     }
 
-    // Print Header
-    cout << "\n" << string(80, '=') << endl;
-    cout << left << setw(15) << "MEMBER ID"
-         << setw(15) << "GAME ID"
-         << setw(20) << "BORROW DATE"
-         << setw(20) << "RETURN DATE"
+    const int W = 120; // table width (adjust if you want)
+
+    cout << "\n" << string(W, '=') << endl;
+    cout << "MASTER HISTORY LOG (ALL RECORDS)\n";
+    cout << string(W, '=') << endl;
+
+    cout << left
+         << setw(12) << "MEMBER ID"
+         << setw(20) << "MEMBER NAME"
+         << setw(10) << "GAME ID"
+         << setw(25) << "GAME NAME"
+         << setw(18) << "BORROW DATE"
+         << setw(18) << "RETURN DATE"
          << "STATUS" << endl;
-    cout << string(80, '-') << endl;
+
+    cout << string(W, '-') << endl;
 
     Node* temp = firstNode;
     while (temp != nullptr) {
-        BorrowRecordType &record = temp->item;
+        BorrowRecordType& record = temp->item;
 
-        // Print Row
-        cout << left << setw(15) << record.memberId
-             << setw(15) << record.gameId
-             << setw(20) << record.borrowDate;
+        cout << left
+             << setw(12) << record.memberId
+             << setw(20) << record.memberName
+             << setw(10) << record.gameId
+             << setw(25) << record.gameName
+             << setw(18) << record.borrowDate
+             << setw(18) << (record.isReturned ? record.returnDate : "---")
+             << (record.isReturned ? "[RETURNED]" : "[ON LOAN]")
+             << endl;
 
-        if (record.isReturned) {
-            cout << setw(20) << record.returnDate
-                 << "[RETURNED]";
-        } else {
-            cout << setw(20) << "---"
-                 << "[ON LOAN]";
-        }
-
-        cout << endl;
         temp = temp->next;
     }
 
-    cout << string(80, '=') << "\n" << endl;
+    cout << string(W, '=') << "\n" << endl;
 }
 
-void MasterHistoryLog::printUnreturned() {
-    cout << "\n" << string(80, '=') << endl;
-    cout << "UNRETURNED BORROW RECORDS (ON LOAN)" << endl;
-    cout << string(80, '=') << endl;
 
-    cout << left << setw(15) << "MEMBER ID"
-         << setw(15) << "GAME ID"
-         << setw(20) << "BORROW DATE"
-         << setw(20) << "RETURN DATE"
+void MasterHistoryLog::printUnreturned() {
+    const int W = 120;
+
+    cout << "\n" << string(W, '=') << endl;
+    cout << "UNRETURNED BORROW RECORDS (ON LOAN)\n";
+    cout << string(W, '=') << endl;
+
+    cout << left
+         << setw(12) << "MEMBER ID"
+         << setw(20) << "MEMBER NAME"
+         << setw(10) << "GAME ID"
+         << setw(25) << "GAME NAME"
+         << setw(18) << "BORROW DATE"
+         << setw(18) << "RETURN DATE"
          << "STATUS" << endl;
 
-    cout << string(80, '-') << endl;
+    cout << string(W, '-') << endl;
 
     Node* current = firstNode;
     int printed = 0;
 
+    // ✅ Stop once all unreturned records are printed
     while (current != nullptr && printed < borrowedCount) {
-        BorrowTransaction& record = current->item;
+        BorrowRecordType& record = current->item;
 
         if (!record.isReturned) {
-            cout << left << setw(15) << record.memberId
-                 << setw(15) << record.gameId
-                 << setw(20) << record.borrowDate
-                 << setw(20) << "---"
+            cout << left
+                 << setw(12) << record.memberId
+                 << setw(20) << record.memberName
+                 << setw(10) << record.gameId
+                 << setw(25) << record.gameName
+                 << setw(18) << record.borrowDate
+                 << setw(18) << "---"
                  << "[ON LOAN]" << endl;
 
             printed++;
         }
+
         current = current->next;
     }
 
@@ -135,7 +161,7 @@ void MasterHistoryLog::printUnreturned() {
         cout << "(No unreturned records found.)" << endl;
     }
 
-    cout << string(80, '=') << "\n" << endl;
+    cout << string(W, '=') << "\n" << endl;
 }
 
 

@@ -2,11 +2,15 @@
 #pragma once
 #include<string>
 #include<iostream>
+#include "BoardGame.h"
+#include "Member.h"
 using namespace std;
 
 struct BorrowTransaction {
     string memberId;
     string gameId;
+    string memberName;
+    string gameName;
     string borrowDate;
     string returnDate;     // Initially "N/A" or empty
     bool isReturned;
@@ -34,7 +38,7 @@ public:
     ~MasterHistoryLog();
 
     // add an item to the back of the list (append)
-    bool add(const BorrowRecordType &item);
+    bool add(BoardGame& game,Member& member, const string& borrowDate);
 
     bool markReturned(const string& returnDate,const string& gameID);
 

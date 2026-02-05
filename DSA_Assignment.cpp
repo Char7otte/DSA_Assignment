@@ -1,14 +1,4 @@
 
-// struct Game {
-//     string id;
-//     string name;
-//     int minPlayers;
-//     int maxPlayers;
-//     int maxPlayTime;
-//     int minPlayTime;
-//     int yearPublished;
-// };
-//
 // int main() {
 //     ifstream file("games.csv");  // your CSV file
 //     vector<Game> games;
@@ -69,7 +59,6 @@
 #include <ctime>
 #include <iomanip>
 #include <limits> // for numeric_limits
-
 #include "Member.h"
 #include "GameDictionary.h"
 #include "BoardGame.h"
@@ -255,7 +244,7 @@ void memberBorrowMenu(GameDictionary& gameDict,
                       MasterHistoryLog& historyList) {
     cout << "\n===== Borrow Game =====\n";
 
-    // Print games
+    // Show all games first
     gameDict.print();
 
     while (true) {
@@ -268,24 +257,23 @@ void memberBorrowMenu(GameDictionary& gameDict,
             return;
         }
 
-        // Get game pointer from dictionary
+        // Retrieve game (pointer)
         BoardGame* game = gameDict.get(gameId);
-
         if (game == nullptr) {
             cout << "Game ID not found. Please try again.\n";
             continue;
         }
 
-        // Check borrowed
+        // Check if already borrowed
         if (game->checkIsBorrowed()) {
-            cout << "This game is already borrowed. Please choose another.\n";
+            cout << "⚠️ This game is already borrowed. Please choose another.\n";
             continue;
         }
 
         // Borrow stage
         string today = getCurrentDate();
 
-        // Member borrows (Member takes BoardGame& now)
+        // Member borrows (Member takes BoardGame&)
         bool memberOk = selectedMember.borrowGame(*game, today);
 
         // Game records borrow
@@ -298,16 +286,12 @@ void memberBorrowMenu(GameDictionary& gameDict,
             return;
         }
 
-        // Create transaction
-        BorrowTransaction trans = {
-            selectedMember.getID(),
-            gameId,      // key is the ID
-            today,
-            "",
-            false
-        };
-
-        historyList.add(trans);
+        // NEW: Add to master history log using your new method
+        bool logOk = historyList.add(*game, selectedMember, today);
+        if (!logOk) {
+            cout << "Borrowed successfully, but failed to log history.\n";
+            // Still treat as success from user perspective
+        }
 
         cout << "Borrow successful!\n";
         cout << selectedMember.getName() << " borrowed " << gameId
@@ -379,7 +363,7 @@ void memberReturnMenu(GameDictionary& gameDict,
     }
 }
 void DisplayBorrowedGames(Member& selectedMember) {}
-void adminMenu(GameDictionary& gameDict, MemberDictionary& memberDict) {
+void adminMenu(GameDictionary& gameDict, MemberDictionary& memberDict, MasterHistoryLog& historyList) {
     int choice;
 
     while (true) {
@@ -388,6 +372,8 @@ void adminMenu(GameDictionary& gameDict, MemberDictionary& memberDict) {
         std::cout << "2) Delete Game\n";
         std::cout << "3) View All Games\n";
         std::cout << "4) Create Member\n";
+        std::cout << "5) Summary of All Borrowing Records\n";
+        std::cout << "6) Summary of Unreturned Games\n";
         std::cout << "0) Logout\n";
         std::cout << "Choose: ";
 
@@ -406,6 +392,10 @@ void adminMenu(GameDictionary& gameDict, MemberDictionary& memberDict) {
             gameDict.print();
         } else if (choice == 4) {
             createMemberMenu(memberDict);
+        } else if (choice == 5) {
+            historyList.printAll();
+        } else if (choice == 6) {
+            historyList.printUnreturned();
         } else if (choice == 0) {
             std::cout << "Logging out...\n";
             break;
@@ -490,7 +480,7 @@ void mainMenu(GameDictionary& gameDict, MemberDictionary& memberDict, MasterHist
         }
 
         if (role == 1) {
-            adminMenu(gameDict, memberDict);
+            adminMenu(gameDict, memberDict,historyList);
         } else if (role == 2) {
             memberMenu(gameDict, memberDict, historyList);
         } else if (role == 0) {
@@ -523,22 +513,6 @@ int main() {
     memberDict.addMember("M001",member);
     memberDict.addMember("M002",member2);
     memberDict.addMember("M003",member3);
-
-    BorrowTransaction trans1 = {"M001","G001",getCurrentDate(),"",false};
-    BorrowTransaction trans2 = {"M002","G002",getCurrentDate(),"",false};
-    BorrowTransaction trans3 = {"M002","G003",getCurrentDate(),"",false};
-    historyList.add(trans1);
-    historyList.add(trans2);
-    historyList.add(trans3);
-    historyList.printAll();
-
-    historyList.markReturned(getCurrentDate(),"G001");
-    historyList.printAll();
-    //historyList.markReturned(getCurrentDate(),"G002");
-    historyList.printUnreturned();
-
-
-
 
 
     mainMenu(gameDict, memberDict, historyList);
