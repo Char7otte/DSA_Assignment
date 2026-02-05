@@ -7,7 +7,7 @@ BoardGame::BoardGame(const std::string id,
     const int maxPlayers,
     const int minPlaytime,
     const int maxPlaytime,
-    const int yearPublished) {
+    const int yearPublished): Item(id, name) {
     this->minPlayers = minPlayers;
     this->maxPlayers = maxPlayers;
     this->minPlaytime = minPlaytime;
