@@ -18,5 +18,37 @@
     <ClCompile Include="DSA_Assignment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BoardGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDictionary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MasterHistoryLog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Member.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MemeberDictionary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BoardGame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameDictionary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MasterHistoryLog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Member.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MemeberDictionary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
