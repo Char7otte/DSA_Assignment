@@ -2,42 +2,29 @@
 // Created by gongy on 4/2/2026.
 //
 
-#ifndef DSA_ASSIGNMENT_MEMBER_H
-#define DSA_ASSIGNMENT_MEMBER_H
-#include <string>
 #include <iostream>
 #include <array>
-#include "BoardGame.h"
-using namespace std;
 
-struct GameRental {
-    string gameId;
-    string gameName;
-    string borrowDate;
-    string returnDate;
-    bool isReturned;
+#include "Item.h"
+#include "BoardGame.h"
+
+struct BorrowLog: public DateLog {
+    std::string gameId = "N/A";
+    std::string gameName = "N/A";
+    bool isReturned = false;
 };
 
-class Member {
-
-private:
-
-    string id;
-    string name;
-    GameRental borrowRecords[10];
+class Member: public Item {
+    std::string username = "N/A";
+    std::string password = "N/A";
+    BorrowLog borrowHistory[10];
     int borrowCount = 0;
 
 public:
-    Member() : id(""), name("") {}
-    Member(string id, string name);
-    string getID() const;
-    string getName() const;
+    Member(const std::string id, const std::string username, const std::string password, const std::string name);
 
-    bool borrowGame(BoardGame& game, string borrowDate);
-    bool returnGame(BoardGame& game, string returnDate);
-    void printUnreturnedGames() const;
-    void printBorrowHistory() const;
+    //bool borrowGame(BoardGame& game, string borrowDate);
+    //bool returnGame(BoardGame& game, string returnDate);
+    //void printUnreturnedGames() const;
+    //void printBorrowHistory() const;
 };
-
-
-#endif //DSA_ASSIGNMENT_MEMBER_H

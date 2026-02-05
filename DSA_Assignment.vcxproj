@@ -130,6 +130,7 @@
     <ClCompile Include="BoardGame.cpp" />
     <ClCompile Include="DSA_Assignment.cpp" />
     <ClCompile Include="GameDictionary.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="MasterHistoryLog.cpp" />
     <ClCompile Include="Member.cpp" />
     <ClCompile Include="MemeberDictionary.cpp" />
@@ -137,6 +138,7 @@
   <ItemGroup>
     <ClInclude Include="BoardGame.h" />
     <ClInclude Include="GameDictionary.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="MasterHistoryLog.h" />
     <ClInclude Include="Member.h" />
     <ClInclude Include="MemeberDictionary.h" />
