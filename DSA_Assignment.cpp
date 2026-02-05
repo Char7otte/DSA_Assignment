@@ -499,25 +499,25 @@ int main() {
     // Create dictionary
     GameDictionary gameDict;
     MemberDictionary memberDict;
-    MasterHistoryLog historyList;
 
     // Create BoardGame objects
-    BoardGame g1("G001", "Catan", 3, 4, 60, 120, 1995);
-    BoardGame g2("G002", "Monopoly", 2, 6, 60, 180, 1935);
-    BoardGame g3("G003", "Chess", 2, 2, 10, 60, 1975);
+    Item* g1 = new BoardGame("G001", "Catan", 3, 4, 60, 120, 1995);
+    Item* g2 = new BoardGame("G002", "Monopoly", 2, 6, 60, 180, 1935);
+    Item* g3 = new BoardGame("G003", "Chess", 2, 2, 10, 60, 1975);
     gameDict.add("G001", g1);
     gameDict.add("G002", g2);
     gameDict.add("G003", g3);
 
-    Member member("M001", "John");
-    Member member2("M002", "Jane");
-    Member member3("M003", "Bob");
-    memberDict.addMember("M001",member);
-    memberDict.addMember("M002",member2);
-    memberDict.addMember("M003",member3);
+    Item* m1 = new Member("M001", "board_king99", "pass123", "Alice Smith");
+    Item* m2 = new Member("M002", "dice_roller", "secret77", "Bob Jones");
+    Item* m3 = new Member("M003", "meeple_queen", "p@ssword", "Charlie Day");
+    memberDict.add("M001", m1);
+    memberDict.add("M002", m2);
+    memberDict.add("M003", m3);
 
+    gameDict.print();
 
-    mainMenu(gameDict, memberDict, historyList);
+    memberDict.print();
 
     return 0;
 };
