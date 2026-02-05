@@ -10,27 +10,12 @@
 #include<iomanip>
 
 GameDictionary readGameFile(const std::string fileName);
+MemberDictionary readMemberFile(const std::string fileName);
 
 int main() {
 
     GameDictionary gameDict = readGameFile("games.csv");
-    MemberDictionary memberDict;
-
-    Item* g1 = new BoardGame("G001", "Catan", 3, 4, 60, 120, 1995);
-    Item* g2 = new BoardGame("G002", "Monopoly", 2, 6, 60, 180, 1935);
-    Item* g3 = new BoardGame("G003", "Chess", 2, 2, 10, 60, 1975);
-    gameDict.add("G001", g1);
-    gameDict.add("G002", g2);
-    gameDict.add("G003", g3);
-
-    Item* m1 = new Member("M001", "board_king99", "pass123", "Alice Smith");
-    Item* m2 = new Member("M002", "dice_roller", "secret77", "Bob Jones");
-    Item* m3 = new Member("M003", "meeple_queen", "p@ssword", "Charlie Day");
-    memberDict.add("M001", m1);
-    memberDict.add("M002", m2);
-    memberDict.add("M003", m3);
-
-    memberDict.print();
+    MemberDictionary memberDict = readMemberFile("members.csv");
 
     return 0;
 };
@@ -82,6 +67,20 @@ GameDictionary readGameFile(const std::string fileName) {
     std::cout << "File read successfully." << "\n";
 
     return newGameDict;
+}
+
+MemberDictionary readMemberFile(const std::string fileName) {
+    MemberDictionary newMemberDict;
+    Item* m1 = new Member("M001", "board_king99", "pass123", "Alice Smith");
+    Item* m2 = new Member("M002", "dice_roller", "secret77", "Bob Jones");
+    Item* m3 = new Member("M003", "meeple_queen", "p@ssword", "Charlie Day");
+    newMemberDict.add("M001", m1);
+    newMemberDict.add("M002", m2);
+    newMemberDict.add("M003", m3);
+
+    newMemberDict.print();
+
+    return newMemberDict;
 }
 
 
