@@ -134,7 +134,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="MasterHistoryLog.cpp" />
     <ClCompile Include="Member.cpp" />
-    <ClCompile Include="MemeberDictionary.cpp" />
+    <ClCompile Include="MemberDictionary.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoardGame.h" />
@@ -143,7 +143,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="MasterHistoryLog.h" />
     <ClInclude Include="Member.h" />
-    <ClInclude Include="MemeberDictionary.h" />
+    <ClInclude Include="MemberDictionary.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="games.csv" />
