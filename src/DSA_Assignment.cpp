@@ -76,7 +76,8 @@ Member* login(MemberDictionary& members) {
     std::cout << "Enter your ID: ";
     std::getline(std::cin, id);
 
-    Member* foundAccount = members.get(id);
+    Member* foundAccount;
+    members.get(id, foundAccount);
     return foundAccount;
 }
 
@@ -161,7 +162,7 @@ void createAndAddGameMenu(GameDictionary& gameDict) {
             std::cout << "Game ID cannot be empty.\n";
             continue;
         }
-        if (gameDict.contains(id)) {
+        if (gameDict.get(id)) {
             std::cout << "This Game ID already exists. Please enter a different ID.\n";
             continue;
         }
