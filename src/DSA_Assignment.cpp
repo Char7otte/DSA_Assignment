@@ -10,15 +10,17 @@
 #include<iomanip>
 
 //Read files
-GameDictionary readGameFile(const std::string fileName);
-MemberDictionary readMemberFile(const std::string fileName);
+void readGameFile(const std::string fileName, GameDictionary& gameDict);
+void readMemberFile(const std::string fileName, MemberDictionary& memberDict);
 
 Member* login(MemberDictionary members);
 //void logout();
 
 int main() {
-    GameDictionary gameDict = readGameFile("./data/games.csv");
-    MemberDictionary memberDict = readMemberFile("./data/members.csv");
+    GameDictionary gameDict;
+    readGameFile("./data/games.csv", gameDict);
+    MemberDictionary memberDict;
+    readMemberFile("./data/members.csv", memberDict);
     Member* loggedInAccount;
 
     while (true) {
@@ -44,9 +46,8 @@ int main() {
     return 0;
 };
 
-GameDictionary readGameFile(const std::string fileName) {
-    GameDictionary newGameDict;
     std::cout << "Reading games.csv" << "\n";
+void readGameFile(const std::string fileName, GameDictionary& gameDict) {
 
     std::ifstream inputFile(fileName);
     std::string line, name, minPlayers, maxPlayers, minPlaytime, maxPlaytime, yearPublished;
@@ -79,32 +80,28 @@ GameDictionary readGameFile(const std::string fileName) {
             std::stoi(yearPublished)
         );
 
-        newGameDict.add(std::to_string(iteration), newBoardGame);
+        gameDict.add(std::to_string(iteration), newBoardGame);
         iteration++;
-
     }
 
     inputFile.close();
-    newGameDict.print();
+    gameDict.print();
 
     std::cout << "\n";
     std::cout << "File read successfully." << "\n";
-
-    return newGameDict;
 }
 
-MemberDictionary readMemberFile(const std::string fileName) {
-    MemberDictionary newMemberDict;
+void readMemberFile(const std::string fileName, MemberDictionary& memberDict) {
+
     Member* m1 = new Member("M001", "board_king99", "pass123", "Alice Smith");
     Member* m2 = new Member("M002", "dice_roller", "secret77", "Bob Jones");
     Member* m3 = new Member("M003", "meeple_queen", "p@ssword", "Charlie Day");
-    newMemberDict.add("M001", m1);
-    newMemberDict.add("M002", m2);
-    newMemberDict.add("M003", m3);
+    memberDict.add("M001", m1);
+    memberDict.add("M002", m2);
+    memberDict.add("M003", m3);
 
-    newMemberDict.print();
+    memberDict.print();
 
-    return newMemberDict;
 }
 
 Member* login(MemberDictionary members) {
