@@ -15,6 +15,9 @@ Member* login(MemberDictionary& members);
 bool adminDashboard(GameDictionary& games);
 bool memberDashboard(GameDictionary& games);
 
+// Admin functions
+void createAndAddGameMenu(GameDictionary& games);
+
 int main() {
     GameDictionary gameDict;
     readGameFile("./data/games.csv", gameDict);
@@ -74,7 +77,6 @@ Member* login(MemberDictionary& members) {
     return foundAccount;
 }
 
-//void logout() {}
 bool adminDashboard(GameDictionary& games) {
     while (true) {
         std::cout << "1. Add a new board game" << "\n";
@@ -133,6 +135,77 @@ bool memberDashboard(GameDictionary& games) {
         }
     }
     return false;
+}
+
+void createAndAddGameMenu(GameDictionary& gameDict) {
+    std::cout << "\n===== Add New Board Game =====\n";
+    std::string id, name;
+    int minPlayers, maxPlayers, minPlayTime, maxPlayTime, yearPublished;
+
+    // --- Input: Game ID ---
+    while (true) {
+        std::cout << "Enter Game ID (e.g., G004): ";
+        std::getline(std::cin, id);
+        if (id.empty()) {
+            std::cout << "Game ID cannot be empty.\n";
+            continue;
+        }
+        if (gameDict.contains(id)) {
+            std::cout << "This Game ID already exists. Please enter a different ID.\n";
+            continue;
+        }
+        break;
+    }
+
+    // --- Input: Game Name ---
+    while (true) {
+        std::cout << "Enter Game Name: ";
+        std::getline(std::cin, name);
+
+        if (name.empty()) {
+            std::cout << "Game name cannot be empty.\n";
+            continue;
+        }
+        break;
+    }
+
+    // --- Numeric inputs with basic validation ---
+    auto readInt = [](const std::string& prompt) {
+        int x;
+        while (true) {
+            std::cout << prompt;
+            if (std::cin >> x) return x;
+
+            std::cout << "Invalid input. Please enter a number.\n";
+        }
+     };
+
+    minPlayers = readInt("Enter Min Players: ");
+    maxPlayers = readInt("Enter Max Players: ");
+    while (maxPlayers < minPlayers) {
+        std::cout << "Max Players cannot be less than Min Players.\n";
+        maxPlayers = readInt("Enter Max Players again: ");
+    }
+
+    minPlayTime = readInt("Enter Min Play Time (minutes): ");
+    maxPlayTime = readInt("Enter Max Play Time (minutes): ");
+    while (maxPlayTime < minPlayTime) {
+        std::cout << "Max Play Time cannot be less than Min Play Time.\n";
+        maxPlayTime = readInt("Enter Max Play Time again: ");
+    }
+
+    yearPublished = readInt("Enter Year Published: ");
+
+    // --- Create and add ---
+    BoardGame* newGame = new BoardGame(id, name, minPlayers, maxPlayers, minPlayTime, maxPlayTime, yearPublished);
+
+    if (gameDict.add(id, newGame)) {
+        std::cout << "\n Game added successfully!\n";
+    }
+    else {
+        std::cout << "\n Failed to add game. Please try again.\n";
+    }
+    std::cout << "==============================\n";
 }
 
 
@@ -207,80 +280,6 @@ bool memberDashboard(GameDictionary& games) {
 //    return ss.str();
 //}
 //
-//void createAndAddGameMenu(GameDictionary& gameDict) {
-//    cout << "\n===== Add New Board Game =====\n";
-//    string id, name;
-//    int minPlayers, maxPlayers, minPlayTime, maxPlayTime, yearPublished;
-//
-//    // --- Input: Game ID ---
-//    while (true) {
-//        cout << "Enter Game ID (e.g., G004): ";
-//        cin >> id;
-//        if (id.empty()) {
-//            cout << "Game ID cannot be empty.\n";
-//            continue;
-//        }
-//        if (gameDict.contains(id)) {
-//            cout << "This Game ID already exists. Please enter a different ID.\n";
-//            continue;
-//        }
-//        break;
-//    }
-//
-//    // clear newline before getline
-//    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-//
-//    // --- Input: Game Name ---
-//    while (true) {
-//        cout << "Enter Game Name: ";
-//        getline(cin, name);
-//
-//        if (name.empty()) {
-//            cout << "Game name cannot be empty.\n";
-//            continue;
-//        }
-//        break;
-//    }
-//
-//    // --- Numeric inputs with basic validation ---
-//    auto readInt = [](const string& prompt) {
-//        int x;
-//        while (true) {
-//            cout << prompt;
-//            if (cin >> x) return x;
-//
-//            cout << "Invalid input. Please enter a number.\n";
-//            cin.clear();
-//            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-//        }
-//    };
-//
-//    minPlayers = readInt("Enter Min Players: ");
-//    maxPlayers = readInt("Enter Max Players: ");
-//    while (maxPlayers < minPlayers) {
-//        cout << "Max Players cannot be less than Min Players.\n";
-//        maxPlayers = readInt("Enter Max Players again: ");
-//    }
-//
-//    minPlayTime = readInt("Enter Min Play Time (minutes): ");
-//    maxPlayTime = readInt("Enter Max Play Time (minutes): ");
-//    while (maxPlayTime < minPlayTime) {
-//        cout << "Max Play Time cannot be less than Min Play Time.\n";
-//        maxPlayTime = readInt("Enter Max Play Time again: ");
-//    }
-//
-//    yearPublished = readInt("Enter Year Published: ");
-//
-//    // --- Create and add ---
-//    BoardGame newGame(id, name, minPlayers, maxPlayers, minPlayTime, maxPlayTime, yearPublished);
-//
-//    if (gameDict.add(id, newGame)) {
-//        cout << "\n Game added successfully!\n";
-//    } else {
-//        cout << "\n Failed to add game (duplicate key or other issue).\n";
-//    }
-//    cout << "==============================\n";
-//}
 //
 //void deleteGameMenu(GameDictionary& gameDict) {
 //    cout << "\n===== Delete Board Game =====\n";
