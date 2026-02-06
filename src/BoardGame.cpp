@@ -15,8 +15,6 @@ BoardGame::BoardGame(const std::string id,
     this->yearPublished = yearPublished;
 }
 
-
-
 BoardGame::BoardGame(const std::string id,
     const std::string name,
     const int minPlayers,
