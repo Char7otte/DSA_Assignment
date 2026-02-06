@@ -28,6 +28,6 @@ std::string getString(std::string inputPrompt) {
         if (!input.empty()) {
             return input;
         }
-        std::cout << "Game name cannot be empty.\n";
+        std::cout << "Input cannot be empty.\n";
     }
 }
