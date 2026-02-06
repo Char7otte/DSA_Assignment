@@ -38,7 +38,7 @@ void GameDictionary::print() {
         Node* temp = items[i];
 
         while (temp != nullptr) {
-            Item* boardGame = temp->item;
+            BoardGame* boardGame = temp->item;
             boardGame->print();
             temp = temp->next;
         }

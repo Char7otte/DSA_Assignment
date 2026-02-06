@@ -9,13 +9,38 @@
 #include<sstream>
 #include<iomanip>
 
+//Read files
 GameDictionary readGameFile(const std::string fileName);
-MemberDictionary readMemberFile(const std::string fileName);
+//MemberDictionary readMemberFile(const std::string fileName);
+
+//Member* login(MemberDictionary members);
+//void logout();
 
 int main() {
-
     GameDictionary gameDict = readGameFile("games.csv");
-    MemberDictionary memberDict = readMemberFile("members.csv");
+    //MemberDictionary memberDict = readMemberFile("members.csv");
+    Member* loggedInAccount;
+
+    /*while (true) {
+        std::cout << "Welcome to the BGC Portal!" << "\n";
+        std::cout << "1. Login" << "\n";
+        std::cout << "0. Quit" << "\n";
+
+        std::string input;
+        std::cin >> input;
+        if (input == "1") {
+            loggedInAccount = login();
+        }
+        else if (input == "0") {
+            std::cout << "Goodbye!";
+            break;
+        }
+        else {
+            continue;
+        }
+        return 0;
+    }*/
+
 
     return 0;
 };
@@ -45,7 +70,7 @@ GameDictionary readGameFile(const std::string fileName) {
         std::getline(ss, minPlaytime, ',');
         std::getline(ss, yearPublished, ',');
 
-        Item* newBoardGame = new BoardGame(
+        BoardGame* newBoardGame = new BoardGame(
             std::to_string(iteration),
             name,
             std::stoi(minPlayers),
@@ -69,19 +94,41 @@ GameDictionary readGameFile(const std::string fileName) {
     return newGameDict;
 }
 
-MemberDictionary readMemberFile(const std::string fileName) {
-    MemberDictionary newMemberDict;
-    Item* m1 = new Member("M001", "board_king99", "pass123", "Alice Smith");
-    Item* m2 = new Member("M002", "dice_roller", "secret77", "Bob Jones");
-    Item* m3 = new Member("M003", "meeple_queen", "p@ssword", "Charlie Day");
-    newMemberDict.add("M001", m1);
-    newMemberDict.add("M002", m2);
-    newMemberDict.add("M003", m3);
+//MemberDictionary readMemberFile(const std::string fileName) {
+//    MemberDictionary newMemberDict;
+//    Item* m1 = new Member("M001", "board_king99", "pass123", "Alice Smith");
+//    Item* m2 = new Member("M002", "dice_roller", "secret77", "Bob Jones");
+//    Item* m3 = new Member("M003", "meeple_queen", "p@ssword", "Charlie Day");
+//    newMemberDict.add("M001", m1);
+//    newMemberDict.add("M002", m2);
+//    newMemberDict.add("M003", m3);
+//
+//    newMemberDict.print();
+//
+//    return newMemberDict;
+//}
 
-    newMemberDict.print();
-
-    return newMemberDict;
-}
+//Member* login(MemberDictionary members) {
+//    std::string id, password;
+//    std::cout << "Enter your ID: " << "\n";
+//    std::cin >> id;
+//    std::cout << "Enter your password: " << "\n";
+//    std::cin >> password;
+//
+//    Item** foundItem = members.get(id);
+//    if (foundItem == nullptr) {
+//        std::cout << "Incorrect credentials. Please try again." << "\n";
+//        return nullptr;
+//    }
+//    Item* itemPTR = *foundItem;
+//    Member* foundMember = dynamic_cast<Member*>(itemPTR);
+//    if (foundMember->getPassword() != password) {
+//        return nullptr;
+//    }
+//
+//    return foundMember;
+//}
+//void logout() {}
 
 
 

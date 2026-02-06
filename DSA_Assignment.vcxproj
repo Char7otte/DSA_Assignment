@@ -128,7 +128,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BoardGame.cpp" />
-    <ClCompile Include="Dictionary.cpp" />
     <ClCompile Include="DSA_Assignment.cpp" />
     <ClCompile Include="GameDictionary.cpp" />
     <ClCompile Include="Item.cpp" />

@@ -1,8 +1,9 @@
 #pragma once
 
 #include "Dictionary.h"
+#include "Member.h"
 
-class MemberDictionary: public Dictionary
+class MemberDictionary: public Dictionary<Member*>
 {
 public:
     MemberDictionary();

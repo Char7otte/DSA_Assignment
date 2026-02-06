@@ -9,7 +9,7 @@ void MemberDictionary::print() {
         Node* temp = items[i];
 
         while (temp != nullptr) {
-            Item* member = temp->item;
+            Member* member = temp->item;
             member->print();
             temp = temp->next;
         }
