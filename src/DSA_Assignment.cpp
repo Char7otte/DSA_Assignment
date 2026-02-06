@@ -114,19 +114,10 @@ Member* login(MemberDictionary members) {
     std::cout << "Enter your password: " << "\n";
     std::cin >> password;
 
-    Member** foundItem = members.get(id);
-    if (foundItem == nullptr) {
-        std::cout << "Incorrect credentials. Please try again." << "\n";
-        return nullptr;
-    }
-    Item* itemPTR = *foundItem;
-    Member* foundMember = dynamic_cast<Member*>(itemPTR);
-    if (foundMember->getPassword() != password) {
-        return nullptr;
-    }
-
-    return foundMember;
+    Member* foundAccount = members.get(id);
+    return foundAccount;
 }
+
 //void logout() {}
 
 
