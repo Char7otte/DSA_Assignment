@@ -161,24 +161,27 @@ void createAndAddGameMenu(GameDictionary& gameDict) {
     // Get name
     name = getString("Enter Game Name: ");
 
+    //Get players
+    while (true) {
+        minPlayers = getInt("Enter Min Players: ");
+        maxPlayers = getInt("Enter Max Players: ");
+        if (maxPlayers >= minPlayers) {
+            break;
         }
-        break;
+        std::cout << "Max Players cannot be less than Min Players. Please try again.\n";
     }
 
-    minPlayers = getInt("Enter Min Players: ");
-    maxPlayers = getInt("Enter Max Players: ");
-    while (maxPlayers < minPlayers) {
-        std::cout << "Max Players cannot be less than Min Players.\n";
-        maxPlayers = getInt("Enter Max Players again: ");
-    }
-
-    minPlaytime = getInt("Enter Min Playtime (minutes): ");
-    maxPlaytime = getInt("Enter Max Playtime (minutes): ");
-    while (maxPlaytime < minPlaytime) {
+    // Get playtime
+    while (true) {
+        minPlaytime = getInt("Enter Min Playtime (minutes): ");
+        maxPlaytime = getInt("Enter Max Playtime (minutes): ");
+        if (maxPlaytime >= minPlaytime) {
+            break;
+        }
         std::cout << "Max Playtime cannot be less than Min Playtime.\n";
-        maxPlaytime = getInt("Enter Max Playtime again: ");
     }
 
+    // Get year
     yearPublished = getInt("Enter Year Published: ");
 
     // --- Create and add ---
