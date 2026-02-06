@@ -6,12 +6,12 @@
 #include<array>
 #include<iostream>
 
-struct UsageLog: public DateLog {
+struct UsageLog : public DateLog {
     std::string borrowerId = "N/A";
     std::string borrowerName = "N/A";
 };
 
-class BoardGame: public Item {
+class BoardGame : public Item {
 private:
     int minPlayers = 0;
     int maxPlayers = 0;
@@ -50,10 +50,10 @@ public:
             << "\n";
     }
 
+    bool getIsBorrowed();
+
     //bool borrowGame(std::string borrowerId, std::string borrowerName, std::string date);
     //bool returnGame(std::string returnDate);
-
-    //bool checkIsBorrowed();
 
     //UsageRecord getLastestBorrowRecord();
 

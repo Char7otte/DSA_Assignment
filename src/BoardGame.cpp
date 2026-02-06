@@ -7,7 +7,7 @@ BoardGame::BoardGame(const std::string id,
     const int maxPlayers,
     const int minPlaytime,
     const int maxPlaytime,
-    const int yearPublished): Item(id, name) {
+    const int yearPublished) : Item(id, name) {
     this->minPlayers = minPlayers;
     this->maxPlayers = maxPlayers;
     this->minPlaytime = minPlaytime;
@@ -29,6 +29,10 @@ BoardGame::BoardGame(const std::string id,
     this->maxPlaytime = maxPlaytime;
     this->yearPublished = yearPublished;
     this->isBorrowed = isBorrowed;
+}
+
+bool BoardGame::getIsBorrowed() {
+    return isBorrowed;
 }
 
 //
@@ -60,11 +64,6 @@ BoardGame::BoardGame(const std::string id,
 //    //cout << "Game returned successfully!" << endl;
 //    return true;
 //}
-//
-//bool BoardGame::checkIsBorrowed() {
-//    return isBorrowed;
-//}
-//
 //UsageRecord BoardGame::getLastestBorrowRecord() {
 //    return borrowHistory[historyCount - 1];
 //}
