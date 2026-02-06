@@ -7,3 +7,5 @@ int getInt(std::string inputPrompt);
 
 std::string getString(std::string inputPrompt);
 
+std::string getTodayDate();
+
