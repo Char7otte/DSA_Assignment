@@ -31,7 +31,7 @@ void readGameFile(const std::string& fileName, GameDictionary& gameDict) {
         std::getline(ss, yearPublished, ',');
 
         BoardGame* newBoardGame = new BoardGame(
-            std::to_string(iteration),
+            "G" + std::to_string(iteration),
             name,
             std::stoi(minPlayers),
             std::stoi(maxPlayers),
