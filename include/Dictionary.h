@@ -104,13 +104,13 @@ public:
 	}
 
 	// Use a key to find its value
-	T* get(const KeyType keyToFind) {
+	T get(const KeyType keyToFind) {
 		int index = hash(keyToFind);
 		Node* temp = items[index];
 
 		while (temp != nullptr) {
 			if (temp->key == keyToFind) {
-				return &temp->item;
+				return temp->item;
 			}
 			temp = temp->next;
 		}
