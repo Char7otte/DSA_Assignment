@@ -4,7 +4,7 @@
 #include "BoardGame.h"
 #include "Member.h"
 
-// Functions
+// General Functions
 #include "FileUtilities.h"
 #include "InputValidation.h"
 
@@ -13,13 +13,9 @@
 
 //Account functions
 Member* login(MemberDictionary& members);
-bool adminDashboard(GameDictionary& games, MemberDictionary& members);
+#include "AdminSystem.h"
+#include "MemberSystem.h"
 bool memberDashboard(GameDictionary& games);
-
-// Admin functions
-void createAndAddGameMenu(GameDictionary& games);
-void deleteGameMenu(GameDictionary& games);
-void createMemberMenu(MemberDictionary& members);
 
 int main() {
     GameDictionary gameDict;
@@ -80,191 +76,6 @@ Member* login(MemberDictionary& members) {
     Member* foundAccount;
     members.get(id, foundAccount);
     return foundAccount;
-}
-
-bool adminDashboard(GameDictionary& games, MemberDictionary& members) {
-    while (true) {
-        std::cout << "1. Add a new board game" << "\n";
-        std::cout << "2. Remove a board game" << "\n";
-        std::cout << "3. Add a new member" << "\n";
-        std::cout << "4. Display borrow history log" << "\n";
-        std::cout << "5. Display all board games" << "\n";
-        std::cout << "6. Display all members" << "\n";
-        std::cout << "0. Logout" << "\n";
-        std::string input;
-        std::getline(std::cin, input);
-
-        if (input == "1") {
-            createAndAddGameMenu(games);
-        }
-        else if (input == "2") {
-            deleteGameMenu(games);
-        }
-        else if (input == "3") {
-            createMemberMenu(members);
-        }
-        else if (input == "4") {
-            std::cout << "Display borrow history log";
-        }
-        else if (input == "5") {
-            games.print();
-        }
-        else if (input == "6") {
-            members.print();
-        }
-        else if (input == "0") {
-            break;
-        }
-        else {
-            std::cout << "Invalid input. Please try again.";
-        }
-    }
-    return false;
-}
-
-bool memberDashboard(GameDictionary& games) {
-    while (true) {
-        std::cout << "1. Borrow a board game" << "\n";
-        std::cout << "2. Return a board game" << "\n";
-        std::cout << "3. Add a new member" << "\n";
-        std::cout << "4. Display all board games" << "\n";
-        std::cout << "0. Logout" << "\n";
-        std::string input;
-        std::getline(std::cin, input);
-
-        if (input == "1") {
-            std::cout << "Borrow a board game";
-        }
-        else if (input == "2") {
-            std::cout << "Return a board game";
-        }
-        else if (input == "3") {
-            std::cout << "Display your borrow history";
-        }
-        else if (input == "4") {
-            games.print();
-        }
-        else if (input == "0") {
-            break;
-        }
-        else {
-            std::cout << "Invalid input. Please try again.";
-        }
-    }
-    return false;
-}
-
-void createAndAddGameMenu(GameDictionary& gameDict) {
-    std::cout << "\n===== Add New Board Game =====\n";
-    std::string id, name;
-    int minPlayers, maxPlayers, minPlaytime, maxPlaytime, yearPublished;
-
-    // --- Input: Game ID ---
-    while (true) {
-        std::cout << "Enter Game ID (e.g. G004): ";
-        std::getline(std::cin, id);
-        if (id.empty()) {
-            std::cout << "Game ID cannot be empty.\n";
-            continue;
-        }
-        if (gameDict.get(id)) {
-            std::cout << "This Game ID already exists. Please enter a different ID.\n";
-            continue;
-        }
-        break;
-    }
-
-    // Get name
-    name = getString("Enter Game Name: ");
-
-    //Get players
-    while (true) {
-        minPlayers = getInt("Enter Min Players: ");
-        maxPlayers = getInt("Enter Max Players: ");
-        if (maxPlayers >= minPlayers) {
-            break;
-        }
-        std::cout << "Max Players cannot be less than Min Players. Please try again.\n";
-    }
-
-    // Get playtime
-    while (true) {
-        minPlaytime = getInt("Enter Min Playtime (minutes): ");
-        maxPlaytime = getInt("Enter Max Playtime (minutes): ");
-        if (maxPlaytime >= minPlaytime) {
-            break;
-        }
-        std::cout << "Max Playtime cannot be less than Min Playtime.\n";
-    }
-
-    // Get year
-    yearPublished = getInt("Enter Year Published: ");
-
-    // --- Create and add ---
-    BoardGame* newGame = new BoardGame(id, name, minPlayers, maxPlayers, minPlaytime, maxPlaytime, yearPublished);
-
-    if (gameDict.add(id, newGame)) {
-        std::cout << "\n Game added successfully!\n";
-    }
-    else {
-        std::cout << "\n Failed to add game. Please try again.\n";
-    }
-    std::cout << "==============================\n";
-}
-
-void deleteGameMenu(GameDictionary& games) {
-    std::cout << "\n===== Delete Board Game =====\n";
-    games.print();
-    std::string id;
-
-    while (true) {
-        id = getString("Enter Game ID to delete (e.g. G001): ");
-        BoardGame* gameToRemove = nullptr;
-        games.get(id, gameToRemove);
-        if (gameToRemove != nullptr) {
-            if (gameToRemove->getIsBorrowed()) {
-                std::cout << gameToRemove->getName() << " is being lent to someone and is unable to be removed.\n";
-                return;
-            }
-            else {
-                std::string removedGameName = gameToRemove->getName();
-                if (games.remove(id)) {
-                    std::cout << removedGameName << " has been removed." << "\n" << "\n";
-                    return;
-                }
-                std::cout << removedGameName << " could not be removed. Please try again" << "\n";
-            }
-        }
-        std::cout << id << " not found. Please try again." << "\n";
-    }
-}
-
-void createMemberMenu(MemberDictionary& members) {
-    std::cout << "\n===== Create Member =====\n";
-
-    std::string newMemberID, newMemberName;
-    bool isAdmin;
-
-    while (true) {
-        newMemberID = getString("Enter Member ID (e.g., M001): ");
-
-        if (members.get(newMemberID)) {
-            std::cout << "This Member ID already exists.\n";
-            continue;
-        }
-        break;
-    }
-
-    newMemberName = getString("Enter Member Name: ");
-
-    Member* newMember = new Member(newMemberID, newMemberName);
-
-    if (members.add(newMemberID, newMember)) {
-        std::cout << newMemberID << " | " << newMemberName << " has been added.\n";
-    }
-    else {
-        std::cout << "Failed to add " << newMemberID << " | " << newMemberName << " . Please try again.\n";
-    }
 }
 
 //
