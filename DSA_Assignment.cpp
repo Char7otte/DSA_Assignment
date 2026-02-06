@@ -11,14 +11,14 @@
 
 //Read files
 GameDictionary readGameFile(const std::string fileName);
-//MemberDictionary readMemberFile(const std::string fileName);
+MemberDictionary readMemberFile(const std::string fileName);
 
 //Member* login(MemberDictionary members);
 //void logout();
 
 int main() {
     GameDictionary gameDict = readGameFile("games.csv");
-    //MemberDictionary memberDict = readMemberFile("members.csv");
+    MemberDictionary memberDict = readMemberFile("members.csv");
     Member* loggedInAccount;
 
     /*while (true) {
@@ -94,19 +94,19 @@ GameDictionary readGameFile(const std::string fileName) {
     return newGameDict;
 }
 
-//MemberDictionary readMemberFile(const std::string fileName) {
-//    MemberDictionary newMemberDict;
-//    Item* m1 = new Member("M001", "board_king99", "pass123", "Alice Smith");
-//    Item* m2 = new Member("M002", "dice_roller", "secret77", "Bob Jones");
-//    Item* m3 = new Member("M003", "meeple_queen", "p@ssword", "Charlie Day");
-//    newMemberDict.add("M001", m1);
-//    newMemberDict.add("M002", m2);
-//    newMemberDict.add("M003", m3);
-//
-//    newMemberDict.print();
-//
-//    return newMemberDict;
-//}
+MemberDictionary readMemberFile(const std::string fileName) {
+    MemberDictionary newMemberDict;
+    Member* m1 = new Member("M001", "board_king99", "pass123", "Alice Smith");
+    Member* m2 = new Member("M002", "dice_roller", "secret77", "Bob Jones");
+    Member* m3 = new Member("M003", "meeple_queen", "p@ssword", "Charlie Day");
+    newMemberDict.add("M001", m1);
+    newMemberDict.add("M002", m2);
+    newMemberDict.add("M003", m3);
+
+    newMemberDict.print();
+
+    return newMemberDict;
+}
 
 //Member* login(MemberDictionary members) {
 //    std::string id, password;
@@ -115,7 +115,7 @@ GameDictionary readGameFile(const std::string fileName) {
 //    std::cout << "Enter your password: " << "\n";
 //    std::cin >> password;
 //
-//    Item** foundItem = members.get(id);
+//    Member** foundItem = members.get(id);
 //    if (foundItem == nullptr) {
 //        std::cout << "Incorrect credentials. Please try again." << "\n";
 //        return nullptr;
