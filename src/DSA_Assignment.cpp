@@ -46,8 +46,8 @@ int main() {
     return 0;
 };
 
-    std::cout << "Reading games.csv" << "\n";
 void readGameFile(const std::string fileName, GameDictionary& gameDict) {
+    std::cout << "Reading "<< fileName << "\n";
 
     std::ifstream inputFile(fileName);
     std::string line, name, minPlayers, maxPlayers, minPlaytime, maxPlaytime, yearPublished;
@@ -92,6 +92,7 @@ void readGameFile(const std::string fileName, GameDictionary& gameDict) {
 }
 
 void readMemberFile(const std::string fileName, MemberDictionary& memberDict) {
+    std::cout << "Reading " << fileName << "\n";
 
     Member* m1 = new Member("M001", "board_king99", "pass123", "Alice Smith");
     Member* m2 = new Member("M002", "dice_roller", "secret77", "Bob Jones");
@@ -102,6 +103,8 @@ void readMemberFile(const std::string fileName, MemberDictionary& memberDict) {
 
     memberDict.print();
 
+    std::cout << "\n";
+    std::cout << "File read successfully." << "\n";
 }
 
 Member* login(MemberDictionary members) {
