@@ -3,21 +3,19 @@
 
 Member::Member() {}
 
-Member::Member(const std::string id, const std::string password, const std::string name) : Item(id, name) {
-    this->password = password;
+Member::Member(const std::string id, const std::string name) : Item(id, name) {
 }
 
-Member::Member(const std::string id, const std::string password, const bool isAdmin, const std::string name) : Item(id, name) {
-    this->password = password;
+Member::Member(const std::string id, const std::string name, const bool isAdmin) : Item(id, name) {
     this->isAdmin = isAdmin;
 }
 
 void Member::print() {
-    std::cout << id << " " << password << " " << isAdmin << " " << name << "\n";
+    std::cout << id << " " << name << " " << (isAdmin ? "Admin" : "Member") << "\n";
 }
 
-std::string Member::getPassword() {
-    return password;
+std::string Member::getName() {
+    return name;
 }
 
 //bool Member::borrowGame(BoardGame& game, std::string borrowDate) {

@@ -48,15 +48,15 @@ void readGameFile(const std::string& fileName, GameDictionary& gameDict) {
     gameDict.print();
 
     std::cout << "\n";
-    std::cout << "File read successfully." << "\n";
+    std::cout << "File read successfully." << "\n" << "\n";
 }
 
 void readMemberFile(const std::string& fileName, MemberDictionary& memberDict) {
     std::cout << "Reading " << fileName << "\n";
 
-    Member* m1 = new Member("M001", "board_king99", "pass123", "Alice Smith");
-    Member* m2 = new Member("M002", "dice_roller", "secret77", "Bob Jones");
-    Member* m3 = new Member("M003", "meeple_queen", "p@ssword", "Charlie Day");
+    Member* m1 = new Member("M001",  "Alice Smith", true);
+    Member* m2 = new Member("M002", "Bob Jones", false);
+    Member* m3 = new Member("M003", "Charlie Day");
     memberDict.add("M001", m1);
     memberDict.add("M002", m2);
     memberDict.add("M003", m3);
@@ -64,5 +64,5 @@ void readMemberFile(const std::string& fileName, MemberDictionary& memberDict) {
     memberDict.print();
 
     std::cout << "\n";
-    std::cout << "File read successfully." << "\n";
+    std::cout << "File read successfully." << "\n" << "\n";
 }

@@ -17,19 +17,18 @@ struct BorrowLog: public DateLog {
 };
 
 class Member: public Item {
-    std::string password = "N/A";
     bool isAdmin = false;
     BorrowLog borrowHistory[10];
     int borrowCount = 0;
 
 public:
     Member();
-    Member(const std::string id, const std::string password, const std::string name);
-    Member(const std::string id, const std::string password, const bool isAdmin, const std::string name);
+    Member(const std::string id, const std::string name);
+    Member(const std::string id, const std::string name, const bool isAdmin);
 
     void print() override;
 
-    std::string getPassword();
+    std::string getName();
 
     //bool borrowGame(BoardGame& game, string borrowDate);
     //bool returnGame(BoardGame& game, string returnDate);

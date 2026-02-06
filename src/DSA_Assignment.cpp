@@ -31,11 +31,12 @@ int main() {
             while (true) {
                 loggedInAccount = login(memberDict);
                 if (loggedInAccount == nullptr) { //Account not found
-                    std::cout << "Invalid credentials. Please try again.";
+                    std::cout << "Invalid credentials. Please try again." << "\n";
                     continue;
                 }
                 break;
             }
+            std::cout << "Welcome, " << loggedInAccount->getName() << "!" << "\n";
             std::cout << "GAME LOOP HERE" << "\n";
             return 0;
         }
@@ -53,11 +54,9 @@ int main() {
 };
 
 Member* login(MemberDictionary& members) {
-    std::string id, password;
+    std::string id;
     std::cout << "Enter your ID: " << "\n";
     std::cin >> id;
-    std::cout << "Enter your password: " << "\n";
-    std::cin >> password;
 
     Member* foundAccount = members.get(id);
     return foundAccount;
