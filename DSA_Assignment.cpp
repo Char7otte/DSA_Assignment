@@ -1,5 +1,5 @@
 #include "GameDictionary.h"
-#include "MemeberDictionary.h"
+#include "MemberDictionary.h"
 #include "BoardGame.h"
 #include "Member.h"
 

@@ -1,4 +1,4 @@
-#include "MemeberDictionary.h"
+#include "MemberDictionary.h"
 
 #include<iostream>
 
