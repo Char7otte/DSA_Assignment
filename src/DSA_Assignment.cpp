@@ -26,7 +26,7 @@ int main() {
         std::cout << "0. Quit" << "\n";
 
         std::string input;
-        std::cin >> input;
+        std::getline(std::cin, input);
         if (input == "1") {
             while (true) {
                 loggedInAccount = login(memberDict);
@@ -56,7 +56,7 @@ int main() {
 Member* login(MemberDictionary& members) {
     std::string id;
     std::cout << "Enter your ID: " << "\n";
-    std::cin >> id;
+    std::getline(std::cin, id);
 
     Member* foundAccount = members.get(id);
     return foundAccount;
