@@ -13,7 +13,7 @@
 GameDictionary readGameFile(const std::string fileName);
 MemberDictionary readMemberFile(const std::string fileName);
 
-//Member* login(MemberDictionary members);
+Member* login(MemberDictionary members);
 //void logout();
 
 int main() {
@@ -21,7 +21,7 @@ int main() {
     MemberDictionary memberDict = readMemberFile("members.csv");
     Member* loggedInAccount;
 
-    /*while (true) {
+    while (true) {
         std::cout << "Welcome to the BGC Portal!" << "\n";
         std::cout << "1. Login" << "\n";
         std::cout << "0. Quit" << "\n";
@@ -39,7 +39,7 @@ int main() {
             continue;
         }
         return 0;
-    }*/
+    }
 
 
     return 0;
@@ -108,26 +108,26 @@ MemberDictionary readMemberFile(const std::string fileName) {
     return newMemberDict;
 }
 
-//Member* login(MemberDictionary members) {
-//    std::string id, password;
-//    std::cout << "Enter your ID: " << "\n";
-//    std::cin >> id;
-//    std::cout << "Enter your password: " << "\n";
-//    std::cin >> password;
-//
-//    Member** foundItem = members.get(id);
-//    if (foundItem == nullptr) {
-//        std::cout << "Incorrect credentials. Please try again." << "\n";
-//        return nullptr;
-//    }
-//    Item* itemPTR = *foundItem;
-//    Member* foundMember = dynamic_cast<Member*>(itemPTR);
-//    if (foundMember->getPassword() != password) {
-//        return nullptr;
-//    }
-//
-//    return foundMember;
-//}
+Member* login(MemberDictionary members) {
+    std::string id, password;
+    std::cout << "Enter your ID: " << "\n";
+    std::cin >> id;
+    std::cout << "Enter your password: " << "\n";
+    std::cin >> password;
+
+    Member** foundItem = members.get(id);
+    if (foundItem == nullptr) {
+        std::cout << "Incorrect credentials. Please try again." << "\n";
+        return nullptr;
+    }
+    Item* itemPTR = *foundItem;
+    Member* foundMember = dynamic_cast<Member*>(itemPTR);
+    if (foundMember->getPassword() != password) {
+        return nullptr;
+    }
+
+    return foundMember;
+}
 //void logout() {}
 
 
