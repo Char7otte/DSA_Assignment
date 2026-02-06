@@ -17,3 +17,17 @@ int getInt(std::string inputPrompt) {
         }
     }
 }
+
+std::string getString(std::string inputPrompt) {
+    std::string input;
+
+    while (true) {
+        std::cout << inputPrompt;
+        std::getline(std::cin, input);
+
+        if (!input.empty()) {
+            return input;
+        }
+        std::cout << "Game name cannot be empty.\n";
+    }
+}

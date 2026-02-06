@@ -158,14 +158,9 @@ void createAndAddGameMenu(GameDictionary& gameDict) {
         break;
     }
 
-    // --- Input: Game Name ---
-    while (true) {
-        std::cout << "Enter Game Name: ";
-        std::getline(std::cin, name);
+    // Get name
+    name = getString("Enter Game Name: ");
 
-        if (name.empty()) {
-            std::cout << "Game name cannot be empty.\n";
-            continue;
         }
         break;
     }
