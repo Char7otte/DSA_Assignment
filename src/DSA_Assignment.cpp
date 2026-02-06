@@ -13,7 +13,7 @@
 void readGameFile(const std::string fileName, GameDictionary& gameDict);
 void readMemberFile(const std::string fileName, MemberDictionary& memberDict);
 
-Member* login(MemberDictionary members);
+Member* login(MemberDictionary& members);
 //void logout();
 
 int main() {
@@ -107,7 +107,7 @@ void readMemberFile(const std::string fileName, MemberDictionary& memberDict) {
     std::cout << "File read successfully." << "\n";
 }
 
-Member* login(MemberDictionary members) {
+Member* login(MemberDictionary& members) {
     std::string id, password;
     std::cout << "Enter your ID: " << "\n";
     std::cin >> id;
