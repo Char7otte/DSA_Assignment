@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClInclude Include="include\BoardGame.h" />
     <ClInclude Include="include\Dictionary.h" />
+    <ClInclude Include="include\FileUtilities.h" />
     <ClInclude Include="include\GameDictionary.h" />
     <ClInclude Include="include\Item.h" />
     <ClInclude Include="include\MasterHistoryLog.h" />
@@ -139,6 +140,7 @@
   <ItemGroup>
     <ClCompile Include="src\BoardGame.cpp" />
     <ClCompile Include="src\DSA_Assignment.cpp" />
+    <ClCompile Include="src\FileUtilities.cpp" />
     <ClCompile Include="src\GameDictionary.cpp" />
     <ClCompile Include="src\Item.cpp" />
     <ClCompile Include="src\MasterHistoryLog.cpp" />

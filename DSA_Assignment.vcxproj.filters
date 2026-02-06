@@ -48,6 +48,9 @@
     <ClInclude Include="include\MemberDictionary.h">
       <Filter>Header Files\Dictionary</Filter>
     </ClInclude>
+    <ClInclude Include="include\FileUtilities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\DSA_Assignment.cpp">
@@ -70,6 +73,9 @@
     </ClCompile>
     <ClCompile Include="src\MemberDictionary.cpp">
       <Filter>Source Files\Dictionary</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FileUtilities.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
