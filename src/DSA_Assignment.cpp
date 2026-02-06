@@ -18,6 +18,7 @@ bool memberDashboard(GameDictionary& games);
 
 // Admin functions
 void createAndAddGameMenu(GameDictionary& games);
+void deleteGameMenu(GameDictionary& games);
 
 int main() {
     GameDictionary gameDict;
@@ -93,7 +94,7 @@ bool adminDashboard(GameDictionary& games) {
             createAndAddGameMenu(games);
         }
         else if (input == "2") {
-            std::cout << "Remove a board game";
+            deleteGameMenu(games);
         }
         else if (input == "3") {
             std::cout << "Add a new member";
@@ -204,6 +205,36 @@ void createAndAddGameMenu(GameDictionary& gameDict) {
     std::cout << "==============================\n";
 }
 
+void deleteGameMenu(GameDictionary& games) {
+    std::cout << "\n===== Delete Board Game =====\n";
+    games.print();
+    std::string id;
+
+    while (true) {
+        id = getString("Enter Game ID to delete (e.g. G001) or 0 to cancel: ");
+        if (id == "0") {
+            std::cout << "Cancelled." << "\n";
+            return;
+        }
+
+        BoardGame* gameToRemove = games.get(id);
+        if (gameToRemove != nullptr) {
+            if (gameToRemove->getIsBorrowed()) {
+                std::cout << gameToRemove->getName() << " is being lent to someone and is unable to be removed.\n";
+                return;
+            }
+            else {
+                std::string removedGameName = gameToRemove->getName();
+                if (games.remove(id)) {
+                    std::cout << removedGameName << " has been removed." << "\n" << "\n";
+                    return;
+                }
+                std::cout << removedGameName << " could not be removed. Please try again" << "\n";
+            }
+        }
+        std::cout << id << " not found. Please try again." << "\n";
+    }
+}
 
 //
 //std::string getCurrentDate() {
@@ -222,29 +253,6 @@ void createAndAddGameMenu(GameDictionary& gameDict) {
 //
 //    return ss.str();
 //}
-//
-//
-//void deleteGameMenu(GameDictionary& gameDict) {
-//    cout << "\n===== Delete Board Game =====\n";
-//    gameDict.print();
-//    cout << "Enter Game ID to delete (e.g., G001): ";
-//
-//    string id;
-//    cin >> id;
-//    BoardGame* game = gameDict.get(id);
-//    if (game == nullptr) {
-//        cout << "Game ID " << id << " not found. Nothing deleted.\n";
-//
-//    }else {
-//        if (game->checkIsBorrowed()) {
-//            cout << "Game: " << game->getName() << " has been borrowed by other member.\n";
-//        }else {
-//            gameDict.remove(id);
-//        }
-//    }
-//    cout << "=============================\n";
-//}
-//
 //void createMemberMenu(MemberDictionary& memberDict) {
 //    std::cout << "\n===== Create Member =====\n";
 //
@@ -295,12 +303,15 @@ void createAndAddGameMenu(GameDictionary& gameDict) {
 //
 //    if (ok) {
 //        std::cout << "Member " << memberId << " created successfully.\n";
-//    } else {
+//    }
+//    else {
 //        std::cout << "Failed to create member (duplicate ID or other issue).\n";
 //    }
 //
 //    std::cout << "=========================\n";
 //}
+
+
 //
 //void memberBorrowMenu(GameDictionary& gameDict,
 //                      Member& selectedMember,
