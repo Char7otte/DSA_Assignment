@@ -105,6 +105,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,25 +128,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BoardGame.cpp" />
-    <ClCompile Include="DSA_Assignment.cpp" />
-    <ClCompile Include="GameDictionary.cpp" />
-    <ClCompile Include="Item.cpp" />
-    <ClCompile Include="MasterHistoryLog.cpp" />
-    <ClCompile Include="Member.cpp" />
-    <ClCompile Include="MemberDictionary.cpp" />
+    <ClInclude Include="include\BoardGame.h" />
+    <ClInclude Include="include\Dictionary.h" />
+    <ClInclude Include="include\GameDictionary.h" />
+    <ClInclude Include="include\Item.h" />
+    <ClInclude Include="include\MasterHistoryLog.h" />
+    <ClInclude Include="include\Member.h" />
+    <ClInclude Include="include\MemberDictionary.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BoardGame.h" />
-    <ClInclude Include="Dictionary.h" />
-    <ClInclude Include="GameDictionary.h" />
-    <ClInclude Include="Item.h" />
-    <ClInclude Include="MasterHistoryLog.h" />
-    <ClInclude Include="Member.h" />
-    <ClInclude Include="MemberDictionary.h" />
+    <ClCompile Include="src\BoardGame.cpp" />
+    <ClCompile Include="src\DSA_Assignment.cpp" />
+    <ClCompile Include="src\GameDictionary.cpp" />
+    <ClCompile Include="src\Item.cpp" />
+    <ClCompile Include="src\MasterHistoryLog.cpp" />
+    <ClCompile Include="src\Member.cpp" />
+    <ClCompile Include="src\MemberDictionary.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="games.csv" />
+    <None Include="data\games.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

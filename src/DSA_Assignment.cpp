@@ -17,8 +17,8 @@ Member* login(MemberDictionary members);
 //void logout();
 
 int main() {
-    GameDictionary gameDict = readGameFile("games.csv");
-    MemberDictionary memberDict = readMemberFile("members.csv");
+    GameDictionary gameDict = readGameFile("./data/games.csv");
+    MemberDictionary memberDict = readMemberFile("./data/members.csv");
     Member* loggedInAccount;
 
     while (true) {
@@ -40,7 +40,6 @@ int main() {
         }
         return 0;
     }
-
 
     return 0;
 };
