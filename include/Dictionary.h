@@ -104,26 +104,27 @@ public:
 	}
 
 	// Use a key to find its value
-	T get(const KeyType keyToFind) {
+	bool get(const KeyType keyToFind) {
 		int index = hash(keyToFind);
 		Node* temp = items[index];
 
 		while (temp != nullptr) {
 			if (temp->key == keyToFind) {
-				return temp->item;
+				return true;
 			}
 			temp = temp->next;
 		}
-		return nullptr;
+		return false;
 	}
 
-	// Check if the dictionary contains a key
-	bool contains(const KeyType keyToContain) {
-		int index = hash(keyToContain);
+	// Use a key to find its value & return it
+	bool get(const KeyType keyToFind, T& item) {
+		int index = hash(keyToFind);
 		Node* temp = items[index];
 
 		while (temp != nullptr) {
-			if (temp->key == keyToContain) {
+			if (temp->key == keyToFind) {
+				item = temp->item;
 				return true;
 			}
 			temp = temp->next;
