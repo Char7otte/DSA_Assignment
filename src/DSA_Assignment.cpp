@@ -31,7 +31,16 @@ int main() {
         std::string input;
         std::cin >> input;
         if (input == "1") {
-            loggedInAccount = login();
+            while (true) {
+                loggedInAccount = login(memberDict);
+                if (loggedInAccount == nullptr) { //Account not found
+                    std::cout << "Invalid credentials. Please try again.";
+                    continue;
+                }
+                break;
+            }
+            std::cout << "GAME LOOP HERE" << "\n";
+            return 0;
         }
         else if (input == "0") {
             std::cout << "Goodbye!";
