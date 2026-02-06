@@ -13,7 +13,7 @@
 
 //Account functions
 Member* login(MemberDictionary& members);
-bool adminDashboard(GameDictionary& games);
+bool adminDashboard(GameDictionary& games, MemberDictionary& members);
 bool memberDashboard(GameDictionary& games);
 
 // Admin functions
@@ -48,7 +48,7 @@ int main() {
                 std::cout << "\n";
                 std::cout << "Welcome, " << loggedInAccount->getName() << "!" << "\n";
                 if (loggedInAccount->getIsAdmin()) {
-                    logout = adminDashboard(gameDict);
+                    logout = adminDashboard(gameDict, memberDict);
                 }
                 else {
                     logout = memberDashboard(gameDict);
@@ -81,13 +81,14 @@ Member* login(MemberDictionary& members) {
     return foundAccount;
 }
 
-bool adminDashboard(GameDictionary& games) {
+bool adminDashboard(GameDictionary& games, MemberDictionary& members) {
     while (true) {
         std::cout << "1. Add a new board game" << "\n";
         std::cout << "2. Remove a board game" << "\n";
         std::cout << "3. Add a new member" << "\n";
         std::cout << "4. Display borrow history log" << "\n";
         std::cout << "5. Display all board games" << "\n";
+        std::cout << "6. Display all members" << "\n";
         std::cout << "0. Logout" << "\n";
         std::string input;
         std::getline(std::cin, input);
@@ -106,6 +107,9 @@ bool adminDashboard(GameDictionary& games) {
         }
         else if (input == "5") {
             games.print();
+        }
+        else if (input == "6") {
+            members.print();
         }
         else if (input == "0") {
             break;
