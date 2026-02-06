@@ -18,6 +18,10 @@ std::string Member::getName() {
     return name;
 }
 
+bool Member::getIsAdmin() {
+    return isAdmin;
+}
+
 //bool Member::borrowGame(BoardGame& game, std::string borrowDate) {
 //    bool borrowed = game.checkIsBorrowed();
 //    if (!borrowed) {

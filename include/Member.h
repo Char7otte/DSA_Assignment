@@ -29,6 +29,7 @@ public:
     void print() override;
 
     std::string getName();
+    bool getIsAdmin();
 
     //bool borrowGame(BoardGame& game, string borrowDate);
     //bool returnGame(BoardGame& game, string returnDate);
