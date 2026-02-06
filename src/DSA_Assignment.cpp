@@ -212,13 +212,9 @@ void deleteGameMenu(GameDictionary& games) {
     std::string id;
 
     while (true) {
-        id = getString("Enter Game ID to delete (e.g. G001) or 0 to cancel: ");
-        if (id == "0") {
-            std::cout << "Cancelled." << "\n";
-            return;
-        }
-
-        BoardGame* gameToRemove = games.get(id);
+        id = getString("Enter Game ID to delete (e.g. G001): ");
+        BoardGame* gameToRemove = nullptr;
+        games.get(id, gameToRemove);
         if (gameToRemove != nullptr) {
             if (gameToRemove->getIsBorrowed()) {
                 std::cout << gameToRemove->getName() << " is being lent to someone and is unable to be removed.\n";
