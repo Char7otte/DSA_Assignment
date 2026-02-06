@@ -70,7 +70,7 @@ int main() {
 
 Member* login(MemberDictionary& members) {
     std::string id;
-    std::cout << "Enter your ID: " << "\n";
+    std::cout << "Enter your ID: ";
     std::getline(std::cin, id);
 
     Member* foundAccount = members.get(id);
