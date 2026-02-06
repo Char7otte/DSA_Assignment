@@ -6,6 +6,7 @@
 
 // Functions
 #include "FileUtilities.h"
+#include "InputValidation.h"
 
 #include<string>
 #include<iostream>
@@ -140,7 +141,7 @@ bool memberDashboard(GameDictionary& games) {
 void createAndAddGameMenu(GameDictionary& gameDict) {
     std::cout << "\n===== Add New Board Game =====\n";
     std::string id, name;
-    int minPlayers, maxPlayers, minPlayTime, maxPlayTime, yearPublished;
+    int minPlayers, maxPlayers, minPlaytime, maxPlaytime, yearPublished;
 
     // --- Input: Game ID ---
     while (true) {
@@ -169,35 +170,24 @@ void createAndAddGameMenu(GameDictionary& gameDict) {
         break;
     }
 
-    // --- Numeric inputs with basic validation ---
-    auto readInt = [](const std::string& prompt) {
-        int x;
-        while (true) {
-            std::cout << prompt;
-            if (std::cin >> x) return x;
-
-            std::cout << "Invalid input. Please enter a number.\n";
-        }
-     };
-
-    minPlayers = readInt("Enter Min Players: ");
-    maxPlayers = readInt("Enter Max Players: ");
+    minPlayers = getInt("Enter Min Players: ");
+    maxPlayers = getInt("Enter Max Players: ");
     while (maxPlayers < minPlayers) {
         std::cout << "Max Players cannot be less than Min Players.\n";
-        maxPlayers = readInt("Enter Max Players again: ");
+        maxPlayers = getInt("Enter Max Players again: ");
     }
 
-    minPlayTime = readInt("Enter Min Play Time (minutes): ");
-    maxPlayTime = readInt("Enter Max Play Time (minutes): ");
-    while (maxPlayTime < minPlayTime) {
-        std::cout << "Max Play Time cannot be less than Min Play Time.\n";
-        maxPlayTime = readInt("Enter Max Play Time again: ");
+    minPlaytime = getInt("Enter Min Playtime (minutes): ");
+    maxPlaytime = getInt("Enter Max Playtime (minutes): ");
+    while (maxPlaytime < minPlaytime) {
+        std::cout << "Max Playtime cannot be less than Min Playtime.\n";
+        maxPlaytime = getInt("Enter Max Playtime again: ");
     }
 
-    yearPublished = readInt("Enter Year Published: ");
+    yearPublished = getInt("Enter Year Published: ");
 
     // --- Create and add ---
-    BoardGame* newGame = new BoardGame(id, name, minPlayers, maxPlayers, minPlayTime, maxPlayTime, yearPublished);
+    BoardGame* newGame = new BoardGame(id, name, minPlayers, maxPlayers, minPlaytime, maxPlaytime, yearPublished);
 
     if (gameDict.add(id, newGame)) {
         std::cout << "\n Game added successfully!\n";
