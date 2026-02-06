@@ -10,8 +10,10 @@
 #include<string>
 #include<iostream>
 
+//Account functions
 Member* login(MemberDictionary& members);
-//void logout();
+bool adminDashboard(GameDictionary& games);
+bool memberDashboard(GameDictionary& games);
 
 int main() {
     GameDictionary gameDict;
@@ -30,14 +32,23 @@ int main() {
         if (input == "1") {
             while (true) {
                 loggedInAccount = login(memberDict);
-                if (loggedInAccount == nullptr) { //Account not found
+                if (loggedInAccount == nullptr) {
                     std::cout << "Invalid credentials. Please try again." << "\n";
                     continue;
                 }
                 break;
             }
-            std::cout << "Welcome, " << loggedInAccount->getName() << "!" << "\n";
-            std::cout << "GAME LOOP HERE" << "\n";
+            bool logout = false;
+            while (!logout) {
+                std::cout << "Welcome, " << loggedInAccount->getName() << "!" << "\n";
+                if (loggedInAccount->getIsAdmin()) {
+                    logout = adminDashboard(gameDict);
+                }
+                else {
+                    logout = memberDashboard(gameDict);
+                }
+            }
+
             return 0;
         }
         else if (input == "0") {
@@ -45,6 +56,7 @@ int main() {
             break;
         }
         else {
+            std::cout << "Invalid input. Please try again.";
             continue;
         }
         return 0;
@@ -63,7 +75,65 @@ Member* login(MemberDictionary& members) {
 }
 
 //void logout() {}
+bool adminDashboard(GameDictionary& games) {
+    while (true) {
+        std::cout << "1. Add a new board game" << "\n";
+        std::cout << "2. Remove a board game" << "\n";
+        std::cout << "3. Add a new member" << "\n";
+        std::cout << "4. Display borrow history log" << "\n";
+        std::cout << "0. Logout" << "\n";
+        std::string input;
+        std::getline(std::cin, input);
 
+        if (input == "1") {
+            createAndAddGameMenu(games);
+        }
+        else if (input == "2") {
+            std::cout << "Remove a board game";
+        }
+        else if (input == "3") {
+            std::cout << "Add a new member";
+        }
+        else if (input == "4") {
+            std::cout << "Display borrow history log";
+        }
+        else if (input == "0") {
+            break;
+        }
+        else {
+            std::cout << "Invalid input. Please try again.";
+        }
+    }
+    return false;
+}
+
+bool memberDashboard(GameDictionary& games) {
+    while (true) {
+        std::cout << "1. Borrow a board game" << "\n";
+        std::cout << "2. Return a board game" << "\n";
+        std::cout << "3. Add a new member" << "\n";
+        std::cout << "0. Logout" << "\n";
+        std::string input;
+        std::getline(std::cin, input);
+
+        if (input == "1") {
+            std::cout << "Borrow a board game";
+        }
+        else if (input == "2") {
+            std::cout << "Return a board game";
+        }
+        else if (input == "3") {
+            std::cout << "Display your borrow history";
+        }
+        else if (input == "0") {
+            break;
+        }
+        else {
+            std::cout << "Invalid input. Please try again.";
+        }
+    }
+    return false;
+}
 
 
 //
