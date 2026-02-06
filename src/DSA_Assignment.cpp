@@ -210,59 +210,6 @@ void createAndAddGameMenu(GameDictionary& gameDict) {
 
 
 //
-// int main() {
-//     ifstream file("games.csv");  // your CSV file
-//     vector<Game> games;
-//
-//     if (!file.is_open()) {
-//         cout << "Failed to open file\n";
-//         return 1;
-//     }
-//
-//     string line;
-//
-//     // Skip header line
-//     getline(file, line);
-//
-//     while (getline(file, line)) {
-//         stringstream ss(line);
-//         string field;
-//         Game game;
-//
-//         getline(ss, game.id, ',');
-//         getline(ss, game.name, ',');
-//
-//         getline(ss, field, ',');
-//         game.minPlayers = stoi(field);
-//
-//         getline(ss, field, ',');
-//         game.maxPlayers = stoi(field);
-//
-//         getline(ss, field, ',');
-//         game.maxPlayTime = stoi(field);
-//
-//         getline(ss, field, ',');
-//         game.minPlayTime = stoi(field);
-//
-//         getline(ss, field, ',');
-//         game.yearPublished = stoi(field);
-//
-//         games.push_back(game);
-//     }
-//
-//     file.close();
-//
-//     // Test print
-//     for (const Game& g : games) {
-//         cout << g.id << " | "
-//              << g.name << " | "
-//              << g.minPlayers << "-" << g.maxPlayers
-//              << " | " << g.yearPublished << endl;
-//     }
-//
-//     return 0;
-// }
-//
 //std::string getCurrentDate() {
 //    // 1. Get the current system time
 //    auto now = std::chrono::system_clock::now();
