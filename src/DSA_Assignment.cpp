@@ -45,6 +45,7 @@ int main() {
             }
             bool logout = false;
             while (!logout) {
+                std::cout << "\n";
                 std::cout << "Welcome, " << loggedInAccount->getName() << "!" << "\n";
                 if (loggedInAccount->getIsAdmin()) {
                     logout = adminDashboard(gameDict);
@@ -154,7 +155,7 @@ void createAndAddGameMenu(GameDictionary& gameDict) {
 
     // --- Input: Game ID ---
     while (true) {
-        std::cout << "Enter Game ID (e.g., G004): ";
+        std::cout << "Enter Game ID (e.g. G004): ";
         std::getline(std::cin, id);
         if (id.empty()) {
             std::cout << "Game ID cannot be empty.\n";
