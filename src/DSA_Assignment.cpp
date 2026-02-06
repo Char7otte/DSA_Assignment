@@ -15,7 +15,6 @@
 Member* login(MemberDictionary& members);
 #include "AdminSystem.h"
 #include "MemberSystem.h"
-bool memberDashboard(GameDictionary& games);
 
 int main() {
     GameDictionary gameDict;
