@@ -19,6 +19,7 @@ bool memberDashboard(GameDictionary& games);
 // Admin functions
 void createAndAddGameMenu(GameDictionary& games);
 void deleteGameMenu(GameDictionary& games);
+void createMemberMenu(MemberDictionary& members);
 
 int main() {
     GameDictionary gameDict;
@@ -100,7 +101,7 @@ bool adminDashboard(GameDictionary& games, MemberDictionary& members) {
             deleteGameMenu(games);
         }
         else if (input == "3") {
-            std::cout << "Add a new member";
+            createMemberMenu(members);
         }
         else if (input == "4") {
             std::cout << "Display borrow history log";
@@ -238,6 +239,34 @@ void deleteGameMenu(GameDictionary& games) {
     }
 }
 
+void createMemberMenu(MemberDictionary& members) {
+    std::cout << "\n===== Create Member =====\n";
+
+    std::string newMemberID, newMemberName;
+    bool isAdmin;
+
+    while (true) {
+        newMemberID = getString("Enter Member ID (e.g., M001): ");
+
+        if (members.get(newMemberID)) {
+            std::cout << "This Member ID already exists.\n";
+            continue;
+        }
+        break;
+    }
+
+    newMemberName = getString("Enter Member Name: ");
+
+    Member* newMember = new Member(newMemberID, newMemberName);
+
+    if (members.add(newMemberID, newMember)) {
+        std::cout << newMemberID << " | " << newMemberName << " has been added.\n";
+    }
+    else {
+        std::cout << "Failed to add " << newMemberID << " | " << newMemberName << " . Please try again.\n";
+    }
+}
+
 //
 //std::string getCurrentDate() {
 //    // 1. Get the current system time
@@ -255,65 +284,6 @@ void deleteGameMenu(GameDictionary& games) {
 //
 //    return ss.str();
 //}
-//void createMemberMenu(MemberDictionary& memberDict) {
-//    std::cout << "\n===== Create Member =====\n";
-//
-//    std::string memberId;
-//    std::string memberName;
-//
-//    // Member ID (no spaces)
-//    while (true) {
-//        std::cout << "Enter Member ID (e.g., M001): ";
-//        std::cin >> memberId;
-//
-//        if (memberId.empty()) {
-//            std::cout << "Member ID cannot be empty.\n";
-//            continue;
-//        }
-//
-//        // If you have containsMember(), use it:
-//        if (memberDict.containsMember(memberId)) {
-//            std::cout << "This Member ID already exists.\n";
-//            continue;
-//        }
-//
-//        break;
-//    }
-//
-//    // clear newline before getline
-//    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-//
-//    // Member name (can contain spaces)
-//    while (true) {
-//        std::cout << "Enter Member Name: ";
-//        std::getline(std::cin, memberName);
-//
-//        if (memberName.empty()) {
-//            std::cout << "Member name cannot be empty.\n";
-//            continue;
-//        }
-//        break;
-//    }
-//
-//    // Create and add
-//    Member member(memberId, memberName);
-//
-//    // Your required call style:
-//    // memberDict.addMember("M001", member);
-//    // but since memberId is the key, use:
-//    bool ok = memberDict.addMember(memberId, member);
-//
-//    if (ok) {
-//        std::cout << "Member " << memberId << " created successfully.\n";
-//    }
-//    else {
-//        std::cout << "Failed to create member (duplicate ID or other issue).\n";
-//    }
-//
-//    std::cout << "=========================\n";
-//}
-
-
 //
 //void memberBorrowMenu(GameDictionary& gameDict,
 //                      Member& selectedMember,
