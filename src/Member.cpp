@@ -13,7 +13,7 @@ Member::Member(const std::string id, const std::string password, const bool isAd
 }
 
 void Member::print() {
-    std::cout << id << " " << " " << password << " " << isAdmin << " " << name << "\n";
+    std::cout << id << " " << password << " " << isAdmin << " " << name << "\n";
 }
 
 std::string Member::getPassword() {
