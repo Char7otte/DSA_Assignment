@@ -4,7 +4,7 @@
 #include <array>
 #include <string>
 #include <iostream>
-
+#include "List.h"
 using namespace std;
 
 struct UsageRecord {
@@ -14,13 +14,20 @@ struct UsageRecord {
     string returnDate;
 };
 
+struct Review {
+    string reviewerId;
+    string reviewerName;
+    int rating;
+    string review;
+};
+
 class BoardGame {
 public:
 
     BoardGame()
         : id("0"), name(""), minPlayers(0), maxPlayers(0),
           minPlayTime(0), maxPlayTime(0), yearPublished(0),
-          isBorrowed(false), historyCount(0) {}
+          isBorrowed(false),borrowHistory(10), reviews(10), historyCount(0) {}
 
 
     string id;
@@ -32,7 +39,9 @@ public:
     int yearPublished;
     bool isBorrowed;
 
-    UsageRecord borrowHistory[10];
+
+    List<UsageRecord> borrowHistory;
+    List<Review> reviews;
     int historyCount;
 
 public:
@@ -55,9 +64,9 @@ public:
     // // set the game to be returned
     // void markBorrowed(string returnDate);
 
-    void printInfo() const;
-    void printBorrowHistory();
-    void checkIfBorrowedAndPrintLatest() const;
+    // void printInfo() const;
+    // void printBorrowHistory();
+    // void checkIfBorrowedAndPrintLatest() const;
 };
 
 #endif
