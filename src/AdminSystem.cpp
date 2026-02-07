@@ -25,7 +25,7 @@ bool adminDashboard(GameDictionary& games, MemberDictionary& members, BorrowList
             createMemberMenu(members);
         }
         else if (input == "4") {
-            std::cout << "Display borrow history log";
+            displayHistory(loans);
         }
         else if (input == "5") {
             games.print();
@@ -154,4 +154,8 @@ void createMemberMenu(MemberDictionary& members) {
     else {
         std::cout << "Failed to add " << newMemberID << " | " << newMemberName << " . Please try again.\n";
     }
+}
+
+void displayHistory(BorrowList& loans) {
+    loans.print();
 }
