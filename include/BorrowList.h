@@ -20,6 +20,7 @@ class BorrowList
 
 	Node* firstNode = nullptr;
 
+public:
 	BorrowList();
 	~BorrowList();
 
@@ -33,5 +34,7 @@ class BorrowList
 	bool get(std::string& memberID, std::string& gameID);
 
 	bool isEmpty();
+
+	void print();
 };
 

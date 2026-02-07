@@ -41,3 +41,12 @@ bool BorrowList::get(std::string& memberID, std::string& gameID) {
 bool BorrowList::isEmpty() {
 	return firstNode == nullptr;
 }
+
+void BorrowList::print() {
+	Node* temp = firstNode;
+	while (temp != nullptr) {
+		BorrowLog borrowLog = temp->item;
+		std::cout << borrowLog.borrowerID << " " << borrowLog.gameID << " " << borrowLog.loanDate << " " << borrowLog.returnDate << "\n";
+		temp = temp->next;
+	}
+}

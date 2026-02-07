@@ -1,6 +1,5 @@
 ﻿#include "MemberSystem.h"
 #include "InputValidation.h"
-#include "MasterHistoryLog.h"
 
 bool memberDashboard(GameDictionary& games, Member& member, BorrowList& loans) {
     while (true) {
@@ -16,8 +15,8 @@ bool memberDashboard(GameDictionary& games, Member& member, BorrowList& loans) {
             memberBorrowMenu(games, member, loans);
         }
         else if (input == "2") {
-            memberReturnMenu(games, member, masterLog);
-            masterLog.printAll();
+            //memberReturnMenu(games, member, loans);
+            loans.print();
         }
         else if (input == "3") {
             std::cout << "Display your borrow history";
@@ -52,26 +51,18 @@ void memberBorrowMenu(GameDictionary& games, Member& borrower, BorrowList& loans
         }
 
         if (gameToBorrow->getIsBorrowed()) {
-            std::cout << "This board game is being lent to someone else.\n";
+            std::cout << "This board game has been lent to someone else.\n";
             return;
         }
 
-        std::string today = getTodayDate();
+        bool memberSuccess = borrower.borrowGame(*gameToBorrow);
+        bool gameSuccess = gameToBorrow->borrowGame(borrower.getID(), borrower.getName());
+        bool logSuccess = loans.add(borrower.getID(), gameID);
 
-        if (!borrower.borrowGame(*gameToBorrow)|| !gameToBorrow->borrowGame(borrower.getID(),
-            borrower.getName())) {
-            std::cout << "Borrow request unsuccessful.\n";
-            return;
-        }
-
-        bool logSuccess = masterLog.add(*gameToBorrow, borrower, today);
-        if (!logSuccess) {
-            std::cout << "Borrowed successfully, but failed to log history.\n";
-            // Still treat as success from user perspective
-        }
+        loans.print();
 
         std::cout << "Borrow successful!\n";
-        std::cout << "You have borrowed " << gameToBorrow->getName() << " on " << today << "\n";
+        std::cout << "You have borrowed " << gameToBorrow->getName() << " on " << getTodayDate() << "\n";
 
         return;
     }
