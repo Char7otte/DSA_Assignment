@@ -54,7 +54,11 @@ void memberBorrowMenu(GameDictionary& games, Member& borrower, BorrowList& loans
             continue;
         }
 
-        bool memberSuccess = borrower.borrowGame(*gameToBorrow);
+        bool memberSuccess = borrower.borrowGame(*gameToBorrow); //This fails if member tries to borrow too many games
+        if (!memberSuccess) {
+            std::cout << "You have borrowed too many games. Return some to borrow more." << "\n" << "\n";
+            return;
+        }
         bool gameSuccess = gameToBorrow->borrowGame(borrower.getID(), borrower.getName());
         bool logSuccess = loans.add(borrower.getID(), gameID);
 
