@@ -105,6 +105,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,22 +128,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BoardGameList.cpp" />
-    <ClCompile Include="DSA_Assignment.cpp" />
-    <ClCompile Include="BoardGame.cpp" />
-    <ClCompile Include="List.cpp" />
-    <ClCompile Include="member.cpp" />
+    <ClInclude Include="include\AdminSystem.h" />
+    <ClInclude Include="include\BoardGame.h" />
+    <ClInclude Include="include\Dictionary.h" />
+    <ClInclude Include="include\FileUtilities.h" />
+    <ClInclude Include="include\GameDictionary.h" />
+    <ClInclude Include="include\Item.h" />
+    <ClInclude Include="include\MasterHistoryLog.h" />
+    <ClInclude Include="include\Member.h" />
+    <ClInclude Include="include\MemberDictionary.h" />
+    <ClInclude Include="include\MemberSystem.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\Downloads\members.csv" />
-    <None Include="games.csv" />
+    <ClCompile Include="src\AdminSystem.cpp" />
+    <ClCompile Include="src\BoardGame.cpp" />
+    <ClCompile Include="src\DSA_Assignment.cpp" />
+    <ClCompile Include="src\FileUtilities.cpp" />
+    <ClCompile Include="src\GameDictionary.cpp" />
+    <ClCompile Include="src\InputValidation.cpp" />
+    <ClCompile Include="src\Item.cpp" />
+    <ClCompile Include="src\MasterHistoryLog.cpp" />
+    <ClCompile Include="src\Member.cpp" />
+    <ClCompile Include="src\MemberDictionary.cpp" />
+    <ClCompile Include="src\MemberSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BoardGame.h" />
-    <ClInclude Include="BoardGameList.h" />
-    <ClInclude Include="Item.h" />
-    <ClInclude Include="List.h" />
-    <ClInclude Include="member.h" />
+    <None Include="data\games.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

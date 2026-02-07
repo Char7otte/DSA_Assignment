@@ -13,9 +13,71 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Item">
+      <UniqueIdentifier>{c0fe4f2d-a71f-480c-9575-be5c90d4dafa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Dictionary">
+      <UniqueIdentifier>{423fad41-f9dc-438e-b2d7-8f7c02c76871}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Item">
+      <UniqueIdentifier>{38c1fd19-701b-41e5-a68c-a533fbc04e27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Dictionary">
+      <UniqueIdentifier>{2b6f5ed5-7c83-46d5-ba86-8440ed13c434}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DSA_Assignment.cpp">
+    <ClInclude Include="include\MasterHistoryLog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BoardGame.h">
+      <Filter>Header Files\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Item.h">
+      <Filter>Header Files\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Member.h">
+      <Filter>Header Files\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Dictionary.h">
+      <Filter>Header Files\Dictionary</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GameDictionary.h">
+      <Filter>Header Files\Dictionary</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MemberDictionary.h">
+      <Filter>Header Files\Dictionary</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FileUtilities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\DSA_Assignment.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MasterHistoryLog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BoardGame.cpp">
+      <Filter>Source Files\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Item.cpp">
+      <Filter>Source Files\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Member.cpp">
+      <Filter>Source Files\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameDictionary.cpp">
+      <Filter>Source Files\Dictionary</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MemberDictionary.cpp">
+      <Filter>Source Files\Dictionary</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FileUtilities.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InputValidation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="member.cpp">
@@ -51,5 +113,8 @@
     <ClInclude Include="BoardGameList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\games.csv" />
   </ItemGroup>
 </Project>
