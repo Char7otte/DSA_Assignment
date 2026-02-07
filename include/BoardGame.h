@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Item.h"
+#include "ReviewList.h"
+#include "InputValidation.h"
 
 #include <string>
 #include<array>
@@ -18,7 +20,8 @@ private:
     int minPlaytime = 0;
     int maxPlaytime = 0;
     int yearPublished = 0;
-    LoanInfo loanInfo = {};
+    LoanInfo loanInfo = {}; //This is a struct because the board game only needs to store who is currently borrowing em
+    ReviewList reviewList{}; //This is a list storing structs because there can be multiple reviews
 
 public:
     BoardGame(const std::string id,
@@ -48,15 +51,11 @@ public:
 
     bool returnGame();
 
-    //UsageRecord getLastestBorrowRecord();
+    bool addReview(std::string reviewerID, std::string reviewBody, int rating);
 
-    //// // set the game to be borrowed
-    //// void markAvailable(string borrowDate);
-    ////
-    //// // set the game to be returned
-    //// void markBorrowed(string returnDate);
+    void printReviews();
 
-    //void printInfo() const;
-    //void printBorrowHistory();
-    //void checkIfBorrowedAndPrintLatest() const;
+    bool hasReviews();
+
+    bool printReviewed();
 };

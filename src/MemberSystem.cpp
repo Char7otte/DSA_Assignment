@@ -9,6 +9,8 @@ bool memberDashboard(GameDictionary& games,MemberDictionary& members, BorrowList
         std::cout << "2. Return a board game" << "\n";
         std::cout << "3. Display borrow history" << "\n";
         std::cout << "4. Display all board games" << "\n";
+        std::cout << "5. Leave a review" << "\n";
+        std::cout << "6. Read reviews" << "\n";
         std::cout << "0. Logout" << "\n";
         std::string input;
         std::getline(std::cin, input);
@@ -24,6 +26,12 @@ bool memberDashboard(GameDictionary& games,MemberDictionary& members, BorrowList
         }
         else if (input == "4") {
             games.print();
+        }
+        else if (input == "5") {
+            leaveReview(games, member);
+        }
+        else if (input == "6") {
+            viewReviews(games);
         }
         else if (input == "0") {
             return true;
@@ -133,4 +141,89 @@ void getBorrowHistory(GameDictionary& games, MemberDictionary& members, BorrowLi
     borrowHistory.print(games, members);
 
     std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
+}
+
+void leaveReview(GameDictionary& games, Member& member) {
+    games.print();
+    std::cout << "\n===== LEAVE GAME REVIEW =====\n";
+
+    while (true) {
+        std::string id = getString("Enter ID of game to review: ");
+        BoardGame* foundBoardGame = nullptr;
+        games.get(id, foundBoardGame);
+        if (foundBoardGame == nullptr) {
+            std::cout << "Game not found. Please try again." << "\n";
+            continue;
+        }
+
+        std::cout << "Reviewing:" << foundBoardGame->getName() << "\n";
+        int rating = -1;
+        while (true) {
+            rating = getInt("Enter your rating (1-5): ");
+            if (rating < 1 || rating > 5) {
+                std::cout << "Rating is out of range. Please try again." << "\n";
+                continue;
+            }
+            break;
+        }
+        std::string reviewBody = getString("Enter your review: ");
+        bool success = foundBoardGame->addReview(member.getID(), reviewBody, rating);
+        if (success) {
+            std::cout << rating << "* review added to " << foundBoardGame->getName() << "\n";
+        }
+        else {
+            std::cout << "Error adding review. Operation cancelled.";
+        }
+        break;
+    }
+    std::cout << "==============================\n" << "\n";
+}
+
+void viewReviews(GameDictionary& games) {
+    int TOTAL_WIDTH = 119;
+
+    std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "REVIEWED GAMES\n";
+    std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
+
+    std::cout << std::left << std::setw(8) << "ID"
+        << " | " << std::setw(50) << "NAME"
+        << " | " << std::setw(15) << "PLAYERS"
+        << " | " << std::setw(15) << "PLAYTIME"
+        << " | " << std::setw(6) << "YEAR"
+        << " | " << "STATUS" << "\n";
+
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
+    bool printed = games.printReviewed();
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
+    if (!printed) {
+        std::cout << "No reviews found." << "\n" << "\n";
+        return;
+    }
+    std::cout << "\n===== VIEW GAME REVIEWS =====\n";
+    BoardGame* foundBoardGame = nullptr;
+
+    while (true) {
+        std::string id = getString("Enter ID of game: ");  
+        games.get(id, foundBoardGame);
+        if (foundBoardGame == nullptr) {
+            std::cout << "Game not found. Please try again." << "\n";
+            continue;
+        }
+        break;
+    }
+
+        TOTAL_WIDTH = 119;
+
+        std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "REVIEWS FOR " << foundBoardGame->getName() << "\n";
+        std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
+
+        std::cout << std::left << std::setw(11) << "ReviewerID"
+            << " | " << std::setw(15) << "Review Date"
+            << " | " << std::setw(7) << "Rating"
+            << " | " << "Body"
+            << "\n";
+
+        std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
+        foundBoardGame->printReviews();
+        std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
 }

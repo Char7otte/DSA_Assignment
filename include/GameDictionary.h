@@ -10,4 +10,5 @@ public:
 
     void print() override;
     void printAvailable();
+    bool printReviewed();
 };

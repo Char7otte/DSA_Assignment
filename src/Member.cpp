@@ -71,7 +71,7 @@ void Member::printLoans() {
     std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
 
     for (int i = 0; i < MAX_SIZE; i++) {
-        BorrowLog borrowLog = borrowHistory[i];
+        BorrowLogMember borrowLog = borrowHistory[i];
         if (borrowLog.gameID == "N/A") continue;
         std::cout << std::left << std::setw(8) << borrowLog.gameID
             << " | " << std::setw(50) << (borrowLog.gameName.length() > 47 ? borrowLog.gameName.substr(0, 47) + "..." : borrowLog.gameName)

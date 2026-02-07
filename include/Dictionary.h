@@ -20,6 +20,7 @@ protected:
 	static constexpr int MAX_SIZE = 101;
 	Node* items[MAX_SIZE] = {};
 	int size = 0;
+	int largestID; //This is for generating IDs for Item objects.
 
 public:
 	Dictionary() {}
@@ -141,5 +142,20 @@ public:
 	}
 
 	virtual void print() = 0;
+
+
+
+	//These set of functions are a very scuffed way to generate unique IDs for putting new things in dicts 
+	int getLargestID() {
+		return largestID;
+	}
+
+	void setLargestID(int newLargestID) {
+		largestID = newLargestID;
+	}
+
+	void incrementLargestID() {
+		largestID++;
+	}
 };
 

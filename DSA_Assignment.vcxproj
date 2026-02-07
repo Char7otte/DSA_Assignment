@@ -135,10 +135,11 @@
     <ClInclude Include="include\FileUtilities.h" />
     <ClInclude Include="include\GameDictionary.h" />
     <ClInclude Include="include\Item.h" />
-    <ClInclude Include="include\MasterHistoryLog.h" />
+    <ClInclude Include="include\List.h" />
     <ClInclude Include="include\Member.h" />
     <ClInclude Include="include\MemberDictionary.h" />
     <ClInclude Include="include\MemberSystem.h" />
+    <ClInclude Include="include\ReviewList.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AdminSystem.cpp" />
@@ -149,10 +150,10 @@
     <ClCompile Include="src\GameDictionary.cpp" />
     <ClCompile Include="src\InputValidation.cpp" />
     <ClCompile Include="src\Item.cpp" />
-    <ClCompile Include="src\MasterHistoryLog.cpp" />
     <ClCompile Include="src\Member.cpp" />
     <ClCompile Include="src\MemberDictionary.cpp" />
     <ClCompile Include="src\MemberSystem.cpp" />
+    <ClCompile Include="src\ReviewList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data\games.csv" />

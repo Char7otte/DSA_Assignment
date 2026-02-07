@@ -22,36 +22,12 @@ bool BorrowList::add(std::string memberID, std::string gameID) {
 	return true;
 }
 
-//Add to head a struct
-bool BorrowList::add(BorrowLog& log) {
-	Node* newNode = new Node;
-	newNode->item = log;
-
-	newNode->next = firstNode;
-	firstNode = newNode;
-	return true;
-}
-
-// Remove from head
-bool BorrowList::remove() {
-	if (isEmpty()) return false;
-
-	Node* temp = firstNode;
-	firstNode = firstNode->next;
-	delete temp;
-	return true;
-}
-
 // Get head and return via params
 bool BorrowList::get(std::string& memberID, std::string& gameID) {
 	if (isEmpty()) return false;
 	memberID = firstNode->item.borrowerID;
 	gameID = firstNode->item.gameID;
 	return true;
-}
-
-bool BorrowList::isEmpty() {
-	return firstNode == nullptr;
 }
 
 void BorrowList::print(GameDictionary& games, MemberDictionary& members) {
@@ -79,7 +55,7 @@ void BorrowList::print(GameDictionary& games, MemberDictionary& members) {
 	}
 }
 
-BorrowList::BorrowLog* BorrowList::find(const std::string& borrowerID, std::string& gameID) { //genuinely do not understand why const needs to be here but that's just C++ being C++
+BorrowLog* BorrowList::find(const std::string& borrowerID, std::string& gameID) { //genuinely do not understand why const needs to be here but that's just C++ being C++
 	if (isEmpty()) return nullptr;
 
 	Node* temp = firstNode;
