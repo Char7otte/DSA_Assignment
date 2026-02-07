@@ -34,7 +34,7 @@ bool adminDashboard(GameDictionary& games, MemberDictionary& members, MasterHist
             members.print();
         }
         else if (input == "0") {
-            break;
+            return true;
         }
         else {
             std::cout << "Invalid input. Please try again.";

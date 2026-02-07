@@ -27,7 +27,7 @@ bool memberDashboard(GameDictionary& games, Member& member, MasterHistoryLog& ma
             games.print();
         }
         else if (input == "0") {
-            break;
+            return true;
         }
         else {
             std::cout << "Invalid input. Please try again.";

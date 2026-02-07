@@ -52,8 +52,6 @@ int main() {
                     logout = memberDashboard(gameDict, *loggedInAccount, masterLog);
                 }
             }
-
-            return 0;
         }
         else if (input == "0") {
             std::cout << "Goodbye!";
@@ -63,7 +61,7 @@ int main() {
             std::cout << "Invalid input. Please try again.";
             continue;
         }
-        return 0;
+        continue;
     }
 
     return 0;
