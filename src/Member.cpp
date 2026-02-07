@@ -14,7 +14,10 @@ Member::Member(const std::string id, const std::string name, const bool isAdmin)
 }
 
 void Member::print() {
-    std::cout << id << " " << name << " " << (isAdmin ? "Admin" : "Member") << "\n";
+    std::cout << std::left << std::setw(8) << id
+        << " | " << std::setw(30) << name
+        << " | " << std::setw(10) << (isAdmin ? "Yes" : "")
+        << "\n";
 }
 
 std::string Member::getName() {
@@ -61,49 +64,3 @@ void Member::printLoans() {
         std::cout << borrowLog.gameID << " " << borrowLog.gameName << " " << borrowLog.loanDate << " " << borrowLog.returnDate << "\n";
     }
 }
-
-//
-//void Member::printBorrowHistory() const {
-//    cout << "\n" << string(90, '=') << "\n";
-//    cout << "BORROW HISTORY FOR MEMBER: " << name << " (" << id << ")\n";
-//    cout << string(90, '=') << "\n";
-//
-//    cout << left
-//         << setw(15) << "GAME ID"
-//         << setw(30) << "GAME NAME"
-//         << setw(18) << "BORROW DATE"
-//         << setw(18) << "RETURN DATE"
-//         << "STATUS" << "\n";
-//
-//    cout << string(90, '-') << "\n";
-//
-//    if (borrowCount == 0) {
-//        cout << "(No borrow history.)\n";
-//        cout << string(90, '=') << "\n";
-//        return;
-//    }
-//
-//    // Print newest first (your original idea)
-//    for (int i = borrowCount - 1; i >= 0; i--) {
-//        const auto& r = borrowRecords[i];
-//
-//        cout << left
-//             << setw(15) << r.gameId
-//             << setw(30) << r.gameName
-//             << setw(18) << r.loanDate;
-//
-//        if (r.isReturned) {
-//            cout << setw(16) << r.returnDate
-//                 << "[RETURNED]";
-//        } else {
-//            cout << setw(16) << "---"
-//                 << "[ON LOAN]";
-//        }
-//
-//        cout << "\n";
-//    }
-//
-//    cout << string(90, '=') << "\n";
-//}
-
-
