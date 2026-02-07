@@ -1,13 +1,13 @@
-//
-// Created by gongy on 4/2/2026.
-//
-
 #ifndef DSA_ASSIGNMENT_MEMBER_H
 #define DSA_ASSIGNMENT_MEMBER_H
+
 #include <string>
 #include <iostream>
-#include <array>
+#include <iomanip>
+
 #include "BoardGame.h"
+#include "List.h"
+
 using namespace std;
 
 struct GameRental {
@@ -19,25 +19,25 @@ struct GameRental {
 };
 
 class Member {
-
 private:
-
     string id;
     string name;
-    GameRental borrowRecords[10];
-    int borrowCount = 0;
+
+    List<GameRental> borrowRecords; // ✅ replace array
+    // no need borrowCount anymore
 
 public:
-    Member() : id(""), name("") {}
+    Member() : id(""), name(""), borrowRecords(10) {} // initial capacity 10
     Member(string id, string name);
+
     string getID() const;
     string getName() const;
 
     bool borrowGame(BoardGame& game, string borrowDate);
     bool returnGame(BoardGame& game, string returnDate);
-    void printUnreturnedGames() const;
-    void printBorrowHistory() const;
+
+    void printUnreturnedGames() ;
+    void printBorrowHistory();
 };
 
-
-#endif //DSA_ASSIGNMENT_MEMBER_H
+#endif // DSA_ASSIGNMENT_MEMBER_H
