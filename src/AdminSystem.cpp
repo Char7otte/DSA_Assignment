@@ -3,6 +3,8 @@
 #include "InputValidation.h"
 #include "BorrowList.h"
 
+#include<iomanip>
+
 bool adminDashboard(GameDictionary& games, MemberDictionary& members, BorrowList& loans) {
     while (true) {
         std::cout << "1. Add a new board game" << "\n";
@@ -159,5 +161,20 @@ void createMemberMenu(MemberDictionary& members) {
 }
 
 void displayHistory(BorrowList& loans) {
+    const int TOTAL_WIDTH = 100;
+
+    std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "BORROW HISTORY\n";
+    std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
+
+    std::cout << std::left << std::setw(10) << "MEMBER ID"
+        << " | " << std::setw(8) << "GAME ID"
+        << " | " << std::setw(15) << "LOAN DATE"
+        << " | " << std::setw(15) << "RETURN DATE"
+        << "\n";
+
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
+
     loans.print();
+
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n" << "\n";
 }

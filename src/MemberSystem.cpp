@@ -1,6 +1,8 @@
 ﻿#include "MemberSystem.h"
 #include "InputValidation.h"
 
+#include <iomanip>
+
 bool memberDashboard(GameDictionary& games, Member& member, BorrowList& loans) {
     while (true) {
         std::cout << "1. Borrow a board game" << "\n";
@@ -69,6 +71,11 @@ void memberBorrowMenu(GameDictionary& games, Member& borrower, BorrowList& loans
 }
 
 void memberReturnMenu(GameDictionary& games, Member& returner, BorrowList& loans) {
+    if (!returner.hasLoans()) {
+        std::cout << "You have not borrowed anything." << "\n" << "\n";
+        return;
+    }
+
     returner.printLoans();
     std::string date = getTodayDate(); //Used multiple times in this function
 
@@ -96,7 +103,7 @@ void memberReturnMenu(GameDictionary& games, Member& returner, BorrowList& loans
 
         bool logSuccess = loans.returnGame(returner.getID(), gameID);
 
-        std::cout << "You have returned Game " << gameToReturn->getName() << " on " << date << ".\n" << "\n";
+        std::cout << "You have returned " << gameToReturn->getName() << ".\n" << "\n";
         return;
     }
 }
@@ -104,10 +111,24 @@ void memberReturnMenu(GameDictionary& games, Member& returner, BorrowList& loans
 void getBorrowHistory(std::string borrowerID, BorrowList &loans) {
     BorrowList borrowHistory = loans.findAll(borrowerID);
     if (borrowHistory.isEmpty()) {
-        std::cout << "You have not borrowed anything." << "\n";
+        std::cout << "You have not borrowed anything." << "\n" << "\n";
         return;
     }
 
-    std::cout << "BORROW HISTORY: " << "\n";
+    const int TOTAL_WIDTH = 100;
+
+    std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "BORROW HISTORY\n";
+    std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
+
+    std::cout << std::left << std::setw(10) << "MEMBER ID"
+        << " | " << std::setw(8) << "GAME ID"
+        << " | " << std::setw(15) << "LOAN DATE"
+        << " | " << std::setw(15) << "RETURN DATE"
+        << "\n";
+
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
+
     borrowHistory.print();
+
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n" << "\n";
 }

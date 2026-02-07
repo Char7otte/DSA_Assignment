@@ -81,3 +81,7 @@ void Member::printLoans() {
 
     std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
 }
+
+bool Member::hasLoans() {
+    return borrowCount > 0;
+}

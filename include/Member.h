@@ -37,5 +37,6 @@ public:
     bool returnGame(BoardGame& game);
 
     void printLoans();
-    //void printBorrowHistory() const;
+
+    bool hasLoans();
 };

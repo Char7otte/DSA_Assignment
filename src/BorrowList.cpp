@@ -1,5 +1,7 @@
 #include "BorrowList.h"
 
+#include<iomanip>
+
 BorrowList::BorrowList() {}
 BorrowList::~BorrowList() {
 	while (firstNode != nullptr) {
@@ -56,7 +58,12 @@ void BorrowList::print() {
 	Node* temp = firstNode;
 	while (temp != nullptr) {
 		BorrowLog borrowLog = temp->item;
-		std::cout << borrowLog.borrowerID << " " << borrowLog.gameID << " " << borrowLog.loanDate << " " << borrowLog.returnDate << "\n";
+		std::cout << std::left << std::setw(10) << borrowLog.borrowerID
+			<< " | " << std::setw(8) << borrowLog.gameID
+			<< " | " << std::setw(15) << borrowLog.loanDate
+			<< " | " << std::setw(15) << borrowLog.returnDate
+			<< "\n";
+
 		temp = temp->next;
 	}
 }
