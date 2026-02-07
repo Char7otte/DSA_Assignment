@@ -55,10 +55,16 @@ bool BoardGame::returnGame() {
 }
 
 void BoardGame::print() {
+    std::string playtime; 
+
+    // If min & max is the same, just display 1 value instead of both
+    if (minPlaytime == maxPlaytime) playtime = std::to_string(minPlaytime) + " mins";
+    else playtime = std::to_string(minPlaytime) + "-" + std::to_string(maxPlaytime) + " mins";
+
     std::cout << "Game ID: " << id
         << " | Name: " << name
         << " | Players: " << minPlayers << "-" << maxPlayers
-        << " | Playtime: " << minPlaytime << "-" << maxPlaytime << " mins"
+        << " | Playtime: " << playtime
         << " | Year: " << yearPublished
         << " | Status: " << (getIsBorrowed() ? "Loaned" : "Available")
         << "\n";
