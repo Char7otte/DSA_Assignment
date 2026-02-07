@@ -19,7 +19,7 @@ struct BorrowLog: public DateLog {
 
 class Member: public Item {
     bool isAdmin = false;
-    static constexpr int MAX_SIZE = 10;
+    static constexpr int MAX_SIZE = 5;
     BorrowLog borrowHistory[MAX_SIZE];
     int borrowCount = 0;
 
