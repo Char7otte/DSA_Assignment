@@ -28,32 +28,24 @@ BoardGame::BoardGame(const std::string id,
     this->minPlaytime = minPlaytime;
     this->maxPlaytime = maxPlaytime;
     this->yearPublished = yearPublished;
-    this->isBorrowed = isBorrowed;
 }
 
 bool BoardGame::getIsBorrowed() {
-    return isBorrowed;
+    return loanInfo.borrowerID != "N/A";
 }
 
-//
-//// Borrow
-//bool BoardGame::borrowGame(std::string borrowerId, std::string borrowerName, std::string date) {
-//    if (isBorrowed)
-//        return false;
-//
-//    isBorrowed = true;
-//
-//    borrowHistory[historyCount] = {
-//        borrowerId,
-//        borrowerName,
-//        date,
-//        ""
-//    };
-//
-//    historyCount++;
-//    return true;
-//}
-//
+bool BoardGame::borrowGame(std::string borrowerID, std::string borrowerName) {
+    if (getIsBorrowed())
+        return false;
+
+    loanInfo.borrowerID = borrowerID;
+    loanInfo.borrowerName = borrowerName;
+    loanInfo.loanDate = borrowerName;
+
+    historyCount++;
+    return true;
+}
+
 //// Return
 //bool BoardGame::returnGame(string returnDate) {
 //    if (!isBorrowed)

@@ -13,12 +13,14 @@
 struct BorrowLog: public DateLog {
     std::string gameID = "N/A";
     std::string gameName = "N/A";
+    std::string returnDate = "NOT RETURNED";
     bool isReturned = false;
 };
 
 class Member: public Item {
     bool isAdmin = false;
-    BorrowLog borrowHistory[10];
+    static constexpr int MAX_SIZE = 10;
+    BorrowLog borrowHistory[MAX_SIZE];
     int borrowCount = 0;
 
 public:
@@ -31,7 +33,8 @@ public:
     std::string getName();
     bool getIsAdmin();
 
-    //bool borrowGame(BoardGame& game, string borrowDate);
+    bool borrowGame(BoardGame& game);
+
     //bool returnGame(BoardGame& game, string returnDate);
     //void printUnreturnedGames() const;
     //void printBorrowHistory() const;

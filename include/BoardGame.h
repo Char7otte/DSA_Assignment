@@ -6,8 +6,8 @@
 #include<array>
 #include<iostream>
 
-struct UsageLog : public DateLog {
-    std::string borrowerId = "N/A";
+struct LoanInfo : public DateLog {
+    std::string borrowerID = "N/A";
     std::string borrowerName = "N/A";
 };
 
@@ -19,7 +19,7 @@ private:
     int maxPlaytime = 0;
     int yearPublished = 0;
     bool isBorrowed = false;
-    UsageLog borrowHistory[10] = {};
+    LoanInfo loanInfo = {};
     int historyCount = 0;
 
 public:
@@ -51,6 +51,8 @@ public:
     }
 
     bool getIsBorrowed();
+
+    bool borrowGame(std::string borrowerID, std::string borrowerName);
 
     //bool borrowGame(std::string borrowerId, std::string borrowerName, std::string date);
     //bool returnGame(std::string returnDate);

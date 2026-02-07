@@ -1,8 +1,9 @@
 #include "AdminSystem.h"
 
 #include "InputValidation.h"
+#include "MasterHistoryLog.h"
 
-bool adminDashboard(GameDictionary& games, MemberDictionary& members) {
+bool adminDashboard(GameDictionary& games, MemberDictionary& members, MasterHistoryLog& masterLog) {
     while (true) {
         std::cout << "1. Add a new board game" << "\n";
         std::cout << "2. Remove a board game" << "\n";

@@ -1,4 +1,7 @@
 #include "Member.h"
+
+#include "InputValidation.h"
+
 #include<iomanip>
 
 Member::Member() {}
@@ -22,22 +25,24 @@ bool Member::getIsAdmin() {
     return isAdmin;
 }
 
-//bool Member::borrowGame(BoardGame& game, std::string borrowDate) {
-//    bool borrowed = game.checkIsBorrowed();
-//    if (!borrowed) {
-//
-//        borrowRecords[borrowCount] = {
-//            game.getID(), game.getName(), borrowDate, "", false
-//        };
-//        borrowCount++;
-//        // cout << "Game borrowed successfully!" << endl;
-//        return true;
-//
-//    }
-//    // cout << "Game is already borrowed!" << endl;
-//    return false;
-//}
-//
+bool Member::borrowGame(BoardGame& gameToBorrow) {
+    if (borrowCount >= MAX_SIZE) {
+        return false;
+    }
+
+    if (!gameToBorrow.getIsBorrowed()) {
+
+        borrowHistory[borrowCount].gameID = gameToBorrow.getID();
+        borrowHistory[borrowCount].gameName = gameToBorrow.getName();
+        borrowHistory[borrowCount].loanDate = getTodayDate();
+
+        borrowCount++;
+        return true;
+
+    }
+    return false;
+}
+
 //bool Member::returnGame(BoardGame& game, string returnDate) {
 //    //game.returnGame(returnDate);
 //

@@ -3,6 +3,7 @@
 #include "MemberDictionary.h"
 #include "BoardGame.h"
 #include "Member.h"
+#include "MasterHistoryLog.h"
 
 // General Functions
 #include "FileUtilities.h"
@@ -22,6 +23,7 @@ int main() {
     MemberDictionary memberDict;
     readMemberFile("./data/members.csv", memberDict);
     Member* loggedInAccount;
+    MasterHistoryLog masterLog;
 
     while (true) {
         std::cout << "Welcome to the BGC Portal!" << "\n";
@@ -44,10 +46,10 @@ int main() {
                 std::cout << "\n";
                 std::cout << "Welcome, " << loggedInAccount->getName() << "!" << "\n";
                 if (loggedInAccount->getIsAdmin()) {
-                    logout = adminDashboard(gameDict, memberDict);
+                    logout = adminDashboard(gameDict, memberDict, masterLog);
                 }
                 else {
-                    logout = memberDashboard(gameDict);
+                    logout = memberDashboard(gameDict, *loggedInAccount, masterLog);
                 }
             }
 
@@ -77,67 +79,6 @@ Member* login(MemberDictionary& members) {
     return foundAccount;
 }
 
-//void memberBorrowMenu(GameDictionary& gameDict,
-//                      Member& selectedMember,
-//                      MasterHistoryLog& historyList) {
-//    cout << "\n===== Borrow Game =====\n";
-//
-//    // Show all games first
-//    gameDict.print();
-//
-//    while (true) {
-//        cout << "\nEnter Game ID to borrow (or 0 to cancel): ";
-//        string gameId;
-//        cin >> gameId;
-//
-//        if (gameId == "0") {
-//            cout << "Cancelled.\n";
-//            return;
-//        }
-//
-//        // Retrieve game (pointer)
-//        BoardGame* game = gameDict.get(gameId);
-//        if (game == nullptr) {
-//            cout << "Game ID not found. Please try again.\n";
-//            continue;
-//        }
-//
-//        // Check if already borrowed
-//        if (game->checkIsBorrowed()) {
-//            cout << "⚠️ This game is already borrowed. Please choose another.\n";
-//            continue;
-//        }
-//
-//        // Borrow stage
-//        string today = getCurrentDate();
-//
-//        // Member borrows (Member takes BoardGame&)
-//        bool memberOk = selectedMember.borrowGame(*game, today);
-//
-//        // Game records borrow
-//        bool gameOk = game->borrowGame(selectedMember.getID(),
-//                                       selectedMember.getName(),
-//                                       today);
-//
-//        if (!memberOk || !gameOk) {
-//            cout << "Borrow failed unexpectedly.\n";
-//            return;
-//        }
-//
-//        // NEW: Add to master history log using your new method
-//        bool logOk = historyList.add(*game, selectedMember, today);
-//        if (!logOk) {
-//            cout << "Borrowed successfully, but failed to log history.\n";
-//            // Still treat as success from user perspective
-//        }
-//
-//        cout << "Borrow successful!\n";
-//        cout << selectedMember.getName() << " borrowed " << gameId
-//             << " on " << today << "\n";
-//
-//        return;
-//    }
-//}
 //void memberReturnMenu(GameDictionary& gameDict,
 //                      Member& selectedMember,
 //                      MasterHistoryLog& historyList) {
