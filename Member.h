@@ -6,7 +6,9 @@
 #define DSA_ASSIGNMENT_MEMBER_H
 #include <string>
 #include <iostream>
-#include <array>
+#include "List.h"
+
+#include "List.h"
 #include "BoardGame.h"
 using namespace std;
 
@@ -24,11 +26,12 @@ private:
 
     string id;
     string name;
-    GameRental borrowRecords[10];
+    //GameRental borrowRecords[10];
+    List<GameRental> borrowRecords;
     int borrowCount = 0;
 
 public:
-    Member() : id(""), name("") {}
+    Member() : id(""), name(""), borrowRecords(0) {}
     Member(string id, string name);
     string getID() const;
     string getName() const;
