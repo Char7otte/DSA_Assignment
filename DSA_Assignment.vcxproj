@@ -127,7 +127,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BoardGame.cpp" />
     <ClCompile Include="DSA_Assignment.cpp" />
+    <ClCompile Include="GameDictionary.cpp" />
+    <ClCompile Include="MasterHistoryLog.cpp" />
+    <ClCompile Include="Member.cpp" />
+    <ClCompile Include="MemeberDictionary.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BoardGame.h" />
+    <ClInclude Include="GameDictionary.h" />
+    <ClInclude Include="MasterHistoryLog.h" />
+    <ClInclude Include="Member.h" />
+    <ClInclude Include="MemeberDictionary.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

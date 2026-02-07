@@ -40,3 +40,5 @@
 # debug information files
 *.dwo
 /.vs
+/x64
+/DSA_Assignment

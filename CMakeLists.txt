@@ -18,7 +18,10 @@ add_executable(DSA_Assignment
         List.h
         MasterHistoryLog.cpp
         MasterHistoryLog.cpp
-        List.h)
+        List.h
+        AdminSystem.h
+        MemberSystem.h
+        utility.h)
 
 # Provide source and binary directories to the code for robust resource lookup
 add_definitions(-DSOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}")
