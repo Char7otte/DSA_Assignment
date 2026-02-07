@@ -1,10 +1,23 @@
 #include "MemberDictionary.h"
 
 #include<iostream>
+#include<iomanip>
 
 MemberDictionary::MemberDictionary() {}
 
 void MemberDictionary::print() {
+    const int TOTAL_WIDTH = 50;
+
+    std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "MEMBER LIST\n";
+    std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
+
+    std::cout << std::left << std::setw(8) << "ID"
+        << " | " << std::setw(30) << "NAME"
+        << " | " << std::setw(10) << "ADMIN"
+        << "\n";
+
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
+
     for (int i = 0; i < MAX_SIZE; i++) {
         Node* temp = items[i];
 
@@ -14,5 +27,6 @@ void MemberDictionary::print() {
             temp = temp->next;
         }
     }
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n" << "\n";
 }
 

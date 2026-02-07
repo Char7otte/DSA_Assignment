@@ -1,0 +1,111 @@
+#include "BorrowList.h"
+
+#include<iomanip>
+
+BorrowList::BorrowList() {}
+BorrowList::~BorrowList() {
+	while (firstNode != nullptr) {
+		Node* temp = firstNode;
+		firstNode = firstNode->next;
+		delete temp;
+	}
+}
+
+// Add to head
+bool BorrowList::add(std::string memberID, std::string gameID) {
+	Node* newNode = new Node;
+	newNode->item.borrowerID = memberID;
+	newNode->item.gameID = gameID;
+
+	newNode->next = firstNode; //Automatically handles firstNode == nullptr
+	firstNode = newNode;
+	return true;
+}
+
+//Add to head a struct
+bool BorrowList::add(BorrowLog& log) {
+	Node* newNode = new Node;
+	newNode->item = log;
+
+	newNode->next = firstNode;
+	firstNode = newNode;
+	return true;
+}
+
+// Remove from head
+bool BorrowList::remove() {
+	if (isEmpty()) return false;
+
+	Node* temp = firstNode;
+	firstNode = firstNode->next;
+	delete temp;
+	return true;
+}
+
+// Get head and return via params
+bool BorrowList::get(std::string& memberID, std::string& gameID) {
+	if (isEmpty()) return false;
+	memberID = firstNode->item.borrowerID;
+	gameID = firstNode->item.gameID;
+	return true;
+}
+
+bool BorrowList::isEmpty() {
+	return firstNode == nullptr;
+}
+
+void BorrowList::print(GameDictionary& games, MemberDictionary& members) {
+	Node* temp = firstNode;
+	while (temp != nullptr) {
+		BorrowLog borrowLog = temp->item;
+
+		BoardGame* logGame = {};
+		games.get(borrowLog.gameID, logGame);
+		std::string gameName = logGame->getName();
+
+		Member* logMember = {};
+		members.get(borrowLog.borrowerID, logMember);
+		std::string memberName = logMember->getName();
+
+		std::cout << std::left << std::setw(10) << borrowLog.borrowerID
+			<< " | " << std::setw(20) << (memberName.length() > 17 ? memberName.substr(0, 17) + "..." : memberName)
+			<< " | " << std::setw(8) << borrowLog.gameID
+			<< " | " << std::setw(20) << (gameName.length() > 17 ? gameName.substr(0, 17) + "..." : gameName)
+			<< " | " << std::setw(15) << borrowLog.loanDate
+			<< " | " << std::setw(15) << borrowLog.returnDate
+			<< "\n";
+
+		temp = temp->next;
+	}
+}
+
+BorrowList::BorrowLog* BorrowList::find(const std::string& borrowerID, std::string& gameID) { //genuinely do not understand why const needs to be here but that's just C++ being C++
+	if (isEmpty()) return nullptr;
+
+	Node* temp = firstNode;
+	while (temp != nullptr) {
+		if (temp->item.borrowerID == borrowerID && temp->item.gameID == gameID) {
+			return &temp->item;
+		}
+		temp = temp->next;
+	}
+	return nullptr;
+}
+
+bool BorrowList::returnGame(const std::string& borrowerID, std::string& gameID) { //genuinely do not understand why const needs to be here but that's just C++ being C++
+	BorrowLog* returningLog = find(borrowerID, gameID);
+	returningLog->returnDate = getTodayDate();
+	return true;
+}
+
+BorrowList BorrowList::findAll(const std::string& borrowerID) {
+	BorrowList foundItems{};
+	Node* temp = firstNode;
+	while (temp != nullptr) {
+		if (temp->item.borrowerID == borrowerID) {
+			foundItems.add(temp->item);
+		}
+		temp = temp->next;
+	}
+	return foundItems;
+}

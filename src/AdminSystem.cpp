@@ -1,9 +1,11 @@
 #include "AdminSystem.h"
 
 #include "InputValidation.h"
-#include "MasterHistoryLog.h"
+#include "BorrowList.h"
 
-bool adminDashboard(GameDictionary& games, MemberDictionary& members, MasterHistoryLog& masterLog) {
+#include<iomanip>
+
+bool adminDashboard(GameDictionary& games, MemberDictionary& members, BorrowList& loans) {
     while (true) {
         std::cout << "1. Add a new board game" << "\n";
         std::cout << "2. Remove a board game" << "\n";
@@ -25,7 +27,7 @@ bool adminDashboard(GameDictionary& games, MemberDictionary& members, MasterHist
             createMemberMenu(members);
         }
         else if (input == "4") {
-            std::cout << "Display borrow history log";
+            displayHistory(games, members, loans);
         }
         else if (input == "5") {
             games.print();
@@ -34,7 +36,7 @@ bool adminDashboard(GameDictionary& games, MemberDictionary& members, MasterHist
             members.print();
         }
         else if (input == "0") {
-            break;
+            return true;
         }
         else {
             std::cout << "Invalid input. Please try again.";
@@ -93,12 +95,12 @@ void createAndAddGameMenu(GameDictionary& gameDict) {
     BoardGame* newGame = new BoardGame(id, name, minPlayers, maxPlayers, minPlaytime, maxPlaytime, yearPublished);
 
     if (gameDict.add(id, newGame)) {
-        std::cout << "\n Game added successfully!\n";
+        std::cout << "Game added successfully!\n";
     }
     else {
         std::cout << "\n Failed to add game. Please try again.\n";
     }
-    std::cout << "==============================\n";
+    std::cout << "==============================\n" << "\n";
 }
 
 void deleteGameMenu(GameDictionary& games) {
@@ -149,9 +151,37 @@ void createMemberMenu(MemberDictionary& members) {
     Member* newMember = new Member(newMemberID, newMemberName);
 
     if (members.add(newMemberID, newMember)) {
-        std::cout << newMemberID << " | " << newMemberName << " has been added.\n";
+        std::cout << newMemberName << " has been added.\n";
     }
     else {
-        std::cout << "Failed to add " << newMemberID << " | " << newMemberName << " . Please try again.\n";
+        std::cout << "Failed to add " << newMemberName << " . Please try again.\n";
     }
+
+    std::cout << "==============================\n" << "\n";
+}
+
+void displayHistory(GameDictionary& games, MemberDictionary& members, BorrowList& loans) {
+    if (loans.isEmpty()) {
+        std::cout << "Borrow log is empty." << "\n" << "\n";
+        return;
+    }
+
+    const int TOTAL_WIDTH = 100;
+
+    std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "BORROW HISTORY\n";
+    std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
+
+    std::cout << std::left << std::setw(10) << "MEMBER ID"
+        << " | " << std::setw(20) << "MEMBER NAME"
+        << " | " << std::setw(8) << "GAME ID"
+        << " | " << std::setw(20) << "GAME NAME"
+        << " | " << std::setw(15) << "LOAN DATE"
+        << " | " << std::setw(15) << "RETURN DATE"
+        << "\n";
+
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
+
+    loans.print(games, members);
+
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n" << "\n";
 }

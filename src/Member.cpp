@@ -14,7 +14,10 @@ Member::Member(const std::string id, const std::string name, const bool isAdmin)
 }
 
 void Member::print() {
-    std::cout << id << " " << name << " " << (isAdmin ? "Admin" : "Member") << "\n";
+    std::cout << std::left << std::setw(8) << id
+        << " | " << std::setw(30) << name
+        << " | " << std::setw(10) << (isAdmin ? "Yes" : "")
+        << "\n";
 }
 
 std::string Member::getName() {
@@ -46,87 +49,39 @@ bool Member::borrowGame(BoardGame& gameToBorrow) {
 bool Member::returnGame(BoardGame& game) {
     for (int i = borrowCount - 1; i >= 0; i--) {
         if (borrowHistory[i].gameID == game.getID()) {
-            borrowHistory[i].returnDate = getTodayDate();
-            borrowHistory[i].isReturned = true;
+            borrowHistory[i] = {};
+            borrowCount--;
             return true;
         }
     }
     return false;
 }
-//
-//
-void Member::printUnreturnedGames() const {
-    std::cout << "\n" << std::string(70, '=') << "\n";
-    std::cout << "UNRETURNED GAMES FOR MEMBER: " << name << " (" << id << ")\n";
-    std::cout << std::string(70, '=') << "\n";
 
-    std::cout << std::setw(15) << "GAME ID"
-        << std::setw(30) << "GAME NAME"
-        << std::setw(20) << "BORROW DATE"
-        << "STATUS" << "\n";
+void Member::printLoans() {
+    const int TOTAL_WIDTH = 74;
 
-    std::cout << std::string(70, '-') << "\n";
+    std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "BORROWED GAMES\n";
+    std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
 
-    int printed = 0;
+    std::cout << std::left << std::setw(8) << "ID"
+        << " | " << std::setw(50) << "NAME"
+        << " | " << std::setw(15) << "LOAN DATE"
+        << "\n";
 
-    for (int i = 0; i < borrowCount; i++) {
-        if (!borrowHistory[i].isReturned) {
-            std::cout << std::setw(15) << borrowHistory[i].gameID
-                << std::setw(30) << borrowHistory[i].gameName
-                << std::setw(20) << borrowHistory[i].loanDate
-                << "[ON LOAN]" << "\n";
-            printed++;
-        }
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
+
+    for (int i = 0; i < MAX_SIZE; i++) {
+        BorrowLog borrowLog = borrowHistory[i];
+        if (borrowLog.gameID == "N/A") continue;
+        std::cout << std::left << std::setw(8) << borrowLog.gameID
+            << " | " << std::setw(50) << (borrowLog.gameName.length() > 47 ? borrowLog.gameName.substr(0, 47) + "..." : borrowLog.gameName)
+            << " | " << std::setw(15) << borrowLog.loanDate
+            << "\n";
     }
 
-    if (printed == 0) {
-        std::cout << "(No unreturned games.)\n";
-    }
-
-    std::cout << std::string(70, '=') << "\n";
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
 }
-//
-//void Member::printBorrowHistory() const {
-//    cout << "\n" << string(90, '=') << "\n";
-//    cout << "BORROW HISTORY FOR MEMBER: " << name << " (" << id << ")\n";
-//    cout << string(90, '=') << "\n";
-//
-//    cout << left
-//         << setw(15) << "GAME ID"
-//         << setw(30) << "GAME NAME"
-//         << setw(18) << "BORROW DATE"
-//         << setw(18) << "RETURN DATE"
-//         << "STATUS" << "\n";
-//
-//    cout << string(90, '-') << "\n";
-//
-//    if (borrowCount == 0) {
-//        cout << "(No borrow history.)\n";
-//        cout << string(90, '=') << "\n";
-//        return;
-//    }
-//
-//    // Print newest first (your original idea)
-//    for (int i = borrowCount - 1; i >= 0; i--) {
-//        const auto& r = borrowRecords[i];
-//
-//        cout << left
-//             << setw(15) << r.gameId
-//             << setw(30) << r.gameName
-//             << setw(18) << r.loanDate;
-//
-//        if (r.isReturned) {
-//            cout << setw(16) << r.returnDate
-//                 << "[RETURNED]";
-//        } else {
-//            cout << setw(16) << "---"
-//                 << "[ON LOAN]";
-//        }
-//
-//        cout << "\n";
-//    }
-//
-//    cout << string(90, '=') << "\n";
-//}
 
-
+bool Member::hasLoans() {
+    return borrowCount > 0;
+}

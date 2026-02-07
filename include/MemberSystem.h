@@ -2,8 +2,9 @@
 
 #include "GameDictionary.h"
 #include "Member.h"
-#include "MasterHistoryLog.h"
+#include "BorrowList.h"
 
-bool memberDashboard(GameDictionary& games, Member& member, MasterHistoryLog& masterLog);
-void memberBorrowMenu(GameDictionary& games, Member& borrower, MasterHistoryLog& masterLog);
-void memberReturnMenu(GameDictionary& games, Member& returner, MasterHistoryLog& masterLog);
+bool memberDashboard(GameDictionary& games, MemberDictionary& members, BorrowList& loans, Member& member);
+void memberBorrowMenu(GameDictionary& games, Member& borrower, BorrowList& loans);
+void memberReturnMenu(GameDictionary& games, Member& returner, BorrowList& loans);
+void getBorrowHistory(GameDictionary& games, MemberDictionary& members, BorrowList& loans, std::string borrowerID);
