@@ -86,21 +86,6 @@ std::string getCurrentDate() {
     return ss.str();
 }
 
-// void sortGamesAlphabetically(List<BoardGame*>& list) {
-//     int n = list.getLength();
-//     for (int i = 0; i < n - 1; i++) {
-//         for (int j = 0; j < n - i - 1; j++) {
-//             // We use the getter here
-//             if (list.get(j)->getName() > list.get(j + 1)->getName()) {
-//                 // You'll need a replace(index, item) method in your List
-//                 BoardGame* temp = list.get(j);
-//                 list.replace(j, list.get(j + 1));
-//                 list.replace(j + 1, temp);
-//             }
-//         }
-//     }
-// }
-
 void createAndAddGameMenu(GameDictionary& gameDict) {
     cout << "\n===== Add New Board Game =====\n";
     string id, name;
