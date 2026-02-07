@@ -20,7 +20,6 @@ private:
     int yearPublished = 0;
     bool isBorrowed = false;
     LoanInfo loanInfo = {};
-    int historyCount = 0;
 
 public:
     BoardGame(const std::string id,

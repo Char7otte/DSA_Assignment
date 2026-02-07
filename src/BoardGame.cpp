@@ -42,7 +42,6 @@ bool BoardGame::borrowGame(std::string borrowerID, std::string borrowerName) {
     loanInfo.borrowerName = borrowerName;
     loanInfo.loanDate = borrowerName;
 
-    historyCount++;
     return true;
 }
 
