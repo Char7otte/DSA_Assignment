@@ -6,32 +6,26 @@
 GameDictionary::GameDictionary() {}
 
 void GameDictionary::print() {
-    const int idWidth = 10;
-    const int nameWidth = 25;
-    const int playersWidth = 12;
-    const int timeWidth = 15;
-    const int yearWidth = 8;
-    const int statusWidth = 12;
+    const int TOTAL_WIDTH = 125;
 
-    std::cout << "\n" << std::string(85, '=') << "\n";
-    std::cout << "                         GAME INVENTORY LIST" << "\n";
-    std::cout << std::string(85, '=') << "\n";
+    std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "GAME INVENTORY LIST\n";
+    std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
+
+    std::cout << std::left << std::setw(8) << "ID"
+        << " | " << std::setw(50) << "NAME"
+        << " | " << std::setw(15) << "PLAYERS"
+        << " | " << std::setw(15) << "PLAYTIME"
+        << " | " << std::setw(6) << "YEAR"
+        << " | " << "STATUS" << "\n";
+
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
 
     if (size == 0) {
-        std::cout << "| No games found in the dictionary." << std::setw(50) << " |" << "\n";
-        std::cout << std::string(85, '=') << "\n";
+        // Center the empty message within the table width
+        std::cout << std::setw(TOTAL_WIDTH) << "| No games found in the dictionary." << " |\n";
+        std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
         return;
     }
-
-    // Header
-    std::cout << std::setw(idWidth) << "ID"
-        << std::setw(nameWidth) << "NAME"
-        << std::setw(playersWidth) << "PLAYERS"
-        << std::setw(timeWidth) << "PLAYTIME"
-        << std::setw(yearWidth) << "YEAR"
-        << std::setw(statusWidth) << "STATUS" << "\n";
-
-    std::cout << std::string(85, '-') << "\n";
 
     // Content
     for (int i = 0; i < MAX_SIZE; i++) {
@@ -44,7 +38,7 @@ void GameDictionary::print() {
         }
     }
 
-    std::cout << std::string(85, '=') << "\n";
+    std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
 }
 
 void GameDictionary::printAvailable() {

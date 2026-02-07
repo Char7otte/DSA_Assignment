@@ -1,5 +1,7 @@
 #include "BoardGame.h"
 
+#include<iomanip>
+
 // Constructor
 BoardGame::BoardGame(const std::string id,
     const std::string name,
@@ -55,18 +57,23 @@ bool BoardGame::returnGame() {
 }
 
 void BoardGame::print() {
-    std::string playtime; 
+    //2-2 Players becomes 2 players
+    std::string players = (minPlayers == maxPlayers ? 
+        std::to_string(minPlayers) :
+        std::to_string(minPlayers) + "-" + std::to_string(maxPlayers));
 
-    // If min & max is the same, just display 1 value instead of both
-    if (minPlaytime == maxPlaytime) playtime = std::to_string(minPlaytime) + " mins";
-    else playtime = std::to_string(minPlaytime) + "-" + std::to_string(maxPlaytime) + " mins";
+    //120 - 120 mins becomes 120 mins
+    std::string playtime = (minPlaytime == maxPlaytime ?
+        std::to_string(minPlaytime) :
+        std::to_string(minPlaytime) + "-" + std::to_string(maxPlaytime));
 
-    std::cout << "Game ID: " << id
-        << " | Name: " << name
-        << " | Players: " << minPlayers << "-" << maxPlayers
-        << " | Playtime: " << playtime
-        << " | Year: " << yearPublished
-        << " | Status: " << (getIsBorrowed() ? "Loaned" : "Available")
+
+    std::cout << std::left << std::setw(8) << id
+        << " | " << std::setw(50) << (name.length() > 47 ? name.substr(0, 47) + "..." : name)
+        << " | " << std::setw(15) << (players + " players")
+        << " | " << std::setw(15) << (playtime + " mins")
+        << " | " << std::setw(6) << yearPublished
+        << " | " << (getIsBorrowed() ? "Loaned" : "Available")
         << "\n";
 }
 
@@ -74,47 +81,3 @@ void BoardGame::printAvailable() {
     if (getIsBorrowed()) return;
     else print();
 }
-
-//UsageRecord BoardGame::getLastestBorrowRecord() {
-//    return borrowHistory[historyCount - 1];
-//}
-//
-//
-//void BoardGame::printInfo() const {
-//        cout << "[ id= " << id
-//        << ", name= \"" << name << "\""
-//        << ", players= " << minPlayers << "-" << maxPlayers
-//        << ", playtime= " << minPlayTime << "-" << maxPlayTime
-//        << ", year= " << yearPublished
-//        << ", borrowed= " << (isBorrowed ? "Yes" : "No")
-//        << "]" << endl;
-//}
-//
-//
-//// Print full history
-//void BoardGame::printBorrowHistory(){
-//    cout << "Borrowing history of " << name << ":" << endl;
-//    for (int i = historyCount-1; i >= 0; i--) {
-//        cout<< "BorrowerId: " << borrowHistory[i].borrowerId
-//            << ", Borrower: " << borrowHistory[i].borrowerName
-//             << ", Borrowed: " << borrowHistory[i].borrowDate
-//             << ", Returned: " << borrowHistory[i].returnDate << endl;
-//    }
-//}
-//
-//// Check + print latest
-//void BoardGame::checkIfBorrowedAndPrintLatest() const {
-//    if (isBorrowed) {
-//        const UsageRecord& latest = borrowHistory[historyCount - 1];
-//        cout << name << " is currently borrowed by: "<< latest.borrowerName << endl;
-//
-//        cout << "Borrower ID: " << latest.borrowerId << endl;
-//        cout << "Borrower Name: " << latest.borrowerName << endl;
-//        cout << "Borrow Date: " << latest.borrowDate << endl;
-//        cout << "Return Date: "
-//             << (latest.returnDate.empty() ? "Not returned yet" : latest.returnDate)
-//             << endl;
-//    }else {
-//        cout << name << " is currently available!" << endl;
-//    }
-//}
