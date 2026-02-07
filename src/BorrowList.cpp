@@ -54,12 +54,23 @@ bool BorrowList::isEmpty() {
 	return firstNode == nullptr;
 }
 
-void BorrowList::print() {
+void BorrowList::print(GameDictionary& games, MemberDictionary& members) {
 	Node* temp = firstNode;
 	while (temp != nullptr) {
 		BorrowLog borrowLog = temp->item;
+
+		BoardGame* logGame = {};
+		games.get(borrowLog.gameID, logGame);
+		std::string gameName = logGame->getName();
+
+		Member* logMember = {};
+		members.get(borrowLog.borrowerID, logMember);
+		std::string memberName = logMember->getName();
+
 		std::cout << std::left << std::setw(10) << borrowLog.borrowerID
+			<< " | " << std::setw(20) << (memberName.length() > 17 ? memberName.substr(0, 17) + "..." : memberName)
 			<< " | " << std::setw(8) << borrowLog.gameID
+			<< " | " << std::setw(20) << (gameName.length() > 17 ? gameName.substr(0, 17) + "..." : gameName)
 			<< " | " << std::setw(15) << borrowLog.loanDate
 			<< " | " << std::setw(15) << borrowLog.returnDate
 			<< "\n";

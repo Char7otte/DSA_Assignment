@@ -49,7 +49,7 @@ int main() {
                     logout = adminDashboard(gameDict, memberDict, *loanList);
                 }
                 else {
-                    logout = memberDashboard(gameDict, *loggedInAccount, *loanList);
+                    logout = memberDashboard(gameDict, memberDict, *loanList, *loggedInAccount);
                 }
             }
         }

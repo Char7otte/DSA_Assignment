@@ -8,4 +8,4 @@ bool adminDashboard(GameDictionary& games, MemberDictionary& members, BorrowList
 void createAndAddGameMenu(GameDictionary& gameDict);
 void deleteGameMenu(GameDictionary& games);
 void createMemberMenu(MemberDictionary& members);
-void displayHistory(BorrowList& loans);
+void displayHistory(GameDictionary& games, MemberDictionary& members, BorrowList& loans);

@@ -27,7 +27,7 @@ bool adminDashboard(GameDictionary& games, MemberDictionary& members, BorrowList
             createMemberMenu(members);
         }
         else if (input == "4") {
-            displayHistory(loans);
+            displayHistory(games, members, loans);
         }
         else if (input == "5") {
             games.print();
@@ -160,21 +160,28 @@ void createMemberMenu(MemberDictionary& members) {
     std::cout << "==============================\n" << "\n";
 }
 
-void displayHistory(BorrowList& loans) {
+void displayHistory(GameDictionary& games, MemberDictionary& members, BorrowList& loans) {
+    if (loans.isEmpty()) {
+        std::cout << "Borrow log is empty." << "\n" << "\n";
+        return;
+    }
+
     const int TOTAL_WIDTH = 100;
 
     std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "BORROW HISTORY\n";
     std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
 
     std::cout << std::left << std::setw(10) << "MEMBER ID"
+        << " | " << std::setw(20) << "MEMBER NAME"
         << " | " << std::setw(8) << "GAME ID"
+        << " | " << std::setw(20) << "GAME NAME"
         << " | " << std::setw(15) << "LOAN DATE"
         << " | " << std::setw(15) << "RETURN DATE"
         << "\n";
 
     std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
 
-    loans.print();
+    loans.print(games, members);
 
     std::cout << std::string(TOTAL_WIDTH, '-') << "\n" << "\n";
 }

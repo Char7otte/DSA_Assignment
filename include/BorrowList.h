@@ -1,6 +1,8 @@
 #pragma once
 
 #include "InputValidation.h"
+#include "MemberDictionary.h"
+#include "GameDictionary.h"
 
 #include<string>
 
@@ -40,7 +42,7 @@ public:
 
 	bool isEmpty();
 
-	void print();
+	void print(GameDictionary& games, MemberDictionary& members);
 
 	bool returnGame(const std::string& borrowerID, std::string& gameID);
 

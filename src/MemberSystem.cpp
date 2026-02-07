@@ -3,7 +3,7 @@
 
 #include <iomanip>
 
-bool memberDashboard(GameDictionary& games, Member& member, BorrowList& loans) {
+bool memberDashboard(GameDictionary& games,MemberDictionary& members, BorrowList& loans, Member& member) {
     while (true) {
         std::cout << "1. Borrow a board game" << "\n";
         std::cout << "2. Return a board game" << "\n";
@@ -20,7 +20,7 @@ bool memberDashboard(GameDictionary& games, Member& member, BorrowList& loans) {
             memberReturnMenu(games, member, loans);
         }
         else if (input == "3") {
-            getBorrowHistory(member.getID(), loans);
+            getBorrowHistory(games, members, loans, member.getID());
         }
         else if (input == "4") {
             games.print();
@@ -29,7 +29,7 @@ bool memberDashboard(GameDictionary& games, Member& member, BorrowList& loans) {
             return true;
         }
         else {
-            std::cout << "Invalid input. Please try again.";
+            std::cout << "Invalid input. Please try again." << "\n";
         }
     }
     return false;
@@ -108,7 +108,7 @@ void memberReturnMenu(GameDictionary& games, Member& returner, BorrowList& loans
     }
 }
 
-void getBorrowHistory(std::string borrowerID, BorrowList &loans) {
+void getBorrowHistory(GameDictionary& games, MemberDictionary& members, BorrowList &loans, std::string borrowerID) {
     BorrowList borrowHistory = loans.findAll(borrowerID);
     if (borrowHistory.isEmpty()) {
         std::cout << "You have not borrowed anything." << "\n" << "\n";
@@ -121,14 +121,16 @@ void getBorrowHistory(std::string borrowerID, BorrowList &loans) {
     std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
 
     std::cout << std::left << std::setw(10) << "MEMBER ID"
+        << " | " << std::setw(20) << "MEMBER NAME"
         << " | " << std::setw(8) << "GAME ID"
+        << " | " << std::setw(20) << "GAME NAME"
         << " | " << std::setw(15) << "LOAN DATE"
         << " | " << std::setw(15) << "RETURN DATE"
         << "\n";
 
     std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
 
-    borrowHistory.print();
+    borrowHistory.print(games, members);
 
-    std::cout << std::string(TOTAL_WIDTH, '-') << "\n" << "\n";
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
 }
