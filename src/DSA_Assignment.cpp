@@ -23,7 +23,7 @@ int main() {
     MemberDictionary memberDict;
     readMemberFile("./data/members.csv", memberDict);
     Member* loggedInAccount;
-    MasterHistoryLog masterLog;
+    BorrowList* loanList = new BorrowList();
 
     while (true) {
         std::cout << "Welcome to the BGC Portal!" << "\n";
@@ -46,10 +46,10 @@ int main() {
                 std::cout << "\n";
                 std::cout << "Welcome, " << loggedInAccount->getName() << "!" << "\n";
                 if (loggedInAccount->getIsAdmin()) {
-                    logout = adminDashboard(gameDict, memberDict, masterLog);
+                    logout = adminDashboard(gameDict, memberDict, *loanList);
                 }
                 else {
-                    logout = memberDashboard(gameDict, *loggedInAccount, masterLog);
+                    logout = memberDashboard(gameDict, *loggedInAccount, *loanList);
                 }
             }
         }

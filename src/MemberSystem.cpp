@@ -2,7 +2,7 @@
 #include "InputValidation.h"
 #include "MasterHistoryLog.h"
 
-bool memberDashboard(GameDictionary& games, Member& member, MasterHistoryLog& masterLog) {
+bool memberDashboard(GameDictionary& games, Member& member, BorrowList& loans) {
     while (true) {
         std::cout << "1. Borrow a board game" << "\n";
         std::cout << "2. Return a board game" << "\n";
@@ -13,8 +13,7 @@ bool memberDashboard(GameDictionary& games, Member& member, MasterHistoryLog& ma
         std::getline(std::cin, input);
 
         if (input == "1") {
-            memberBorrowMenu(games, member, masterLog);
-            masterLog.printAll();
+            memberBorrowMenu(games, member, loans);
         }
         else if (input == "2") {
             memberReturnMenu(games, member, masterLog);
@@ -36,7 +35,7 @@ bool memberDashboard(GameDictionary& games, Member& member, MasterHistoryLog& ma
     return false;
 }
 
-void memberBorrowMenu(GameDictionary& games, Member& borrower, MasterHistoryLog& masterLog) {
+void memberBorrowMenu(GameDictionary& games, Member& borrower, BorrowList& loans) {
     std::cout << "\n===== Borrow Game =====\n";
 
     // Show all games first
