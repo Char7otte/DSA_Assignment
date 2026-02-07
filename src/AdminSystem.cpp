@@ -50,20 +50,8 @@ void createAndAddGameMenu(GameDictionary& gameDict) {
     std::string id, name;
     int minPlayers, maxPlayers, minPlaytime, maxPlaytime, yearPublished;
 
-    // --- Input: Game ID ---
-    while (true) {
-        std::cout << "Enter Game ID (e.g. G004): ";
-        std::getline(std::cin, id);
-        if (id.empty()) {
-            std::cout << "Game ID cannot be empty.\n";
-            continue;
-        }
-        if (gameDict.get(id)) {
-            std::cout << "This Game ID already exists. Please enter a different ID.\n";
-            continue;
-        }
-        break;
-    }
+    gameDict.incrementLargestID();
+   id = "G" + std::to_string(gameDict.getLargestID());
 
     // Get name
     name = getString("Enter Game Name: ");
@@ -109,7 +97,7 @@ void deleteGameMenu(GameDictionary& games) {
     std::string id;
 
     while (true) {
-        id = getString("Enter Game ID to delete (e.g. G001): ");
+        id = getString("Enter Game ID to delete (e.g. G1): ");
         BoardGame* gameToRemove = nullptr;
         games.get(id, gameToRemove);
         if (gameToRemove != nullptr) {
@@ -136,15 +124,8 @@ void createMemberMenu(MemberDictionary& members) {
     std::string newMemberID, newMemberName;
     bool isAdmin;
 
-    while (true) {
-        newMemberID = getString("Enter Member ID (e.g., M001): ");
-
-        if (members.get(newMemberID)) {
-            std::cout << "This Member ID already exists.\n";
-            continue;
-        }
-        break;
-    }
+    members.incrementLargestID();
+    newMemberID = "M" + std::to_string(members.getLargestID());
 
     newMemberName = getString("Enter Member Name: ");
 
