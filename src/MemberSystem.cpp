@@ -69,7 +69,6 @@ void memberBorrowMenu(GameDictionary& games, Member& borrower, BorrowList& loans
 }
 
 void memberReturnMenu(GameDictionary& games, Member& returner, BorrowList& loans) {
-    std::cout << "\n===== Return Game =====\n";
     returner.printLoans();
     std::string date = getTodayDate(); //Used multiple times in this function
 

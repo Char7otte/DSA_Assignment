@@ -58,7 +58,7 @@ int main() {
             break;
         }
         else {
-            std::cout << "Invalid input. Please try again.";
+            std::cout << "Invalid input. Please try again." << "\n";
             continue;
         }
         continue;

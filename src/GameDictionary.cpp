@@ -38,7 +38,7 @@ void GameDictionary::print() {
         }
     }
 
-    std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
+    std::cout << std::string(TOTAL_WIDTH, '=') << "\n" << "\n";
 }
 
 void GameDictionary::printAvailable() {

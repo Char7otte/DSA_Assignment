@@ -93,12 +93,12 @@ void createAndAddGameMenu(GameDictionary& gameDict) {
     BoardGame* newGame = new BoardGame(id, name, minPlayers, maxPlayers, minPlaytime, maxPlaytime, yearPublished);
 
     if (gameDict.add(id, newGame)) {
-        std::cout << "\n Game added successfully!\n";
+        std::cout << "Game added successfully!\n";
     }
     else {
         std::cout << "\n Failed to add game. Please try again.\n";
     }
-    std::cout << "==============================\n";
+    std::cout << "==============================\n" << "\n";
 }
 
 void deleteGameMenu(GameDictionary& games) {
@@ -149,11 +149,13 @@ void createMemberMenu(MemberDictionary& members) {
     Member* newMember = new Member(newMemberID, newMemberName);
 
     if (members.add(newMemberID, newMember)) {
-        std::cout << newMemberID << " | " << newMemberName << " has been added.\n";
+        std::cout << newMemberName << " has been added.\n";
     }
     else {
-        std::cout << "Failed to add " << newMemberID << " | " << newMemberName << " . Please try again.\n";
+        std::cout << "Failed to add " << newMemberName << " . Please try again.\n";
     }
+
+    std::cout << "==============================\n" << "\n";
 }
 
 void displayHistory(BorrowList& loans) {

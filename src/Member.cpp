@@ -58,9 +58,26 @@ bool Member::returnGame(BoardGame& game) {
 }
 
 void Member::printLoans() {
+    const int TOTAL_WIDTH = 74;
+
+    std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "BORROWED GAMES\n";
+    std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
+
+    std::cout << std::left << std::setw(8) << "ID"
+        << " | " << std::setw(50) << "NAME"
+        << " | " << std::setw(15) << "LOAN DATE"
+        << "\n";
+
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
+
     for (int i = 0; i < MAX_SIZE; i++) {
         BorrowLog borrowLog = borrowHistory[i];
         if (borrowLog.gameID == "N/A") continue;
-        std::cout << borrowLog.gameID << " " << borrowLog.gameName << " " << borrowLog.loanDate << " " << borrowLog.returnDate << "\n";
+        std::cout << std::left << std::setw(8) << borrowLog.gameID
+            << " | " << std::setw(50) << (borrowLog.gameName.length() > 47 ? borrowLog.gameName.substr(0, 47) + "..." : borrowLog.gameName)
+            << " | " << std::setw(15) << borrowLog.loanDate
+            << "\n";
     }
+
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
 }

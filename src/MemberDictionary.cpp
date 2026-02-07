@@ -27,6 +27,6 @@ void MemberDictionary::print() {
             temp = temp->next;
         }
     }
-    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n" << "\n";
 }
 
