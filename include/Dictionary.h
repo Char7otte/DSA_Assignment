@@ -7,7 +7,7 @@
 
 using KeyType = std::string;
 
-template<typename T> //T is storing item's type 
+template<typename T> //T is storing Item subclasses Member & BoardGame
 class Dictionary
 {
 protected:

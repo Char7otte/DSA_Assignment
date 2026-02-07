@@ -11,7 +11,7 @@
 #include "BoardGame.h"
 
 struct BorrowLog: public DateLog {
-    std::string gameId = "N/A";
+    std::string gameID = "N/A";
     std::string gameName = "N/A";
     bool isReturned = false;
 };

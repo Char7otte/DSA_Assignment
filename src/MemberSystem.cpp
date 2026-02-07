@@ -4,7 +4,7 @@ bool memberDashboard(GameDictionary& games) {
     while (true) {
         std::cout << "1. Borrow a board game" << "\n";
         std::cout << "2. Return a board game" << "\n";
-        std::cout << "3. Add a new member" << "\n";
+        std::cout << "3. Display borrow history" << "\n";
         std::cout << "4. Display all board games" << "\n";
         std::cout << "0. Logout" << "\n";
         std::string input;
