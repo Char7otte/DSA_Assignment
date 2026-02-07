@@ -68,8 +68,6 @@
 
 using namespace std;
 
-
-
 std::string getCurrentDate() {
     // 1. Get the current system time
     auto now = std::chrono::system_clock::now();
@@ -241,127 +239,6 @@ void createMemberMenu(MemberDictionary& memberDict) {
     std::cout << "=========================\n";
 }
 
-// void memberBorrowMenu(GameDictionary& gameDict,Member& selectedMember,MasterHistoryLog& historyList) {
-//     cout << "\n===== Borrow Game =====\n";
-//
-//     // Show all games first
-//     gameDict.print();
-//
-//     while (true) {
-//         cout << "\nEnter Game ID to borrow (or 0 to cancel): ";
-//         string gameId;
-//         cin >> gameId;
-//
-//         if (gameId == "0") {
-//             cout << "Cancelled.\n";
-//             return;
-//         }
-//
-//         // Retrieve game (pointer)
-//         BoardGame* game = gameDict.get(gameId);
-//         if (game == nullptr) {
-//             cout << "Game ID not found. Please try again.\n";
-//             continue;
-//         }
-//
-//         // Check if already borrowed
-//         if (game->checkIsBorrowed()) {
-//             cout << "⚠️ This game is already borrowed. Please choose another.\n";
-//             continue;
-//         }
-//
-//         // Borrow stage
-//         string today = getCurrentDate();
-//
-//         // Member borrows (Member takes BoardGame&)
-//         bool memberOk = selectedMember.borrowGame(*game, today);
-//
-//         // Game records borrow
-//         bool gameOk = game->borrowGame(selectedMember.getID(),
-//                                        selectedMember.getName(),
-//                                        today);
-//
-//         if (!memberOk || !gameOk) {
-//             cout << "Borrow failed unexpectedly.\n";
-//             return;
-//         }
-//
-//         // NEW: Add to master history log using your new method
-//         bool logOk = historyList.add(*game, selectedMember, today);
-//         if (!logOk) {
-//             cout << "Borrowed successfully, but failed to log history.\n";
-//             // Still treat as success from user perspective
-//         }
-//
-//         cout << "Borrow successful!\n";
-//         cout << selectedMember.getName() << " borrowed " << gameId
-//              << " on " << today << "\n";
-//
-//         return;
-//     }
-// }
-//
-// void memberReturnMenu(GameDictionary& gameDict,Member& selectedMember,MasterHistoryLog& historyList) {
-//     cout << "\n===== Return Game =====\n";
-//
-//     // 1) Show unreturned games from this member
-//     selectedMember.printUnreturnedGames();
-//
-//     // 2) Ask for game ID
-//     while (true) {
-//         cout << "\nEnter Game ID to return (or 0 to cancel): ";
-//         string gameId;
-//         cin >> gameId;
-//
-//         if (gameId == "0") {
-//             cout << "Cancelled.\n";
-//             return;
-//         }
-//
-//         // 3) Retrieve game from dictionary
-//         BoardGame* game = gameDict.get(gameId);
-//
-//         if (game == nullptr) {
-//             cout << "Game ID not found. Please try again.\n";
-//             continue;
-//         }
-//
-//         // 4) Check if game is borrowed (overall)
-//         if (!game->checkIsBorrowed()) {
-//             cout << "This game is not currently borrowed (already returned).\n";
-//             continue;
-//         }
-//
-//         // 5) Return stage
-//         string today = getCurrentDate();
-//
-//         // Member tries to return (checks if THIS member borrowed it)
-//         bool memberOk = selectedMember.returnGame(*game, today);
-//         if (!memberOk) {
-//             cout << "Return failed: This game is not currently borrowed by you.\n";
-//             continue; // let them try again
-//         }
-//
-//         // Game updates return date
-//         bool gameOk = game->returnGame(today);
-//         if (!gameOk) {
-//             cout << "Return failed unexpectedly (game state error).\n";
-//             return;
-//         }
-//
-//         // Update master history log
-//         bool logOk = historyList.markReturned(today, gameId);
-//         if (!logOk) {
-//             cout << "Returned, but history record not found to update.\n";
-//             // You can still treat it as success for user experience
-//         }
-//
-//         cout << "Return successful!\n";
-//         cout << "You returned Game " << gameId << " on " << today << "\n";
-//         return;
-//     }
-// }
-
 void memberBorrowMenu(GameDictionary& gameDict, Member& selectedMember, MasterHistoryLog& historyList) {
     cout << "\n===== Borrow Game =====\n";
 
@@ -465,8 +342,118 @@ void memberReturnMenu(GameDictionary& gameDict, Member& selectedMember, MasterHi
     }
 }
 
+void memberAddReviewMenu(GameDictionary& gameDict, Member& selectedMember) {
+    cout << "\n===== Add Review =====\n";
 
-void DisplayBorrowedGames(Member& selectedMember) {}
+    // 1) Show all games
+    gameDict.print();
+
+    while (true) {
+        cout << "\nEnter Game ID to review (or 0 to cancel): ";
+        string gameId;
+        cin >> gameId;
+
+        if (gameId == "0") {
+            cout << "Cancelled.\n";
+            return;
+        }
+
+        // 2) Retrieve game
+        BoardGame* game = gameDict.get(gameId);
+        if (game == nullptr) {
+            cout << "Game ID not found. Please try again.\n";
+            continue;
+        }
+
+        // 3) Get rating (1-10)
+        int rating;
+        while (true) {
+            cout << "Enter rating (1-10): ";
+            cin >> rating;
+
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Invalid input. Please enter a number.\n";
+                continue;
+            }
+
+            if (rating < 1 || rating > 10) {
+                cout << "Rating must be between 1 and 10.\n";
+                continue;
+            }
+
+            // clear newline before getline for review text
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            break;
+        }
+
+        // 4) Get review text
+        string reviewText;
+        while (true) {
+            cout << "Enter review text: ";
+            getline(cin, reviewText);
+
+            if (reviewText.empty()) {
+                cout << "Review text cannot be empty.\n";
+                continue;
+            }
+            break;
+        }
+
+        // 5) Add review into game reviewHistory
+        string today = getCurrentDate();
+
+        bool ok = game->addReview(
+            selectedMember.getID(),
+            selectedMember.getName(),
+            today,
+            reviewText,
+            rating
+        );
+
+        if (!ok) {
+            cout << "Failed to add review.\n";
+            return;
+        }
+
+        cout << "Review added successfully!\n";
+        cout << selectedMember.getName() << " reviewed " << game->getName()
+             << " (" << gameId << ") on " << today
+             << " with rating " << rating << "/10.\n";
+
+        return;
+    }
+}
+
+void memberViewReviewMenu(GameDictionary& gameDict) {
+    cout << "\n===== View Game Reviews =====\n";
+
+    // 1) Show all games
+    gameDict.print();
+
+    while (true) {
+        cout << "\nEnter Game ID to view reviews (or 0 to cancel): ";
+        string gameId;
+        cin >> gameId;
+
+        if (gameId == "0") {
+            cout << "Cancelled.\n";
+            return;
+        }
+
+        // 2) Retrieve game
+        BoardGame* game = gameDict.get(gameId);
+        if (game == nullptr) {
+            cout << "Game ID not found. Please try again.\n";
+            continue;
+        }
+
+        // 3) Display reviews
+        game->displayReviews();
+        return;
+    }
+}
 
 void adminMenu(GameDictionary& gameDict, MemberDictionary& memberDict, MasterHistoryLog& historyList) {
     int choice;
@@ -542,6 +529,8 @@ void memberMenu(GameDictionary& gameDict,
         cout << "1) Borrow Game\n";
         cout << "2) Return Game\n";
         cout << "3) Summary of Games Borrowed\n";
+        cout << "4) Add Review\n";          // ✅ NEW
+        cout << "5) View Game Reviews\n";   // ✅ NEW
         cout << "0) Logout\n";
         cout << "Choose: ";
 
@@ -554,20 +543,50 @@ void memberMenu(GameDictionary& gameDict,
 
         if (choice == 1) {
             memberBorrowMenu(gameDict, selectedMember, historyList);
-        } else if (choice == 2) {
+        }
+        else if (choice == 2) {
             memberReturnMenu(gameDict, selectedMember, historyList);
-        }else if (choice == 3){
+        }
+        else if (choice == 3) {
             selectedMember.printBorrowHistory();
-        } else if (choice == 0) {
+        }
+        else if (choice == 4) {
+            memberAddReviewMenu(gameDict, selectedMember);   // ✅ NEW
+        }
+        else if (choice == 5) {
+            memberViewReviewMenu(gameDict);                  // ✅ NEW
+        }
+        else if (choice == 0) {
             cout << "Logging out...\n";
             return;
-        } else {
+        }
+        else {
             cout << "Invalid option.\n";
         }
     }
 }
 
-void mainMenu(GameDictionary& gameDict, MemberDictionary& memberDict, MasterHistoryLog& historyList) {
+int main() {
+
+    GameDictionary gameDict;
+    MemberDictionary memberDict;
+    MasterHistoryLog historyList;
+
+    // Create BoardGame objects
+    BoardGame g1("G001", "Catan", 3, 4, 60, 120, 1995);
+    BoardGame g2("G002", "Monopoly", 2, 6, 60, 180, 1935);
+    BoardGame g3("G003", "Chess", 2, 2, 10, 60, 1975);
+    gameDict.add("G001", g1);
+    gameDict.add("G002", g2);
+    gameDict.add("G003", g3);
+
+    Member member("M001", "John");
+    Member member2("M002", "Jane");
+    Member member3("M003", "Bob");
+    memberDict.addMember("M001",member);
+    memberDict.addMember("M002",member2);
+    memberDict.addMember("M003",member3);
+
     int role;
 
     while (true) {
@@ -595,41 +614,6 @@ void mainMenu(GameDictionary& gameDict, MemberDictionary& memberDict, MasterHist
             cout << "Invalid option.\n";
         }
     }
-}
-
-int main() {
-
-    // Create dictionary
-    GameDictionary gameDict;
-    MemberDictionary memberDict;
-    MasterHistoryLog historyList;
-
-    // Create BoardGame objects
-    BoardGame g1("G001", "Catan", 3, 4, 60, 120, 1995);
-    BoardGame g2("G002", "Monopoly", 2, 6, 60, 180, 1935);
-    BoardGame g3("G003", "Chess", 2, 2, 10, 60, 1975);
-    gameDict.add("G001", g1);
-    gameDict.add("G002", g2);
-    gameDict.add("G003", g3);
-
-    Member member("M001", "John");
-    Member member2("M002", "Jane");
-    Member member3("M003", "Bob");
-    memberDict.addMember("M001",member);
-    memberDict.addMember("M002",member2);
-    memberDict.addMember("M003",member3);
-
-
-
-
-    mainMenu(gameDict, memberDict, historyList);
-    // g1.borrowGame("M001","Yilin","2026");
-    // g1.printInfo();
-    //
-    // List<int> list(10);
-    // list.add(1);
-    // list.add(2);
-    // list.print();
 
     return 0;
 };

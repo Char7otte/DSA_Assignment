@@ -1,108 +1,3 @@
-// #include "BoardGame.h"
-//
-// // Constructor
-// BoardGame::BoardGame(string id, string name, int minP, int maxP,
-//                      int minTime, int maxTime, int year)
-//     : id(id), name(name), minPlayers(minP), maxPlayers(maxP),
-//       minPlayTime(minTime), maxPlayTime(maxTime),
-//       yearPublished(year), borrowHistory(10),reviewHistory(10), isBorrowed(false), historyCount(0) {}
-//
-//
-//
-// string BoardGame::getID() const {
-//     return id;
-// }
-// string BoardGame::getName() const {
-//     return name;
-// }
-//
-//
-// // Borrow
-// bool BoardGame::borrowGame(string borrowerId, string borrowerName, string date) {
-//     if (isBorrowed)
-//         cout << "Game is already borrow" << endl;
-//         return false;
-//
-//     // Create the record struct
-//     UsageRecord newRecord = {
-//         borrowerId,
-//         borrowerName,
-//         date,
-//         "" // Use "N/A" or empty string for return date
-//     };
-//
-//     // Use the .add() method from your custom List class
-//     if (borrowHistory.add(newRecord)) {
-//         isBorrowed = true;
-//         historyCount++;
-//         // Note: size is handled inside borrowHistory.add()
-//         cout << "Game borrowed successfully << " << endl;
-//         return true;
-//     }
-//
-//     // If .add() returns false, it means the list is full (capacity 10)
-//     cout << "failed" << endl;
-//     return false;
-// }
-//
-// // Return
-// bool BoardGame::returnGame(string returnDate) {
-//     if (!isBorrowed)
-//         return false;
-//
-//     isBorrowed = false;
-//     borrowHistory.getRef(historyCount-1).returnDate = returnDate;
-//     //cout << "Game returned successfully!" << endl;
-//     return true;
-// }
-//
-// bool BoardGame::checkIsBorrowed() {
-//     return isBorrowed;
-// }
-//
-// // UsageRecord BoardGame::getLastestBorrowRecord() {
-// //     return borrowHistory[historyCount - 1];
-// // }
-//
-//
-// void BoardGame::printInfo() const {
-//         cout << "[ id= " << id
-//         << ", name= \"" << name << "\""
-//         << ", players= " << minPlayers << "-" << maxPlayers
-//         << ", playtime= " << minPlayTime << "-" << maxPlayTime
-//         << ", year= " << yearPublished
-//         << ", borrowed= " << isBorrowed
-//         << "]" << endl;
-// }
-// //
-// //
-// // // Print full history
-// // void BoardGame::printBorrowHistory(){
-// //     cout << "Borrowing history of " << name << ":" << endl;
-// //     for (int i = historyCount-1; i >= 0; i--) {
-// //         cout<< "BorrowerId: " << borrowHistory[i].borrowerId
-// //             << ", Borrower: " << borrowHistory[i].borrowerName
-// //              << ", Borrowed: " << borrowHistory[i].borrowDate
-// //              << ", Returned: " << borrowHistory[i].returnDate << endl;
-// //     }
-// // }
-// //
-// // // Check + print latest
-// // void BoardGame::checkIfBorrowedAndPrintLatest() const {
-// //     if (isBorrowed) {
-// //         const UsageRecord& latest = borrowHistory[historyCount - 1];
-// //         cout << name << " is currently borrowed by: "<< latest.borrowerName << endl;
-// //
-// //         cout << "Borrower ID: " << latest.borrowerId << endl;
-// //         cout << "Borrower Name: " << latest.borrowerName << endl;
-// //         cout << "Borrow Date: " << latest.borrowDate << endl;
-// //         cout << "Return Date: "
-// //              << (latest.returnDate.empty() ? "Not returned yet" : latest.returnDate)
-// //              << endl;
-// //     }else {
-// //         cout << name << " is currently available!" << endl;
-// //     }
-// // }
 #include "BoardGame.h"
 
 // Constructor
@@ -147,6 +42,78 @@ bool BoardGame::returnGame(string returnDate) {
     cout << "Game returned successfully!" << endl;
     return true;
 }
+
+bool BoardGame::addReview(string reviewerId,
+                          string reviewerName,
+                          string reviewDate,
+                          string reviewText,
+                          int rating) {
+    // Optional validation
+    if (rating < 1 || rating > 10) {
+        cout << "Rating must be between 1 and 10.\n";
+        return false;
+    }
+
+    Review newReview{
+        reviewerId,
+        reviewerName,
+        reviewDate,
+        reviewText,
+        rating
+    };
+
+    // Use List.add()
+    if (!reviewHistory.add(newReview)) {
+        cout << "Failed to add review.\n";
+        return false;
+    }
+
+    // cout << "Review added successfully.\n";
+    return true;
+}
+
+void BoardGame::displayReviews() {
+    cout << "\n" << string(90, '=') << "\n";
+    cout << "REVIEWS FOR GAME: " << name << " (" << id << ")\n";
+    cout << string(90, '=') << "\n";
+
+    if (reviewHistory.getLength() == 0) {
+        cout << "(No reviews yet.)\n";
+        cout << string(90, '=') << "\n";
+        return;
+    }
+
+    // Header
+    cout << left
+         << setw(30) << "REVIEWER NAME"
+         << setw(20) << "REVIEW DATE"
+         << setw(10) << "RATING"
+         << "\n";
+
+    cout << string(90, '-') << "\n";
+
+    // Each review
+    for (int i = 0; i < reviewHistory.getLength(); i++) {
+        const Review& r = reviewHistory.getRef(i);
+
+        // First line (meta info)
+        cout << left
+             << setw(30) << r.reviewerName
+             << setw(20) << r.reviewDate
+             << setw(10) << (to_string(r.rating) + "/5")
+             << "\n";
+
+        // Second line (review text)
+        cout << setw(30) << " "
+             << r.reviewText << "\n";
+
+        cout << string(90, '-') << "\n";
+    }
+
+    cout << string(90, '=') << "\n";
+}
+
+
 
 bool BoardGame::checkIsBorrowed() const {
     return isBorrowed;

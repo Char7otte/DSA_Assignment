@@ -18,6 +18,7 @@ struct GameRental {
     bool isReturned;
 };
 
+
 class Member {
 private:
     string id;
