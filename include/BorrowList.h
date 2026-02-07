@@ -27,6 +27,9 @@ public:
 	// Add to head
 	bool add(std::string memberID, std::string gameID);
 
+	//Add to head a struct
+	bool add(BorrowLog& log);
+
 	// Remove head
 	bool remove();
 
@@ -40,5 +43,7 @@ public:
 	void print();
 
 	bool returnGame(const std::string& borrowerID, std::string& gameID);
+
+	BorrowList findAll(const std::string& borrowerID);
 };
 

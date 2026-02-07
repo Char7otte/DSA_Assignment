@@ -18,7 +18,7 @@ bool memberDashboard(GameDictionary& games, Member& member, BorrowList& loans) {
             memberReturnMenu(games, member, loans);
         }
         else if (input == "3") {
-            std::cout << "Display your borrow history";
+            getBorrowHistory(member.getID(), loans);
         }
         else if (input == "4") {
             games.print();
@@ -96,4 +96,15 @@ void memberReturnMenu(GameDictionary& games, Member& returner, BorrowList& loans
         std::cout << "You have returned Game " << gameToReturn->getName() << " on " << date << ".\n" << "\n";
         return;
     }
+}
+
+void getBorrowHistory(std::string borrowerID, BorrowList &loans) {
+    BorrowList borrowHistory = loans.findAll(borrowerID);
+    if (borrowHistory.isEmpty()) {
+        std::cout << "You have not borrowed anything." << "\n";
+        return;
+    }
+
+    std::cout << "BORROW HISTORY: " << "\n";
+    borrowHistory.print();
 }

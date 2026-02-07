@@ -20,6 +20,16 @@ bool BorrowList::add(std::string memberID, std::string gameID) {
 	return true;
 }
 
+//Add to head a struct
+bool BorrowList::add(BorrowLog& log) {
+	Node* newNode = new Node;
+	newNode->item = log;
+
+	newNode->next = firstNode;
+	firstNode = newNode;
+	return true;
+}
+
 // Remove from head
 bool BorrowList::remove() {
 	if (isEmpty()) return false;
@@ -68,4 +78,16 @@ bool BorrowList::returnGame(const std::string& borrowerID, std::string& gameID) 
 	BorrowLog* returningLog = find(borrowerID, gameID);
 	returningLog->returnDate = getTodayDate();
 	return true;
+}
+
+BorrowList BorrowList::findAll(const std::string& borrowerID) {
+	BorrowList foundItems{};
+	Node* temp = firstNode;
+	while (temp != nullptr) {
+		if (temp->item.borrowerID == borrowerID) {
+			foundItems.add(temp->item);
+		}
+		temp = temp->next;
+	}
+	return foundItems;
 }
