@@ -51,7 +51,7 @@ void memberBorrowMenu(GameDictionary& games, Member& borrower, BorrowList& loans
 
         if (gameToBorrow->getIsBorrowed()) {
             std::cout << "This board game has been lent to someone else.\n";
-            return;
+            continue;
         }
 
         bool memberSuccess = borrower.borrowGame(*gameToBorrow);
@@ -93,8 +93,7 @@ void memberReturnMenu(GameDictionary& games, Member& returner, BorrowList& loans
 
         bool logSuccess = loans.returnGame(returner.getID(), gameID);
 
-        std::cout << "Return successful!\n";
-        std::cout << "You returned Game " << gameID << " on " << date << "\n";
+        std::cout << "You have returned Game " << gameToReturn->getName() << " on " << date << ".\n" << "\n";
         return;
     }
 }
