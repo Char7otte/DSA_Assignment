@@ -81,3 +81,21 @@ void BoardGame::printAvailable() {
     if (getIsBorrowed()) return;
     else print();
 }
+
+bool BoardGame::addReview(std::string reviewerID, std::string reviewBody, int rating) {
+    return reviewList.add(reviewerID, reviewBody, rating);
+}
+
+void BoardGame::printReviews() {
+    reviewList.print();
+}
+
+bool BoardGame::hasReviews() {
+    return !reviewList.isEmpty();
+}
+
+bool BoardGame::printReviewed() {
+    if (!hasReviews()) return false;
+    print();
+    return true;
+}

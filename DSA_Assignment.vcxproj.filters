@@ -25,6 +25,12 @@
     <Filter Include="Source Files\Dictionary">
       <UniqueIdentifier>{2b6f5ed5-7c83-46d5-ba86-8440ed13c434}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\List">
+      <UniqueIdentifier>{7c8b2ef6-d663-48d1-9745-5391a9051125}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\List">
+      <UniqueIdentifier>{c4bdd06f-dd5a-4054-95f2-88612f7ea2f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\BoardGame.h">
@@ -54,11 +60,14 @@
     <ClInclude Include="include\MemberSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\ReviewList.h">
+      <Filter>Header Files\List</Filter>
+    </ClInclude>
     <ClInclude Include="include\BorrowList.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\List</Filter>
     </ClInclude>
     <ClInclude Include="include\List.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\List</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -93,7 +102,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\BorrowList.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\List</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ReviewList.cpp">
+      <Filter>Source Files\List</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -52,3 +52,20 @@ void GameDictionary::printAvailable() {
         }
     }
 }
+
+bool GameDictionary::printReviewed() {
+    bool printed = false;
+    for (int i = 0; i < MAX_SIZE; i++) {
+        Node* temp = items[i];
+
+        while (temp != nullptr) {
+            BoardGame* boardGame = temp->item;
+            bool success = boardGame->printReviewed();
+            if (success) {
+                printed = true;
+            }
+            temp = temp->next;
+        }
+    }
+    return printed;
+}

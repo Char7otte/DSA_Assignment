@@ -139,6 +139,7 @@
     <ClInclude Include="include\Member.h" />
     <ClInclude Include="include\MemberDictionary.h" />
     <ClInclude Include="include\MemberSystem.h" />
+    <ClInclude Include="include\ReviewList.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AdminSystem.cpp" />
@@ -152,6 +153,7 @@
     <ClCompile Include="src\Member.cpp" />
     <ClCompile Include="src\MemberDictionary.cpp" />
     <ClCompile Include="src\MemberSystem.cpp" />
+    <ClCompile Include="src\ReviewList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data\games.csv" />

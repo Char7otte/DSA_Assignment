@@ -8,3 +8,5 @@ bool memberDashboard(GameDictionary& games, MemberDictionary& members, BorrowLis
 void memberBorrowMenu(GameDictionary& games, Member& borrower, BorrowList& loans);
 void memberReturnMenu(GameDictionary& games, Member& returner, BorrowList& loans);
 void getBorrowHistory(GameDictionary& games, MemberDictionary& members, BorrowList& loans, std::string borrowerID);
+void leaveReview(GameDictionary& games, Member& member);
+void viewReviews(GameDictionary& games);
