@@ -40,15 +40,7 @@ public:
         const int yearPublished,
         const bool isBorrowed);
 
-    void print() override {
-        std::cout << "Game ID: " << id
-            << " | Name: " << name
-            << " | Players: " << minPlayers << "-" << maxPlayers
-            << " | Playtime: " << minPlaytime << "-" << maxPlaytime << " mins"
-            << " | Year: " << yearPublished
-            << " | Status: " << (isBorrowed ? "Borrowed" : "Available")
-            << "\n";
-    }
+    void print() override;
 
     bool getIsBorrowed();
 

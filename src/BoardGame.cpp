@@ -55,6 +55,15 @@ bool BoardGame::returnGame() {
     return true;
 }
 
+void BoardGame::print() {
+    std::cout << "Game ID: " << id
+        << " | Name: " << name
+        << " | Players: " << minPlayers << "-" << maxPlayers
+        << " | Playtime: " << minPlaytime << "-" << maxPlaytime << " mins"
+        << " | Year: " << yearPublished
+        << " | Status: " << (getIsBorrowed() ? "Loaned" : "Available")
+        << "\n";
+}
 //UsageRecord BoardGame::getLastestBorrowRecord() {
 //    return borrowHistory[historyCount - 1];
 //}
