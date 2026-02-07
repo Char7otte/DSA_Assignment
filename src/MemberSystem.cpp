@@ -40,7 +40,7 @@ void memberBorrowMenu(GameDictionary& games, Member& borrower, MasterHistoryLog&
     std::cout << "\n===== Borrow Game =====\n";
 
     // Show all games first
-    games.print();
+    games.printAvailable();
 
     while (true) {
         std::string gameID = getString("Enter Game ID to borrow: ");

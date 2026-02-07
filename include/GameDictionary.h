@@ -9,4 +9,5 @@ public:
     GameDictionary();
 
     void print() override;
+    void printAvailable();
 };

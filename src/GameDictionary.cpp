@@ -47,6 +47,18 @@ void GameDictionary::print() {
     std::cout << std::string(85, '=') << "\n";
 }
 
+void GameDictionary::printAvailable() {
+    for (int i = 0; i < MAX_SIZE; i++) {
+        Node* temp = items[i];
+
+        while (temp != nullptr) {
+            BoardGame* boardGame = temp->item;
+            boardGame->printAvailable();
+            temp = temp->next;
+        }
+    }
+}
+
 //void GameDictionary::print() {
 
 

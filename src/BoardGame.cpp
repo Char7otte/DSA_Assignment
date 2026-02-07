@@ -64,6 +64,12 @@ void BoardGame::print() {
         << " | Status: " << (getIsBorrowed() ? "Loaned" : "Available")
         << "\n";
 }
+
+void BoardGame::printAvailable() {
+    if (getIsBorrowed()) return;
+    else print();
+}
+
 //UsageRecord BoardGame::getLastestBorrowRecord() {
 //    return borrowHistory[historyCount - 1];
 //}

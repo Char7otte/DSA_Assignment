@@ -42,6 +42,8 @@ public:
 
     void print() override;
 
+    void printAvailable();
+
     bool getIsBorrowed();
 
     bool borrowGame(std::string borrowerID, std::string borrowerName);
