@@ -6,7 +6,7 @@
 GameDictionary::GameDictionary() {}
 
 void GameDictionary::print() {
-    const int TOTAL_WIDTH = 125;
+    const int TOTAL_WIDTH = 119;
 
     std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "GAME INVENTORY LIST\n";
     std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
