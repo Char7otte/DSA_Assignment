@@ -27,9 +27,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\MasterHistoryLog.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\BoardGame.h">
       <Filter>Header Files\Item</Filter>
     </ClInclude>
@@ -60,12 +57,12 @@
     <ClInclude Include="include\BorrowList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\List.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\DSA_Assignment.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MasterHistoryLog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\BoardGame.cpp">

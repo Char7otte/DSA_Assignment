@@ -3,44 +3,31 @@
 #include "InputValidation.h"
 #include "MemberDictionary.h"
 #include "GameDictionary.h"
+#include "List.h"
 
 #include<string>
 
-class BorrowList
+struct BorrowLog {
+	std::string borrowerID = "N/A";
+	std::string gameID = "N/A";
+	std::string loanDate = getTodayDate();
+	std::string returnDate = "N/A";
+};
+
+class BorrowList: public List<BorrowLog>
 {
-	struct BorrowLog {
-		std::string borrowerID = "N/A";
-		std::string gameID = "N/A";
-		std::string loanDate = getTodayDate();
-		std::string returnDate = "N/A";
-	};
-
-	struct Node {
-		BorrowLog item{};
-		Node* next = nullptr;
-	};
-
-	Node* firstNode = nullptr;
-
 public:
+	using List<BorrowLog>::add; //Because BorrowList has its own add, it will ignore add() in base class by default
 	BorrowList();
 	~BorrowList();
 
 	// Add to head
 	bool add(std::string memberID, std::string gameID);
 
-	//Add to head a struct
-	bool add(BorrowLog& log);
-
-	// Remove head
-	bool remove();
-
 	// Get head and return via params
 	bool get(std::string& memberID, std::string& gameID);
 
 	BorrowLog* find(const std::string& borrowerID, std::string& gameID);
-
-	bool isEmpty();
 
 	void print(GameDictionary& games, MemberDictionary& members);
 

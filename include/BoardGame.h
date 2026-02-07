@@ -11,6 +11,13 @@ struct LoanInfo : public DateLog {
     std::string borrowerName = "N/A";
 };
 
+struct Review {
+    std::string reviewerId;
+    std::string reviewDate;
+    std::string reviewText;
+    int rating;
+};
+
 class BoardGame : public Item {
 private:
     int minPlayers = 0;
