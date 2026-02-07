@@ -74,7 +74,7 @@ Member* login(MemberDictionary& members) {
     std::cout << "Enter your ID: ";
     std::getline(std::cin, id);
 
-    Member* foundAccount;
+    Member* foundAccount = nullptr;
     members.get(id, foundAccount);
     return foundAccount;
 }
