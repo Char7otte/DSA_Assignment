@@ -3,7 +3,7 @@
 #include "MemberDictionary.h"
 #include "BoardGame.h"
 #include "Member.h"
-#include "MasterHistoryLog.h"
+#include "BorrowList.h"
 
 // General Functions
 #include "FileUtilities.h"
