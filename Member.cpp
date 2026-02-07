@@ -4,18 +4,13 @@
 #include <iostream>
 using namespace std;
 
-// Member::Member(string id, string name) {
-////     this->id = std::move(id);
-////     this->name = std::move(name);
-//// }
-
-Member::Member(string id,string name)
-    : id(id), name(name), borrowRecords(10) {}
-
+Member::Member(string id, string name) {
+    this->id = std::move(id);
+    this->name = std::move(name);
+}
 string Member::getID() const {
     return id;
 }
-
 string Member::getName() const {
     return name;
 }
@@ -23,33 +18,33 @@ string Member::getName() const {
 bool Member::borrowGame(BoardGame& game, string borrowDate) {
     bool borrowed = game.checkIsBorrowed();
     if (!borrowed) {
-        // Create the struct locally
-        GameRental newRecord = {
+
+        borrowRecords[borrowCount] = {
             game.getID(), game.getName(), borrowDate, "", false
         };
+        borrowCount++;
+        // cout << "Game borrowed successfully!" << endl;
+        return true;
 
-        // Use the List's .add() method
-        if (borrowRecords.add(newRecord)) {
-            borrowCount++;
-            return true;
-        }
     }
+    // cout << "Game is already borrowed!" << endl;
     return false;
 }
 
 bool Member::returnGame(BoardGame& game, string returnDate) {
-    // Loop through the current items in the list
-    for (int i = borrowRecords.getLength() - 1; i >= 0; i--) {
-        // Use getRef to get the actual object, not a copy
-        GameRental& current = borrowRecords.getRef(i);
+    //game.returnGame(returnDate);
 
-        if (current.gameId == game.getID() && !current.isReturned) {
-            current.returnDate = returnDate; // Modifies the list directly!
-            current.isReturned = true;
+    for (int i = borrowCount - 1; i >= 0; i--) {
+        if (borrowRecords[i].gameId == game.getID()) {
+            borrowRecords[i].returnDate = returnDate;
+            borrowRecords[i].isReturned = true;
             return true;
+            //game.returnGame(returnDate);
         }
     }
     return false;
+    //cout << "Game was not borrow by this member!" << endl;
+
 }
 
 
@@ -66,24 +61,21 @@ void Member::printUnreturnedGames() const {
 
     cout << string(70, '-') << "\n";
 
+    int printed = 0;
 
-
-    if (borrowRecords.getLength() == 0) {
-        cout << "(No unreturned games.)\n";
+    for (int i = 0; i < borrowCount; i++) {
+        if (!borrowRecords[i].isReturned) {
+            cout << left
+                 << setw(15) << borrowRecords[i].gameId
+                 << setw(30) << borrowRecords[i].gameName
+                 << setw(20) << borrowRecords[i].borrowDate
+                 << "[ON LOAN]" << "\n";
+            printed++;
+        }
     }
 
-    for (int i = borrowRecords.getLength() - 1; i >= 0; i--) {
-        GameRental r = borrowRecords.get(i); // get() is fine here for reading
-
-        cout << left << setw(15) << r.gameId
-             << setw(30) << r.gameName
-             << setw(18) << r.borrowDate;
-
-        if (r.isReturned) {
-            cout << setw(16) << r.returnDate << "[RETURNED]\n";
-        } else {
-            cout << setw(16) << "---" << "[ON LOAN]\n";
-        }
+    if (printed == 0) {
+        cout << "(No unreturned games.)\n";
     }
 
     cout << string(70, '=') << "\n";
@@ -94,32 +86,41 @@ void Member::printBorrowHistory() const {
     cout << "BORROW HISTORY FOR MEMBER: " << name << " (" << id << ")\n";
     cout << string(90, '=') << "\n";
 
-    if (borrowRecords.getLength() == 0) {
-        cout << "(No borrow history.)\n";
-        return;
-    }
-
     cout << left
          << setw(15) << "GAME ID"
          << setw(30) << "GAME NAME"
          << setw(18) << "BORROW DATE"
          << setw(18) << "RETURN DATE"
          << "STATUS" << "\n";
+
     cout << string(90, '-') << "\n";
 
-    for (int i = borrowRecords.getLength() - 1; i >= 0; i--) {
-        GameRental r = borrowRecords.get(i);
+    if (borrowCount == 0) {
+        cout << "(No borrow history.)\n";
+        cout << string(90, '=') << "\n";
+        return;
+    }
+
+    // Print newest first (your original idea)
+    for (int i = borrowCount - 1; i >= 0; i--) {
+        const auto& r = borrowRecords[i];
+
         cout << left
              << setw(15) << r.gameId
              << setw(30) << r.gameName
              << setw(18) << r.borrowDate;
 
         if (r.isReturned) {
-            cout << setw(16) << r.returnDate << "[RETURNED]\n";
+            cout << setw(16) << r.returnDate
+                 << "[RETURNED]";
         } else {
-            cout << setw(16) << "---" << "[ON LOAN]\n";
+            cout << setw(16) << "---"
+                 << "[ON LOAN]";
         }
+
+        cout << "\n";
     }
+
     cout << string(90, '=') << "\n";
 }
 

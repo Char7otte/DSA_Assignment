@@ -7,6 +7,8 @@ BoardGame::BoardGame(string id, string name, int minP, int maxP,
       minPlayTime(minTime), maxPlayTime(maxTime),
 yearPublished(year), isBorrowed(false),borrowHistory(10), reviews(10), historyCount(0) {}
 
+
+
 string BoardGame::getID() const {
     return id;
 }
@@ -35,6 +37,9 @@ bool BoardGame::borrowGame(string borrowerId, string borrowerName, string date) 
         // Note: size is handled inside borrowHistory.add()
         return true;
     }
+
+
+
     return false;
 }
 
