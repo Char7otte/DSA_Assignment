@@ -47,7 +47,7 @@ bool BoardGame::borrowGame(std::string borrowerID, std::string borrowerName) {
 
 // Return
 bool BoardGame::returnGame() {
-    if (!isBorrowed)
+    if (!getIsBorrowed())
         return false;
 
     loanInfo = {};

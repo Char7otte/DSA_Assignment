@@ -50,3 +50,22 @@ void BorrowList::print() {
 		temp = temp->next;
 	}
 }
+
+BorrowList::BorrowLog* BorrowList::find(const std::string& borrowerID, std::string& gameID) { //genuinely do not understand why const needs to be here but that's just C++ being C++
+	if (isEmpty()) return nullptr;
+
+	Node* temp = firstNode;
+	while (temp != nullptr) {
+		if (temp->item.borrowerID == borrowerID && temp->item.gameID == gameID) {
+			return &temp->item;
+		}
+		temp = temp->next;
+	}
+	return nullptr;
+}
+
+bool BorrowList::returnGame(const std::string& borrowerID, std::string& gameID) { //genuinely do not understand why const needs to be here but that's just C++ being C++
+	BorrowLog* returningLog = find(borrowerID, gameID);
+	returningLog->returnDate = getTodayDate();
+	return true;
+}

@@ -18,7 +18,6 @@ private:
     int minPlaytime = 0;
     int maxPlaytime = 0;
     int yearPublished = 0;
-    bool isBorrowed = false;
     LoanInfo loanInfo = {};
 
 public:

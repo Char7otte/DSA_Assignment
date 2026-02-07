@@ -14,7 +14,6 @@ struct BorrowLog: public DateLog {
     std::string gameID = "N/A";
     std::string gameName = "N/A";
     std::string returnDate = "NOT RETURNED";
-    bool isReturned = false;
 };
 
 class Member: public Item {
@@ -37,6 +36,6 @@ public:
 
     bool returnGame(BoardGame& game);
 
-    void printUnreturnedGames() const;
+    void printLoans();
     //void printBorrowHistory() const;
 };

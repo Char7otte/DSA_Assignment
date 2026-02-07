@@ -46,45 +46,21 @@ bool Member::borrowGame(BoardGame& gameToBorrow) {
 bool Member::returnGame(BoardGame& game) {
     for (int i = borrowCount - 1; i >= 0; i--) {
         if (borrowHistory[i].gameID == game.getID()) {
-            borrowHistory[i].returnDate = getTodayDate();
-            borrowHistory[i].isReturned = true;
+            borrowHistory[i] = {};
             return true;
         }
     }
     return false;
 }
-//
-//
-void Member::printUnreturnedGames() const {
-    std::cout << "\n" << std::string(70, '=') << "\n";
-    std::cout << "UNRETURNED GAMES FOR MEMBER: " << name << " (" << id << ")\n";
-    std::cout << std::string(70, '=') << "\n";
 
-    std::cout << std::setw(15) << "GAME ID"
-        << std::setw(30) << "GAME NAME"
-        << std::setw(20) << "BORROW DATE"
-        << "STATUS" << "\n";
-
-    std::cout << std::string(70, '-') << "\n";
-
-    int printed = 0;
-
-    for (int i = 0; i < borrowCount; i++) {
-        if (!borrowHistory[i].isReturned) {
-            std::cout << std::setw(15) << borrowHistory[i].gameID
-                << std::setw(30) << borrowHistory[i].gameName
-                << std::setw(20) << borrowHistory[i].loanDate
-                << "[ON LOAN]" << "\n";
-            printed++;
-        }
+void Member::printLoans() {
+    for (int i = 0; i < MAX_SIZE; i++) {
+        BorrowLog borrowLog = borrowHistory[i];
+        if (borrowLog.gameID == "N/A") continue;
+        std::cout << borrowLog.gameID << " " << borrowLog.gameName << " " << borrowLog.loanDate << " " << borrowLog.returnDate << "\n";
     }
-
-    if (printed == 0) {
-        std::cout << "(No unreturned games.)\n";
-    }
-
-    std::cout << std::string(70, '=') << "\n";
 }
+
 //
 //void Member::printBorrowHistory() const {
 //    cout << "\n" << string(90, '=') << "\n";

@@ -33,8 +33,12 @@ public:
 	// Get head and return via params
 	bool get(std::string& memberID, std::string& gameID);
 
+	BorrowLog* find(const std::string& borrowerID, std::string& gameID);
+
 	bool isEmpty();
 
 	void print();
+
+	bool returnGame(const std::string& borrowerID, std::string& gameID);
 };
 
