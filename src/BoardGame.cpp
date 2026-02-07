@@ -46,16 +46,15 @@ bool BoardGame::borrowGame(std::string borrowerID, std::string borrowerName) {
     return true;
 }
 
-//// Return
-//bool BoardGame::returnGame(string returnDate) {
-//    if (!isBorrowed)
-//        return false;
-//
-//    isBorrowed = false;
-//    borrowHistory[historyCount - 1].returnDate = returnDate;
-//    //cout << "Game returned successfully!" << endl;
-//    return true;
-//}
+// Return
+bool BoardGame::returnGame() {
+    if (!isBorrowed)
+        return false;
+
+    loanInfo = {};
+    return true;
+}
+
 //UsageRecord BoardGame::getLastestBorrowRecord() {
 //    return borrowHistory[historyCount - 1];
 //}

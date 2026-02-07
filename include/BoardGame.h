@@ -54,8 +54,7 @@ public:
 
     bool borrowGame(std::string borrowerID, std::string borrowerName);
 
-    //bool borrowGame(std::string borrowerId, std::string borrowerName, std::string date);
-    //bool returnGame(std::string returnDate);
+    bool returnGame();
 
     //UsageRecord getLastestBorrowRecord();
 

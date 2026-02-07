@@ -79,67 +79,6 @@ Member* login(MemberDictionary& members) {
     return foundAccount;
 }
 
-//void memberReturnMenu(GameDictionary& gameDict,
-//                      Member& selectedMember,
-//                      MasterHistoryLog& historyList) {
-//    cout << "\n===== Return Game =====\n";
-//
-//    // 1) Show unreturned games from this member
-//    selectedMember.printUnreturnedGames();
-//
-//    // 2) Ask for game ID
-//    while (true) {
-//        cout << "\nEnter Game ID to return (or 0 to cancel): ";
-//        string gameId;
-//        cin >> gameId;
-//
-//        if (gameId == "0") {
-//            cout << "Cancelled.\n";
-//            return;
-//        }
-//
-//        // 3) Retrieve game from dictionary
-//        BoardGame* game = gameDict.get(gameId);
-//
-//        if (game == nullptr) {
-//            cout << "Game ID not found. Please try again.\n";
-//            continue;
-//        }
-//
-//        // 4) Check if game is borrowed (overall)
-//        if (!game->checkIsBorrowed()) {
-//            cout << "This game is not currently borrowed (already returned).\n";
-//            continue;
-//        }
-//
-//        // 5) Return stage
-//        string today = getCurrentDate();
-//
-//        // Member tries to return (checks if THIS member borrowed it)
-//        bool memberOk = selectedMember.returnGame(*game, today);
-//        if (!memberOk) {
-//            cout << "Return failed: This game is not currently borrowed by you.\n";
-//            continue; // let them try again
-//        }
-//
-//        // Game updates return date
-//        bool gameOk = game->returnGame(today);
-//        if (!gameOk) {
-//            cout << "Return failed unexpectedly (game state error).\n";
-//            return;
-//        }
-//
-//        // Update master history log
-//        bool logOk = historyList.markReturned(today, gameId);
-//        if (!logOk) {
-//            cout << "Returned, but history record not found to update.\n";
-//            // You can still treat it as success for user experience
-//        }
-//
-//        cout << "Return successful!\n";
-//        cout << "You returned Game " << gameId << " on " << today << "\n";
-//        return;
-//    }
 //}
 //void DisplayBorrowedGames(Member& selectedMember) {}
 //void adminMenu(GameDictionary& gameDict, MemberDictionary& memberDict, MasterHistoryLog& historyList) {

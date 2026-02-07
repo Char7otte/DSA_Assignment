@@ -35,7 +35,8 @@ public:
 
     bool borrowGame(BoardGame& game);
 
-    //bool returnGame(BoardGame& game, string returnDate);
-    //void printUnreturnedGames() const;
+    bool returnGame(BoardGame& game);
+
+    void printUnreturnedGames() const;
     //void printBorrowHistory() const;
 };

@@ -6,3 +6,4 @@
 
 bool memberDashboard(GameDictionary& games, Member& member, MasterHistoryLog& masterLog);
 void memberBorrowMenu(GameDictionary& games, Member& borrower, MasterHistoryLog& masterLog);
+void memberReturnMenu(GameDictionary& games, Member& returner, MasterHistoryLog& masterLog);
