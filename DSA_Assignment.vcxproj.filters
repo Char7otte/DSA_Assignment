@@ -57,7 +57,7 @@
     <ClInclude Include="include\MemberSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BorrowList.h">
+    <ClInclude Include="include\BorrowList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -95,7 +95,7 @@
     <ClCompile Include="src\MemberSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BorrowList.cpp">
+    <ClCompile Include="src\BorrowList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

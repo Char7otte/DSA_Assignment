@@ -128,9 +128,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BorrowList.h" />
     <ClInclude Include="include\AdminSystem.h" />
     <ClInclude Include="include\BoardGame.h" />
+    <ClInclude Include="include\BorrowList.h" />
     <ClInclude Include="include\Dictionary.h" />
     <ClInclude Include="include\FileUtilities.h" />
     <ClInclude Include="include\GameDictionary.h" />
@@ -141,9 +141,9 @@
     <ClInclude Include="include\MemberSystem.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BorrowList.cpp" />
     <ClCompile Include="src\AdminSystem.cpp" />
     <ClCompile Include="src\BoardGame.cpp" />
+    <ClCompile Include="src\BorrowList.cpp" />
     <ClCompile Include="src\DSA_Assignment.cpp" />
     <ClCompile Include="src\FileUtilities.cpp" />
     <ClCompile Include="src\GameDictionary.cpp" />
