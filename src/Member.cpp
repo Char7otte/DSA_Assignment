@@ -47,6 +47,7 @@ bool Member::returnGame(BoardGame& game) {
     for (int i = borrowCount - 1; i >= 0; i--) {
         if (borrowHistory[i].gameID == game.getID()) {
             borrowHistory[i] = {};
+            borrowCount--;
             return true;
         }
     }
