@@ -91,7 +91,7 @@ void readMemberFile(const std::string& fileName, MemberDictionary& memberDict) {
     memberDict.add("M3", m3);
     memberDict.add("M4", m4);
 
-    memberDict.setLargestID(3);
+    memberDict.setLargestID(4);
     memberDict.print();
 
     std::cout << "\n";
