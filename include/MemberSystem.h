@@ -1,8 +1,11 @@
 #pragma once
 
+#include "BorrowList.h"
 #include "GameDictionary.h"
 #include "Member.h"
-#include "BorrowList.h"
+#include "MemberDictionary.h"
+
+#include <string>
 
 bool memberDashboard(GameDictionary& games, MemberDictionary& members, BorrowList& loans, Member& member);
 void memberBorrowMenu(GameDictionary& games, Member& borrower, BorrowList& loans);

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Dictionary.h"
 #include "Member.h"
+#include "Dictionary.h"
 
 class MemberDictionary: public Dictionary<Member*>
 {

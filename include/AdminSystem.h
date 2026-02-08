@@ -1,8 +1,8 @@
 #pragma once
 
+#include "BorrowList.h"
 #include "GameDictionary.h"
 #include "MemberDictionary.h"
-#include "BorrowList.h"
 
 bool adminDashboard(GameDictionary& games, MemberDictionary& members, BorrowList& loans);
 void createAndAddGameMenu(GameDictionary& gameDict);

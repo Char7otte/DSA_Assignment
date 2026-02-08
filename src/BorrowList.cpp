@@ -1,6 +1,15 @@
 #include "BorrowList.h"
+#include "BoardGame.h"
+#include "GameDictionary.h"
+#include "InputValidation.h"
+#include "List.h"
+#include "Member.h"
+#include "MemberDictionary.h"
 
 #include<iomanip>
+#include <ios>
+#include <iostream>
+#include <string>
 
 BorrowList::BorrowList() {}
 BorrowList::~BorrowList() {

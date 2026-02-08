@@ -1,6 +1,6 @@
 #pragma once
 
-#include<string>
+#include <string>
 
 struct DateLog {
 	std::string loanDate = "0000-00-00"; //Year/Month/Day

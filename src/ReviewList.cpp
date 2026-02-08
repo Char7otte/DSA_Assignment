@@ -1,7 +1,12 @@
 #include "ReviewList.h"
+#include "List.h"
+#include "Member.h"
+#include "MemberDictionary.h"
 
-#include "InputValidation.h"
 #include<iomanip>
+#include <ios>
+#include <iostream>
+#include <string>
 
 ReviewList::ReviewList() {};
 

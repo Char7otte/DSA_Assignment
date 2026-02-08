@@ -1,7 +1,16 @@
 ﻿#include "MemberSystem.h"
+#include "BoardGame.h"
+#include "BorrowList.h"
+#include "GameDictionary.h"
+#include "Member.h"
+#include "MemberDictionary.h"
+
 #include "InputValidation.h"
 
 #include <iomanip>
+#include <ios>
+#include <iostream>
+#include <string>
 
 bool memberDashboard(GameDictionary& games,MemberDictionary& members, BorrowList& loans, Member& member) {
     while (true) {

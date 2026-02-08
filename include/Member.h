@@ -1,13 +1,8 @@
 #pragma once
 
-//
-// Created by gongy on 4/2/2026.
-//
-
-#include <iostream>
-#include <array>
-
 #include "Item.h"
+
+#include <string>
 
 class BoardGame;
 
@@ -31,13 +26,13 @@ public:
     void print() override;
 
     std::string getName();
-    bool getIsAdmin();
+    bool getIsAdmin() const; // shout out to the compiler for detecting that this one function can be made const
 
     bool borrowGame(BoardGame& game);
 
     bool returnGame(BoardGame& game);
 
-    void printLoans();
+    void printLoans() const;
 
-    bool hasLoans();
+    bool hasLoans() const;
 };

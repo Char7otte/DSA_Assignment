@@ -1,7 +1,11 @@
 #include "GameDictionary.h"
+#include "BoardGame.h"
+#include "Dictionary.h"
 
 #include<iostream>
 #include<iomanip>
+#include <ios>
+#include <string>
 
 GameDictionary::GameDictionary() {}
 

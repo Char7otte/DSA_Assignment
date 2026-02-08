@@ -3,7 +3,7 @@
 #include "GameDictionary.h"
 #include "MemberDictionary.h"
 
-#include<string>
+#include <string>
 
 void readGameFile(const std::string& fileName, GameDictionary& gameDict);
 

@@ -4,7 +4,7 @@
 #include "MemberDictionary.h"
 #include "InputValidation.h"
 
-#include<string>
+#include <string>
 
 struct ReviewLog {
     std::string reviewerID = "N/A";

@@ -1,9 +1,10 @@
 #pragma once
 
-#include "InputValidation.h"
 #include "MemberDictionary.h"
 #include "GameDictionary.h"
 #include "List.h"
+
+#include "InputValidation.h"
 
 #include<string>
 

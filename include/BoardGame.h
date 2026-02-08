@@ -2,11 +2,8 @@
 
 #include "Item.h"
 #include "ReviewList.h"
-#include "InputValidation.h"
 
 #include <string>
-#include<array>
-#include<iostream>
 
 class MemberDictionary; //having to do this and do the include inside the implementation
                                        //to prevent a circular include in the big 26 is insane
@@ -48,7 +45,7 @@ public:
 
     void printAvailable();
 
-    bool getIsBorrowed();
+    bool getIsBorrowed() const;
 
     bool borrowGame(std::string borrowerID, std::string borrowerName);
 

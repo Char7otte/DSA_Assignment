@@ -1,7 +1,11 @@
 #include "BoardGame.h"
-#include "GameDictionary.h"
+#include "Item.h"
+#include "MemberDictionary.h"
 
 #include<iomanip>
+#include <ios>
+#include <iostream>
+#include <string>
 
 // Constructor
 BoardGame::BoardGame(const std::string id,
@@ -33,7 +37,7 @@ BoardGame::BoardGame(const std::string id,
     this->yearPublished = yearPublished;
 }
 
-bool BoardGame::getIsBorrowed() {
+bool BoardGame::getIsBorrowed() const{
     return loanInfo.borrowerID != "N/A";
 }
 
