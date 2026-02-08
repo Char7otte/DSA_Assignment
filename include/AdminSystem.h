@@ -9,3 +9,4 @@ void createAndAddGameMenu(GameDictionary& gameDict);
 void deleteGameMenu(GameDictionary& games);
 void createMemberMenu(MemberDictionary& members);
 void displayHistory(GameDictionary& games, MemberDictionary& members, BorrowList& loans);
+void displayHistoryUnreturned(GameDictionary& games, MemberDictionary& members, BorrowList& loans);

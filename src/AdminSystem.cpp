@@ -18,8 +18,9 @@ bool adminDashboard(GameDictionary& games, MemberDictionary& members, BorrowList
         std::cout << "2. Remove a board game" << "\n";
         std::cout << "3. Add a new member" << "\n";
         std::cout << "4. Display borrow history log" << "\n";
-        std::cout << "5. Display all board games" << "\n";
-        std::cout << "6. Display all members" << "\n";
+        std::cout << "5. Display borrow history log (UNRETURNED)" << "\n";
+        std::cout << "6. Display all board games" << "\n";
+        std::cout << "7. Display all members" << "\n";
         std::cout << "0. Logout" << "\n";
         std::string input;
         std::getline(std::cin, input);
@@ -37,9 +38,12 @@ bool adminDashboard(GameDictionary& games, MemberDictionary& members, BorrowList
             displayHistory(games, members, loans);
         }
         else if (input == "5") {
-            games.print();
+            displayHistoryUnreturned(games, members, loans);
         }
         else if (input == "6") {
+            games.print();
+        }
+        else if (input == "7") {
             members.print();
         }
         else if (input == "0") {
@@ -172,3 +176,5 @@ void displayHistory(GameDictionary& games, MemberDictionary& members, BorrowList
 
     std::cout << std::string(TOTAL_WIDTH, '-') << "\n" << "\n";
 }
+
+void displayHistoryUnreturned(GameDictionary& games, MemberDictionary& members, BorrowList& loans) {}
