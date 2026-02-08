@@ -47,6 +47,7 @@ void MatchList::print() {
             // Add a comma before each ID after the first ID
             if (iteration > 0) {
                 playerIDs += ",";
+                std::cout << "more than 1";
             }
 
             playerIDs += tempPlayerID->item;
