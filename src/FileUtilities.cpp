@@ -83,13 +83,61 @@ void readMemberFile(const std::string& fileName, MemberDictionary& memberDict) {
     Member* m1 = new Member("M1", "Alice Smith", true);
     Member* m2 = new Member("M2", "Bob Jones", false);
     Member* m3 = new Member("M3", "Charlie Day");
+    Member* m4 = new Member("M4", "David Green");
+
+    
     memberDict.add("M1", m1);
     memberDict.add("M2", m2);
     memberDict.add("M3", m3);
+    memberDict.add("M4", m4);
 
     memberDict.setLargestID(3);
     memberDict.print();
 
     std::cout << "\n";
     std::cout << "File read successfully." << "\n" << "\n";
+}
+
+void addSampleReviews_G1(GameDictionary& games) {
+    BoardGame* game = nullptr;
+    games.get("G1", game);
+
+    if (game == nullptr) {
+        std::cout << "Game G1 not found.\n";
+        return;
+    }
+
+    // Allowed member IDs
+    const std::string memberIds[3] = { "M2", "M3", "M4" };
+
+    // Sample ratings & bodies
+    const int ratings[10] = { 5, 4, 3, 5, 2, 1, 4, 5, 3, 4 };
+    const std::string bodies[10] = {
+        "Excellent game, highly recommended",
+        "Very fun with friends",
+        "Decent but could be better",
+        "Amazing replay value",
+        "Not bad but a bit slow",
+        "Did not enjoy it much",
+        "Good strategy elements",
+        "One of my favourites",
+        "Okay for casual play",
+        "Solid overall experience"
+    };
+
+    for (int i = 0; i < 10; i++) {
+        // Rotate members: M2 ¡ú M3 ¡ú M4 ¡ú M2 ...
+        std::string reviewerId = memberIds[i % 3];
+
+        bool success = game->addReview(
+            reviewerId,
+            bodies[i],
+            ratings[i]
+        );
+
+        if (!success) {
+            std::cout << "Failed to add review " << (i + 1) << "\n";
+        }
+    }
+    std::cout << "10 sample reviews added to G1 (M2, M3, M4).\n";
 }

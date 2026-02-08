@@ -212,26 +212,61 @@ void viewReviews(GameDictionary& games, MemberDictionary& members) {
     std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
     bool printed = games.printReviewed();
     std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
+
     if (!printed) {
-        std::cout << "No reviews found." << "\n" << "\n";
+        std::cout << "No reviews found.\n\n";
         return;
     }
+
     std::cout << "\n===== VIEW GAME REVIEWS =====\n";
     BoardGame* foundBoardGame = nullptr;
 
     while (true) {
-        std::string id = getString("Enter ID of game: ");  
+        std::string id = getString("Enter ID of game: ");
         games.get(id, foundBoardGame);
+
         if (foundBoardGame == nullptr) {
-            std::cout << "Game not found. Please try again." << "\n";
+            std::cout << "Game not found. Please try again.\n";
             continue;
         }
         break;
     }
 
-        TOTAL_WIDTH = 119;
+    // =====================
+    // NORMAL DISPLAY
+    // =====================
+    TOTAL_WIDTH = 119;
 
-        std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "REVIEWS FOR " << foundBoardGame->getName() << "\n";
+    std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ')
+        << "REVIEWS FOR " << foundBoardGame->getName() << "\n";
+    std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
+
+    std::cout << std::left << std::setw(11) << "ReviewerID"
+        << " | " << std::setw(30) << "Reviewer"
+        << " | " << std::setw(15) << "Review Date"
+        << " | " << std::setw(7) << "Rating"
+        << " | " << "Body"
+        << "\n";
+
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
+    foundBoardGame->printReviews(members);
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
+
+    // =====================
+    // OPTIONAL SORTED VIEW
+    // =====================
+    int choice;
+    std::cout << "\nEnter 1 to display reviews by highest rating: ";
+    std::cin >> choice;
+
+    if (!std::cin) {
+        std::cin.clear();
+    }
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    if (choice == 1) {
+        std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 16, ' ')
+            << "REVIEWS (HIGHEST RATING FIRST)\n";
         std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
 
         std::cout << std::left << std::setw(11) << "ReviewerID"
@@ -242,9 +277,12 @@ void viewReviews(GameDictionary& games, MemberDictionary& members) {
             << "\n";
 
         std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
-        foundBoardGame->printReviews(members);
+        foundBoardGame->printReviewsDescendingRating(members);
         std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
+    }
 }
+
+
 
 void logMatch(GameDictionary& games, std::string memberID) {
     games.print();
