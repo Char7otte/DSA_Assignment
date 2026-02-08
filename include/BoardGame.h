@@ -2,6 +2,7 @@
 
 #include "Item.h"
 #include "ReviewList.h"
+#include "MatchList.h"
 
 #include <string>
 
@@ -22,6 +23,7 @@ private:
     int yearPublished = 0;
     LoanInfo loanInfo = {}; //This is a struct because the board game only needs to store who is currently borrowing em
     ReviewList reviewList{}; //This is a list storing structs because there can be multiple reviews
+    MatchList matchList{};
 
 public:
     BoardGame(const std::string id,
@@ -58,4 +60,12 @@ public:
     bool hasReviews();
 
     bool printReviewed();
+
+    bool addMatch(std::string loggerID, std::string gameID, int matchDuration, std::string playerIDs, std::string winnerID);
+
+    void printMatches();
+
+    bool hasMatches();
+
+    bool printMatched();
 };

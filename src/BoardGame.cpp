@@ -104,3 +104,21 @@ bool BoardGame::printReviewed() {
     print();
     return true;
 }
+
+bool BoardGame::addMatch(std::string loggerID, std::string gameID, int matchDuration, std::string playerIDs, std::string winnerID) {
+    return matchList.add(loggerID, gameID, matchDuration, playerIDs, winnerID);
+}
+
+void BoardGame::printMatches() {
+    matchList.print();
+}
+
+bool BoardGame::hasMatches() {
+    return !matchList.isEmpty();
+}
+
+bool BoardGame::printMatched() {
+    if (!hasMatches()) return false;
+    print();
+    return true;
+}

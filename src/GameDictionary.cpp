@@ -73,3 +73,20 @@ bool GameDictionary::printReviewed() {
     }
     return printed;
 }
+
+bool GameDictionary::printMatched() {
+    bool printed = false;
+    for (int i = 0; i < MAX_SIZE; i++) {
+        Node* temp = items[i];
+
+        while (temp != nullptr) {
+            BoardGame* boardGame = temp->item;
+            bool success = boardGame->printMatched();
+            if (success) {
+                printed = true;
+            }
+            temp = temp->next;
+        }
+    }
+    return printed;
+}
