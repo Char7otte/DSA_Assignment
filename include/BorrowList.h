@@ -12,7 +12,7 @@ struct BorrowLog {
 	std::string borrowerID = "N/A";
 	std::string gameID = "N/A";
 	std::string loanDate = getTodayDate();
-	std::string returnDate = "N/A";
+	std::string returnDate = "";
 };
 
 class BorrowList: public List<BorrowLog>
