@@ -1,6 +1,7 @@
 #include "Member.h"
 
 #include "InputValidation.h"
+#include "BoardGame.h"
 
 #include<iomanip>
 

@@ -1,6 +1,8 @@
 #pragma once
 
 #include "List.h"
+#include "MemberDictionary.h"
+#include "InputValidation.h"
 
 #include<string>
 
@@ -17,6 +19,6 @@ public:
     ReviewList();
 
     bool add(std::string reviewerID, std::string reviewerBody, int rating);
-    void print();
+    void print(MemberDictionary& members);
 };
 

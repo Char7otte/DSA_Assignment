@@ -8,7 +8,8 @@
 #include <array>
 
 #include "Item.h"
-#include "BoardGame.h"
+
+class BoardGame;
 
 struct BorrowLogMember: public DateLog {
     std::string gameID = "N/A";

@@ -1,4 +1,5 @@
 #include "BoardGame.h"
+#include "GameDictionary.h"
 
 #include<iomanip>
 
@@ -86,8 +87,8 @@ bool BoardGame::addReview(std::string reviewerID, std::string reviewBody, int ra
     return reviewList.add(reviewerID, reviewBody, rating);
 }
 
-void BoardGame::printReviews() {
-    reviewList.print();
+void BoardGame::printReviews(MemberDictionary& members) {
+    reviewList.print(members);
 }
 
 bool BoardGame::hasReviews() {

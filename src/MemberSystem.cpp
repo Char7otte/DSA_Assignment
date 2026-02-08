@@ -31,7 +31,7 @@ bool memberDashboard(GameDictionary& games,MemberDictionary& members, BorrowList
             leaveReview(games, member);
         }
         else if (input == "6") {
-            viewReviews(games);
+            viewReviews(games, members);
         }
         else if (input == "0") {
             return true;
@@ -179,7 +179,7 @@ void leaveReview(GameDictionary& games, Member& member) {
     std::cout << "==============================\n" << "\n";
 }
 
-void viewReviews(GameDictionary& games) {
+void viewReviews(GameDictionary& games, MemberDictionary& members) {
     int TOTAL_WIDTH = 119;
 
     std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "REVIEWED GAMES\n";
@@ -218,12 +218,13 @@ void viewReviews(GameDictionary& games) {
         std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
 
         std::cout << std::left << std::setw(11) << "ReviewerID"
+            << " | " << std::setw(30) << "Reviewer"
             << " | " << std::setw(15) << "Review Date"
             << " | " << std::setw(7) << "Rating"
             << " | " << "Body"
             << "\n";
 
         std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
-        foundBoardGame->printReviews();
+        foundBoardGame->printReviews(members);
         std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
 }

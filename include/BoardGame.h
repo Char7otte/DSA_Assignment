@@ -8,6 +8,9 @@
 #include<array>
 #include<iostream>
 
+class MemberDictionary; //having to do this and do the include inside the implementation
+                                       //to prevent a circular include in the big 26 is insane
+
 struct LoanInfo : public DateLog {
     std::string borrowerID = "N/A";
     std::string borrowerName = "N/A";
@@ -53,7 +56,7 @@ public:
 
     bool addReview(std::string reviewerID, std::string reviewBody, int rating);
 
-    void printReviews();
+    void printReviews(MemberDictionary& members);
 
     bool hasReviews();
 

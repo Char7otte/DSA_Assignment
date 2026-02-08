@@ -2,6 +2,7 @@
 
 #include "Dictionary.h"
 #include "BoardGame.h"
+#include "MemberDictionary.h"
 
 class GameDictionary: public Dictionary<BoardGame*>
 {

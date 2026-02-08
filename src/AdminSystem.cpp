@@ -122,7 +122,6 @@ void createMemberMenu(MemberDictionary& members) {
     std::cout << "\n===== Create Member =====\n";
 
     std::string newMemberID, newMemberName;
-    bool isAdmin;
 
     members.incrementLargestID();
     newMemberID = "M" + std::to_string(members.getLargestID());
