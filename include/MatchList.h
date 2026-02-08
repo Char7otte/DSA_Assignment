@@ -10,7 +10,7 @@ struct MatchLog {
     std::string gameID = "N/A";
     std::string matchDate = getTodayDate();
     int matchDuration = -1;
-    List<std::string> playerIDs{};
+    std::string playerIDs = "N/A";
     std::string winnerID = "N/A";
 };
 

@@ -17,13 +17,6 @@ Member* login(MemberDictionary& members);
 
 
 int main() {
-    MatchLog testLog;
-    MatchList testList;
-    testList.add("1", "1", 1, "1", "1");
-    testList.print();
-
-
-
     GameDictionary gameDict;
     readGameFile("./data/games.csv", gameDict);
     MemberDictionary memberDict;

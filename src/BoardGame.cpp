@@ -108,7 +108,6 @@ void BoardGame::printMatches(std::string gameName) {
         << " | " << std::setw(8) << "GameID"
         << " | " << std::setw(15) << "Match Date"
         << " | " << std::setw(15) << "Match Duration"
-        << " | " << std::setw(15) << "Player count"
         << " | " << std::setw(15) << "PlayerIDs"
         << " | " << std::setw(8) << "WinnerID"
         << "\n";
