@@ -20,7 +20,7 @@ protected:
 	static constexpr int MAX_SIZE = 101;
 	Node* items[MAX_SIZE] = {};
 	int size = 0;
-	int largestID; //This is for generating IDs for Item objects.
+	int largestID = 0; //This is for generating IDs for Item objects.
 
 public:
 	Dictionary() {}

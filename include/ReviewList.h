@@ -7,10 +7,10 @@
 #include<string>
 
 struct ReviewLog {
-    std::string reviewerID;
-    std::string reviewDate;
-    std::string reviewBody;
-    int rating;
+    std::string reviewerID = "N/A";
+    std::string reviewDate = getTodayDate();
+    std::string reviewBody = "N/A";
+    int rating = -1;
 };
 
 class ReviewList: public List<ReviewLog>
