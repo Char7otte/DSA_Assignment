@@ -13,6 +13,15 @@ protected:
 
 public:
 	List() {}
+	virtual ~List() { //Needs to be virtual because if a generic base class object is created, this won't be called
+		Node* current = firstNode;
+		while (current != nullptr) {
+			Node* nextNode = current->next; 
+			delete current;                
+			current = nextNode;            
+		}
+		firstNode = nullptr;
+	}
 
 	// Add to head an already created struct
 	bool add(T& item) {

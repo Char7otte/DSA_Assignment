@@ -22,6 +22,7 @@ public:
     Member();
     Member(const std::string id, const std::string name);
     Member(const std::string id, const std::string name, const bool isAdmin);
+    /*~Member()*/ //Unnecessary since borrowHistory isn't an array of pointers and will clear itself up
 
     void print() override;
 

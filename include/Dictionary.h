@@ -22,7 +22,7 @@ protected:
 
 public:
 	Dictionary() {}
-	~Dictionary() {
+	virtual ~Dictionary() { //Needs to be virtual because if a generic base class object is created, this won't be called
 		for (int i = 0; i < MAX_SIZE; i++) {
 
 			Node* current = items[i];
