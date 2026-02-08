@@ -10,7 +10,6 @@ bool ReviewList::add(std::string reviewerID, std::string reviewerBody, int ratin
 
     log.reviewerID = reviewerID;
     log.reviewBody = reviewerBody;
-    log.reviewDate = getTodayDate();
     log.rating = rating;
 
     return List<ReviewLog>::add(log);
