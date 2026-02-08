@@ -46,6 +46,20 @@ void GameDictionary::print() {
 }
 
 void GameDictionary::printAvailable() {
+    const int TOTAL_WIDTH = 119;
+
+    std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "GAME INVENTORY LIST\n";
+    std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
+
+    std::cout << std::left << std::setw(8) << "ID"
+        << " | " << std::setw(50) << "NAME"
+        << " | " << std::setw(15) << "PLAYERS"
+        << " | " << std::setw(15) << "PLAYTIME"
+        << " | " << std::setw(6) << "YEAR"
+        << " | " << "STATUS" << "\n";
+
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
+
     for (int i = 0; i < MAX_SIZE; i++) {
         Node* temp = items[i];
 
@@ -55,9 +69,24 @@ void GameDictionary::printAvailable() {
             temp = temp->next;
         }
     }
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
 }
 
 bool GameDictionary::printReviewed() {
+    int TOTAL_WIDTH = 119;
+
+    std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "REVIEWED GAMES\n";
+    std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
+
+    std::cout << std::left << std::setw(8) << "ID"
+        << " | " << std::setw(50) << "NAME"
+        << " | " << std::setw(15) << "PLAYERS"
+        << " | " << std::setw(15) << "PLAYTIME"
+        << " | " << std::setw(6) << "YEAR"
+        << " | " << "STATUS" << "\n";
+
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
+
     bool printed = false;
     for (int i = 0; i < MAX_SIZE; i++) {
         Node* temp = items[i];
@@ -71,10 +100,25 @@ bool GameDictionary::printReviewed() {
             temp = temp->next;
         }
     }
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
     return printed;
 }
 
 bool GameDictionary::printMatched() {
+    int TOTAL_WIDTH = 119;
+
+    std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "LOGGED GAMES\n";
+    std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
+
+    std::cout << std::left << std::setw(8) << "ID"
+        << " | " << std::setw(50) << "NAME"
+        << " | " << std::setw(15) << "PLAYERS"
+        << " | " << std::setw(15) << "PLAYTIME"
+        << " | " << std::setw(6) << "YEAR"
+        << " | " << "STATUS" << "\n";
+
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
+
     bool printed = false;
     for (int i = 0; i < MAX_SIZE; i++) {
         Node* temp = items[i];
@@ -88,5 +132,6 @@ bool GameDictionary::printMatched() {
             temp = temp->next;
         }
     }
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
     return printed;
 }

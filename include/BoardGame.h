@@ -56,7 +56,7 @@ public:
 
     bool addMatch(std::string loggerID, std::string gameID, int matchDuration, std::string playerIDs, std::string winnerID);
 
-    void printMatches();
+    void printMatches(std::string gameName);
 
     bool hasMatches();
 

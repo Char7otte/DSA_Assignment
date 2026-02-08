@@ -98,8 +98,24 @@ bool BoardGame::addMatch(std::string loggerID, std::string gameID, int matchDura
     return matchList.add(loggerID, gameID, matchDuration, playerIDs, winnerID);
 }
 
-void BoardGame::printMatches() {
+void BoardGame::printMatches(std::string gameName) {
+    int TOTAL_WIDTH = 119;
+
+    std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "MATCH LOGS FOR " << gameName << "\n";
+    std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
+
+    std::cout << std::left << std::setw(8) << "LoggerID"
+        << " | " << std::setw(8) << "GameID"
+        << " | " << std::setw(15) << "Match Date"
+        << " | " << std::setw(15) << "Match Duration"
+        << " | " << std::setw(15) << "Player count"
+        << " | " << std::setw(15) << "PlayerIDs"
+        << " | " << std::setw(8) << "WinnerID"
+        << "\n";
+
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
     matchList.print();
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n" << "\n";
 }
 
 bool BoardGame::hasMatches() {

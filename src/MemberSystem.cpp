@@ -114,7 +114,7 @@ void memberReturnMenu(GameDictionary& games, Member& returner, BorrowList& loans
 
         if (gameToReturn == nullptr) {
             std::cout << "Game ID not found. Please try again.\n";
-            continue;
+            continue;   
         }
 
         // Check if this is the same user that borrowed the game
@@ -140,24 +140,7 @@ void getBorrowHistory(GameDictionary& games, MemberDictionary& members, BorrowLi
         return;
     }
 
-    const int TOTAL_WIDTH = 100;
-
-    std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "BORROW HISTORY\n";
-    std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
-
-    std::cout << std::left << std::setw(10) << "MEMBER ID"
-        << " | " << std::setw(20) << "MEMBER NAME"
-        << " | " << std::setw(8) << "GAME ID"
-        << " | " << std::setw(20) << "GAME NAME"
-        << " | " << std::setw(15) << "LOAN DATE"
-        << " | " << std::setw(15) << "RETURN DATE"
-        << "\n";
-
-    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
-
     borrowHistory.print(games, members);
-
-    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
 }
 
 void leaveReview(GameDictionary& games, Member& member) {
@@ -197,21 +180,8 @@ void leaveReview(GameDictionary& games, Member& member) {
 }
 
 void viewReviews(GameDictionary& games, MemberDictionary& members) {
-    int TOTAL_WIDTH = 119;
-
-    std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "REVIEWED GAMES\n";
-    std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
-
-    std::cout << std::left << std::setw(8) << "ID"
-        << " | " << std::setw(50) << "NAME"
-        << " | " << std::setw(15) << "PLAYERS"
-        << " | " << std::setw(15) << "PLAYTIME"
-        << " | " << std::setw(6) << "YEAR"
-        << " | " << "STATUS" << "\n";
-
-    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
+    
     bool printed = games.printReviewed();
-    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
 
     if (!printed) {
         std::cout << "No reviews found.\n\n";
@@ -235,7 +205,7 @@ void viewReviews(GameDictionary& games, MemberDictionary& members) {
     // =====================
     // NORMAL DISPLAY
     // =====================
-    TOTAL_WIDTH = 119;
+    int TOTAL_WIDTH = 119;
 
     std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ')
         << "REVIEWS FOR " << foundBoardGame->getName() << "\n";
@@ -314,23 +284,7 @@ void logMatch(GameDictionary& games, std::string memberID) {
 }
 
 void printMatches(GameDictionary& games) {
-    int TOTAL_WIDTH = 119;
-
-    std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "LOGGED GAMES\n";
-    std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
-
-    std::cout << std::left << std::setw(8) << "ID"
-        << " | " << std::setw(50) << "NAME"
-        << " | " << std::setw(15) << "PLAYERS"
-        << " | " << std::setw(15) << "PLAYTIME"
-        << " | " << std::setw(6) << "YEAR"
-        << " | " << "STATUS" << "\n";
-
-    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
-
     bool printed = games.printMatched();
-
-    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
 
     if (!printed) {
         std::cout << "No matches logged." << "\n" << "\n";
@@ -350,22 +304,5 @@ void printMatches(GameDictionary& games) {
         }
         break;
     }
-
-    TOTAL_WIDTH = 119;
-
-    std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "MATCH LOGS FOR " << foundBoardGame->getName() << "\n";
-    std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
-
-    std::cout << std::left << std::setw(8) << "LoggerID"
-        << " | " << std::setw(8) << "GameID"
-        << " | " << std::setw(15) << "Match Date"
-        << " | " << std::setw(15) << "Match Duration"
-        << " | " << std::setw(15) << "Player count"
-        << " | " << std::setw(15) << "PlayerIDs"
-        << " | " << std::setw(8) << "WinnerID"
-        << "\n";
-
-    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
-    foundBoardGame->printMatches();
-    std::cout << std::string(TOTAL_WIDTH, '-') << "\n" << "\n";
+    foundBoardGame->printMatches(foundBoardGame->getName());
 }

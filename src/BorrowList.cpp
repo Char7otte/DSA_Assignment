@@ -40,6 +40,20 @@ bool BorrowList::get(std::string& memberID, std::string& gameID) {
 }
 
 void BorrowList::print(GameDictionary& games, MemberDictionary& members) {
+	const int TOTAL_WIDTH = 100;
+
+	std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "BORROW HISTORY\n";
+	std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
+
+	std::cout << std::left << std::setw(10) << "MEMBER ID"
+		<< " | " << std::setw(20) << "MEMBER NAME"
+		<< " | " << std::setw(8) << "GAME ID"
+		<< " | " << std::setw(20) << "GAME NAME"
+		<< " | " << std::setw(15) << "LOAN DATE"
+		<< " | " << std::setw(15) << "RETURN DATE"
+		<< "\n";
+
+	std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
 	Node* temp = firstNode;
 	while (temp != nullptr) {
 		BorrowLog borrowLog = temp->item;
@@ -62,6 +76,7 @@ void BorrowList::print(GameDictionary& games, MemberDictionary& members) {
 
 		temp = temp->next;
 	}
+	std::cout << std::string(TOTAL_WIDTH, '-') << "\n" << "\n";
 }
 
 BorrowLog* BorrowList::find(const std::string& borrowerID, std::string& gameID) { //genuinely do not understand why const needs to be here but that's just C++ being C++
