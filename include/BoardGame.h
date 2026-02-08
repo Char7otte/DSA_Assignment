@@ -34,15 +34,6 @@ public:
         const int maxPlaytime,
         const int yearPublished);
 
-    BoardGame(const std::string id,
-        const std::string name,
-        const int minPlayers,
-        const int maxPlayers,
-        const int minPlaytime,
-        const int maxPlaytime,
-        const int yearPublished,
-        const bool isBorrowed);
-
     void print() override;
 
     void printAvailable();

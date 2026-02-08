@@ -22,21 +22,6 @@ BoardGame::BoardGame(const std::string id,
     this->yearPublished = yearPublished;
 }
 
-BoardGame::BoardGame(const std::string id,
-    const std::string name,
-    const int minPlayers,
-    const int maxPlayers,
-    const int minPlaytime,
-    const int maxPlaytime,
-    const int yearPublished,
-    const bool isBorrowed) : Item(id, name) {
-    this->minPlayers = minPlayers;
-    this->maxPlayers = maxPlayers;
-    this->minPlaytime = minPlaytime;
-    this->maxPlaytime = maxPlaytime;
-    this->yearPublished = yearPublished;
-}
-
 bool BoardGame::getIsBorrowed() const{
     return loanInfo.borrowerID != "N/A";
 }
