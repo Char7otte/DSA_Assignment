@@ -1,7 +1,11 @@
 #include "MemberDictionary.h"
+#include "Dictionary.h"
+#include "Member.h"
 
 #include<iostream>
 #include<iomanip>
+#include <ios>
+#include <string>
 
 MemberDictionary::MemberDictionary() {}
 

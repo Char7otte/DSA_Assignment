@@ -37,5 +37,10 @@ public:
 	bool isEmpty() {
 		return firstNode == nullptr;
 	}
+
+	// Get head
+	Node* get() {
+		return firstNode;
+	}
 };
 

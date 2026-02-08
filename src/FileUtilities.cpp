@@ -1,4 +1,8 @@
 #include "FileUtilities.h"
+#include "BoardGame.h"
+#include "GameDictionary.h"
+#include "Member.h"
+#include "MemberDictionary.h"
 
 #include<string>
 #include<iostream>

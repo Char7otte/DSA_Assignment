@@ -1,7 +1,16 @@
 ﻿#include "MemberSystem.h"
+#include "BoardGame.h"
+#include "BorrowList.h"
+#include "GameDictionary.h"
+#include "Member.h"
+#include "MemberDictionary.h"
+
 #include "InputValidation.h"
 
 #include <iomanip>
+#include <ios>
+#include <iostream>
+#include <string>
 
 bool memberDashboard(GameDictionary& games,MemberDictionary& members, BorrowList& loans, Member& member) {
     while (true) {
@@ -11,6 +20,8 @@ bool memberDashboard(GameDictionary& games,MemberDictionary& members, BorrowList
         std::cout << "4. Display all board games" << "\n";
         std::cout << "5. Leave a review" << "\n";
         std::cout << "6. Read reviews" << "\n";
+        std::cout << "7. Log match" << "\n";
+        std::cout << "8. View match logs" << "\n";
         std::cout << "0. Logout" << "\n";
         std::string input;
         std::getline(std::cin, input);
@@ -31,7 +42,13 @@ bool memberDashboard(GameDictionary& games,MemberDictionary& members, BorrowList
             leaveReview(games, member);
         }
         else if (input == "6") {
-            viewReviews(games);
+            viewReviews(games, members);
+        }
+        else if (input == "7") {
+            logMatch(games, member.getID());
+        }
+        else if (input == "8") {
+            printMatches(games);
         }
         else if (input == "0") {
             return true;
@@ -179,7 +196,7 @@ void leaveReview(GameDictionary& games, Member& member) {
     std::cout << "==============================\n" << "\n";
 }
 
-void viewReviews(GameDictionary& games) {
+void viewReviews(GameDictionary& games, MemberDictionary& members) {
     int TOTAL_WIDTH = 119;
 
     std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "REVIEWED GAMES\n";
@@ -218,12 +235,99 @@ void viewReviews(GameDictionary& games) {
         std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
 
         std::cout << std::left << std::setw(11) << "ReviewerID"
+            << " | " << std::setw(30) << "Reviewer"
             << " | " << std::setw(15) << "Review Date"
             << " | " << std::setw(7) << "Rating"
             << " | " << "Body"
             << "\n";
 
         std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
-        foundBoardGame->printReviews();
+        foundBoardGame->printReviews(members);
         std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
+}
+
+void logMatch(GameDictionary& games, std::string memberID) {
+    games.print();
+    std::cout << "\n===== LOG MATCH =====\n";
+    BoardGame* foundBoardGame = nullptr;
+    std::string gameID;
+    while (true) {
+         gameID = getString("Enter ID of game you played: ");
+        games.get(gameID, foundBoardGame);
+        if (foundBoardGame == nullptr) {
+            std::cout << "Game not found. Please try again." << "\n";
+            continue;
+        }
+        break;
+    }
+
+    std::cout << "Logging match for " << foundBoardGame->getName() << "\n";
+    std::string playerIDs = getString("Enter the IDs of the players (e.g M1,M2,M3): ");
+    std::string winnerID = getString("Enter ID of the winner: ");
+    int matchDuration = getInt("Enter duration of match (minutes): ");
+
+    bool success = foundBoardGame->addMatch(memberID, gameID, matchDuration, playerIDs, winnerID);
+    if (success) {
+        std::cout << "Match logged." << "\n" << "\n";
+    }
+    else {
+        std::cout << "Error logging match. Please try again." << "\n" << "\n";
+    }
+}
+
+void printMatches(GameDictionary& games) {
+    int TOTAL_WIDTH = 119;
+
+    std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "LOGGED GAMES\n";
+    std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
+
+    std::cout << std::left << std::setw(8) << "ID"
+        << " | " << std::setw(50) << "NAME"
+        << " | " << std::setw(15) << "PLAYERS"
+        << " | " << std::setw(15) << "PLAYTIME"
+        << " | " << std::setw(6) << "YEAR"
+        << " | " << "STATUS" << "\n";
+
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
+
+    bool printed = games.printMatched();
+
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
+
+    if (!printed) {
+        std::cout << "No matches logged." << "\n" << "\n";
+        return;
+    }
+
+
+    std::cout << "\n===== VIEW MATCH LOGS =====\n";
+    BoardGame* foundBoardGame = nullptr;
+    std::string gameID;
+    while (true) {
+        gameID = getString("Enter ID of game: ");
+        games.get(gameID, foundBoardGame);
+        if (foundBoardGame == nullptr) {
+            std::cout << "Game not found. Please try again." << "\n";
+            continue;
+        }
+        break;
+    }
+
+    TOTAL_WIDTH = 119;
+
+    std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "MATCH LOGS FOR " << foundBoardGame->getName() << "\n";
+    std::cout << std::string(TOTAL_WIDTH, '=') << "\n";
+
+    std::cout << std::left << std::setw(8) << "LoggerID"
+        << " | " << std::setw(8) << "GameID"
+        << " | " << std::setw(15) << "Match Date"
+        << " | " << std::setw(15) << "Match Duration"
+        << " | " << std::setw(15) << "Player count"
+        << " | " << std::setw(15) << "PlayerIDs"
+        << " | " << std::setw(8) << "WinnerID"
+        << "\n";
+
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
+    foundBoardGame->printMatches();
+    std::cout << std::string(TOTAL_WIDTH, '-') << "\n" << "\n";
 }

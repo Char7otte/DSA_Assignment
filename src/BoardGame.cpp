@@ -1,6 +1,11 @@
 #include "BoardGame.h"
+#include "Item.h"
+#include "MemberDictionary.h"
 
 #include<iomanip>
+#include <ios>
+#include <iostream>
+#include <string>
 
 // Constructor
 BoardGame::BoardGame(const std::string id,
@@ -32,7 +37,7 @@ BoardGame::BoardGame(const std::string id,
     this->yearPublished = yearPublished;
 }
 
-bool BoardGame::getIsBorrowed() {
+bool BoardGame::getIsBorrowed() const{
     return loanInfo.borrowerID != "N/A";
 }
 
@@ -86,8 +91,8 @@ bool BoardGame::addReview(std::string reviewerID, std::string reviewBody, int ra
     return reviewList.add(reviewerID, reviewBody, rating);
 }
 
-void BoardGame::printReviews() {
-    reviewList.print();
+void BoardGame::printReviews(MemberDictionary& members) {
+    reviewList.print(members);
 }
 
 bool BoardGame::hasReviews() {
@@ -96,6 +101,24 @@ bool BoardGame::hasReviews() {
 
 bool BoardGame::printReviewed() {
     if (!hasReviews()) return false;
+    print();
+    return true;
+}
+
+bool BoardGame::addMatch(std::string loggerID, std::string gameID, int matchDuration, std::string playerIDs, std::string winnerID) {
+    return matchList.add(loggerID, gameID, matchDuration, playerIDs, winnerID);
+}
+
+void BoardGame::printMatches() {
+    matchList.print();
+}
+
+bool BoardGame::hasMatches() {
+    return !matchList.isEmpty();
+}
+
+bool BoardGame::printMatched() {
+    if (!hasMatches()) return false;
     print();
     return true;
 }

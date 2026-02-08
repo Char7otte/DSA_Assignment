@@ -1,7 +1,11 @@
 #include "GameDictionary.h"
+#include "BoardGame.h"
+#include "Dictionary.h"
 
 #include<iostream>
 #include<iomanip>
+#include <ios>
+#include <string>
 
 GameDictionary::GameDictionary() {}
 
@@ -61,6 +65,23 @@ bool GameDictionary::printReviewed() {
         while (temp != nullptr) {
             BoardGame* boardGame = temp->item;
             bool success = boardGame->printReviewed();
+            if (success) {
+                printed = true;
+            }
+            temp = temp->next;
+        }
+    }
+    return printed;
+}
+
+bool GameDictionary::printMatched() {
+    bool printed = false;
+    for (int i = 0; i < MAX_SIZE; i++) {
+        Node* temp = items[i];
+
+        while (temp != nullptr) {
+            BoardGame* boardGame = temp->item;
+            bool success = boardGame->printMatched();
             if (success) {
                 printed = true;
             }

@@ -69,6 +69,9 @@
     <ClInclude Include="include\List.h">
       <Filter>Header Files\List</Filter>
     </ClInclude>
+    <ClInclude Include="include\MatchList.h">
+      <Filter>Header Files\List</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\DSA_Assignment.cpp">
@@ -105,6 +108,9 @@
       <Filter>Source Files\List</Filter>
     </ClCompile>
     <ClCompile Include="src\ReviewList.cpp">
+      <Filter>Source Files\List</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MatchList.cpp">
       <Filter>Source Files\List</Filter>
     </ClCompile>
   </ItemGroup>

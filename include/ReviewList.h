@@ -1,14 +1,16 @@
 #pragma once
 
 #include "List.h"
+#include "MemberDictionary.h"
+#include "InputValidation.h"
 
-#include<string>
+#include <string>
 
 struct ReviewLog {
-    std::string reviewerID;
-    std::string reviewDate;
-    std::string reviewBody;
-    int rating;
+    std::string reviewerID = "N/A";
+    std::string reviewDate = getTodayDate();
+    std::string reviewBody = "N/A";
+    int rating = -1;
 };
 
 class ReviewList: public List<ReviewLog>
@@ -17,6 +19,6 @@ public:
     ReviewList();
 
     bool add(std::string reviewerID, std::string reviewerBody, int rating);
-    void print();
+    void print(MemberDictionary& members);
 };
 

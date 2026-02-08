@@ -2,11 +2,12 @@
 
 #include "Item.h"
 #include "ReviewList.h"
-#include "InputValidation.h"
+#include "MatchList.h"
 
 #include <string>
-#include<array>
-#include<iostream>
+
+class MemberDictionary; //having to do this and do the include inside the implementation
+                                       //to prevent a circular include in the big 26 is insane
 
 struct LoanInfo : public DateLog {
     std::string borrowerID = "N/A";
@@ -22,6 +23,7 @@ private:
     int yearPublished = 0;
     LoanInfo loanInfo = {}; //This is a struct because the board game only needs to store who is currently borrowing em
     ReviewList reviewList{}; //This is a list storing structs because there can be multiple reviews
+    MatchList matchList{};
 
 public:
     BoardGame(const std::string id,
@@ -45,7 +47,7 @@ public:
 
     void printAvailable();
 
-    bool getIsBorrowed();
+    bool getIsBorrowed() const;
 
     bool borrowGame(std::string borrowerID, std::string borrowerName);
 
@@ -53,9 +55,17 @@ public:
 
     bool addReview(std::string reviewerID, std::string reviewBody, int rating);
 
-    void printReviews();
+    void printReviews(MemberDictionary& members);
 
     bool hasReviews();
 
     bool printReviewed();
+
+    bool addMatch(std::string loggerID, std::string gameID, int matchDuration, std::string playerIDs, std::string winnerID);
+
+    void printMatches();
+
+    bool hasMatches();
+
+    bool printMatched();
 };

@@ -1,8 +1,13 @@
 #include "Member.h"
+#include "Item.h"
+#include "BoardGame.h"
 
 #include "InputValidation.h"
 
 #include<iomanip>
+#include <ios>
+#include <iostream>
+#include <string>
 
 Member::Member() {}
 
@@ -24,7 +29,7 @@ std::string Member::getName() {
     return name;
 }
 
-bool Member::getIsAdmin() {
+bool Member::getIsAdmin() const{
     return isAdmin;
 }
 
@@ -57,7 +62,7 @@ bool Member::returnGame(BoardGame& game) {
     return false;
 }
 
-void Member::printLoans() {
+void Member::printLoans() const{
     const int TOTAL_WIDTH = 74;
 
     std::cout << "\n" << std::string((TOTAL_WIDTH / 2) - 10, ' ') << "BORROWED GAMES\n";
@@ -82,6 +87,6 @@ void Member::printLoans() {
     std::cout << std::string(TOTAL_WIDTH, '-') << "\n";
 }
 
-bool Member::hasLoans() {
+bool Member::hasLoans() const{
     return borrowCount > 0;
 }

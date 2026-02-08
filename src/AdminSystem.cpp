@@ -1,9 +1,16 @@
 #include "AdminSystem.h"
-
-#include "InputValidation.h"
+#include "BoardGame.h"
+#include "GameDictionary.h"
+#include "Member.h"
+#include "MemberDictionary.h"
 #include "BorrowList.h"
 
+#include "InputValidation.h"
+
 #include<iomanip>
+#include <ios>
+#include <iostream>
+#include <string>
 
 bool adminDashboard(GameDictionary& games, MemberDictionary& members, BorrowList& loans) {
     while (true) {
@@ -122,7 +129,6 @@ void createMemberMenu(MemberDictionary& members) {
     std::cout << "\n===== Create Member =====\n";
 
     std::string newMemberID, newMemberName;
-    bool isAdmin;
 
     members.incrementLargestID();
     newMemberID = "M" + std::to_string(members.getLargestID());
