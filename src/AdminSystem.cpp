@@ -50,7 +50,7 @@ bool adminDashboard(GameDictionary& games, MemberDictionary& members, BorrowList
             return true;
         }
         else {
-            std::cout << "Invalid input. Please try again.";
+            std::cout << "Invalid input. Please try again." << "\n";
         }
     }
     return false;
