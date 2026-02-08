@@ -177,4 +177,11 @@ void displayHistory(GameDictionary& games, MemberDictionary& members, BorrowList
     std::cout << std::string(TOTAL_WIDTH, '-') << "\n" << "\n";
 }
 
-void displayHistoryUnreturned(GameDictionary& games, MemberDictionary& members, BorrowList& loans) {}
+void displayHistoryUnreturned(GameDictionary& games, MemberDictionary& members, BorrowList& loans) {
+    if (loans.isEmpty()) {
+        std::cout << "Borrow log is empty." << "\n" << "\n";
+        return;
+    }
+
+    loans.printNotReturned(games, members);
+}

@@ -35,5 +35,7 @@ public:
 	bool returnGame(const std::string& borrowerID, std::string& gameID);
 
 	BorrowList findAll(const std::string& borrowerID);
+
+	void printNotReturned(GameDictionary& games, MemberDictionary& members);
 };
 
