@@ -136,6 +136,7 @@
     <ClInclude Include="include\GameDictionary.h" />
     <ClInclude Include="include\Item.h" />
     <ClInclude Include="include\List.h" />
+    <ClInclude Include="include\MatchList.h" />
     <ClInclude Include="include\Member.h" />
     <ClInclude Include="include\MemberDictionary.h" />
     <ClInclude Include="include\MemberSystem.h" />
@@ -150,6 +151,7 @@
     <ClCompile Include="src\GameDictionary.cpp" />
     <ClCompile Include="src\InputValidation.cpp" />
     <ClCompile Include="src\Item.cpp" />
+    <ClCompile Include="src\MatchList.cpp" />
     <ClCompile Include="src\Member.cpp" />
     <ClCompile Include="src\MemberDictionary.cpp" />
     <ClCompile Include="src\MemberSystem.cpp" />
