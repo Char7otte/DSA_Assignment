@@ -1,4 +1,4 @@
-#include "ReviewList.h"
+﻿#include "ReviewList.h"
 #include "List.h"
 #include "Member.h"
 #include "MemberDictionary.h"
@@ -42,4 +42,50 @@ void ReviewList::print(MemberDictionary& members) {
 
         temp = temp->next;
     }
+}
+
+void ReviewList::printBySelectionSort(MemberDictionary& members) {
+    if (isEmpty()) {
+        std::cout << "No reviews found.\n";
+        return;
+    }
+
+    int total = 0;
+    for (Node* cur = firstNode; cur != nullptr; cur = cur->next)
+        total++;
+
+    for (int printedCount = 0; printedCount < total; printedCount++) {
+        Node* maxNode = nullptr;
+
+        for (Node* cur = firstNode; cur != nullptr; cur = cur->next) {
+            if (!cur->item.printed) {
+                if (maxNode == nullptr ||
+                    cur->item.rating > maxNode->item.rating) {
+                    maxNode = cur;
+                }
+            }
+        }
+
+        if (maxNode == nullptr) break;
+
+        ReviewLog* review = &maxNode->item;
+        Member* reviewer = nullptr;
+        members.get(review->reviewerID, reviewer);
+
+        std::string reviewerName =
+            (reviewer != nullptr) ? reviewer->getName() : "Unknown";
+
+        std::cout << std::left << std::setw(11) << review->reviewerID
+            << " | " << std::setw(30) << reviewerName
+            << " | " << std::setw(15) << review->reviewDate
+            << " | " << std::setw(7) << review->rating
+            << " | " << review->reviewBody
+            << "\n";
+
+        maxNode->item.printed = true;
+    }
+
+    // Step 3️⃣ reset flags
+    for (Node* cur = firstNode; cur != nullptr; cur = cur->next)
+        cur->item.printed = false;
 }

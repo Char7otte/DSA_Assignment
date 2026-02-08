@@ -15,6 +15,7 @@ Member* login(MemberDictionary& members);
 #include "AdminSystem.h"
 #include "MemberSystem.h"
 
+
 int main() {
     GameDictionary gameDict;
     readGameFile("./data/games.csv", gameDict);
@@ -22,6 +23,8 @@ int main() {
     readMemberFile("./data/members.csv", memberDict);
     Member* loggedInAccount;
     BorrowList* loanList = new BorrowList();
+    addSampleReviews_G1(gameDict);
+
 
     while (true) {
         std::cout << "Welcome to the BGC Portal!" << "\n";

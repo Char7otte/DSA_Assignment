@@ -95,6 +95,10 @@ void BoardGame::printReviews(MemberDictionary& members) {
     reviewList.print(members);
 }
 
+void BoardGame::printReviewsDescendingRating(MemberDictionary& members) {
+    reviewList.printBySelectionSort(members);
+}
+
 bool BoardGame::hasReviews() {
     return !reviewList.isEmpty();
 }

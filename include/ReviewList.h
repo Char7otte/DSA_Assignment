@@ -11,6 +11,7 @@ struct ReviewLog {
     std::string reviewDate = getTodayDate();
     std::string reviewBody = "N/A";
     int rating = -1;
+    bool printed = false;
 };
 
 class ReviewList: public List<ReviewLog>
@@ -20,5 +21,6 @@ public:
 
     bool add(std::string reviewerID, std::string reviewerBody, int rating);
     void print(MemberDictionary& members);
+    void printBySelectionSort(MemberDictionary& members);
 };
 

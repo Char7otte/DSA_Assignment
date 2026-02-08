@@ -57,6 +57,8 @@ public:
 
     void printReviews(MemberDictionary& members);
 
+    void printReviewsDescendingRating(MemberDictionary& members);
+
     bool hasReviews();
 
     bool printReviewed();
